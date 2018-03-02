@@ -7,6 +7,7 @@ package ru.mzainullin.condition;
  * @since 0.1
  *
  * */
+
 public class CurrentPoint {
 
     private int x;
