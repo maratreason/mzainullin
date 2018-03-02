@@ -20,6 +20,7 @@ public class SomeBotTest {
 			);
 	}
 
+
 	@Test
 	public void whenBuyBot() {
 		SomeBot bot = new SomeBot();

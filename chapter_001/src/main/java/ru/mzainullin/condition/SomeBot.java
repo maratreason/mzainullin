@@ -22,6 +22,7 @@ public class SomeBot {
 		return rsl;
 	}
 
+
 	// public static void main(String[] args) {
 	// 	SomeBot newBot = new SomeBot();
 	// 	System.out.println(newBot.answer("Привет, Бот"));
