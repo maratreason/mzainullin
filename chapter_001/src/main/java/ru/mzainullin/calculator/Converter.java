@@ -5,14 +5,17 @@ package ru.mzainullin.calculator;
 */
 public class Converter {
 
+	private static final int EURO = 70;
+	private static final int DOLLAR = 60;
+
 	/**
 	* Конвертитуем рубли в евро.
 	* @param value рубли
 	* @return Евро.
 	*/
 	public int rubleToEuro(int value) {
-		final int UERO_RATE = 70;
-		return value / UERO_RATE;
+		
+		return value / EURO;
 	}
 
 	/**
@@ -21,7 +24,7 @@ public class Converter {
 	* @return Доллары.
 	*/
 	public int rubleToDollar(int value) {
-		final int UERO_RATE = 60;
-		return value / UERO_RATE;
+		
+		return value / DOLLAR;
 	}
 }
