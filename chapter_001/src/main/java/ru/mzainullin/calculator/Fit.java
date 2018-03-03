@@ -12,7 +12,8 @@ public class Fit {
 	*/
 	double manWeight(double height) {
 		final double MAN_WEIGHT = 100;
-		return (height - MAN_WEIGHT) * 1.15;
+		final double MULT_WEIGHT = 1.15;
+		return (height - MAN_WEIGHT) * MULT_WEIGHT;
 	}
 
 	/**
@@ -22,7 +23,8 @@ public class Fit {
 	*/
 	double womanWeight(double height) {
 		final double WOMAN_WEIGHT = 110;
-		return (height - WOMAN_WEIGHT) * 1.15;
+		final double MULT_WEIGHT = 1.15;
+		return (height - WOMAN_WEIGHT) * MULT_WEIGHT;
 	}
 
 }
