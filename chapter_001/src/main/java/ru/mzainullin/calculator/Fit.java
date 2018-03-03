@@ -5,14 +5,16 @@ package ru.mzainullin.calculator;
 */
 public class Fit {
 
+	private static final double MAN_WEIGHT = 100;
+	private static final double WOMAN_WEIGHT = 110;
+	private static final double MULT_WEIGHT = 1.15;
+
 	/**
 	* Идеальный вес для мужщины.
 	* @param height Рост.
 	* @return идеальный вес.
 	*/
 	double manWeight(double height) {
-		final double MAN_WEIGHT = 100;
-		final double MULT_WEIGHT = 1.15;
 		return (height - MAN_WEIGHT) * MULT_WEIGHT;
 	}
 
@@ -22,8 +24,6 @@ public class Fit {
 	* @return идеальный вес.
 	*/
 	double womanWeight(double height) {
-		final double WOMAN_WEIGHT = 110;
-		final double MULT_WEIGHT = 1.15;
 		return (height - WOMAN_WEIGHT) * MULT_WEIGHT;
 	}
 
