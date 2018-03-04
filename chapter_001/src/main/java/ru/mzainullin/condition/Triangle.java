@@ -52,6 +52,7 @@ public class Triangle {
 			rsl = s;
 		}
 		return rsl;
+
 	}
 
 	/**
