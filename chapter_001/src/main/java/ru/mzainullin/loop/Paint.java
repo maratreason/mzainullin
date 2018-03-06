@@ -1,5 +1,7 @@
 package ru.mzainullin.loop;
 
+import java.util.function.BiPredicate;
+
 /**
  * @author Marat Zainullin
  * @version 1.1
@@ -8,18 +10,15 @@ package ru.mzainullin.loop;
 public class Paint {
 
     /**
-     * Метод для прорисовки правой части пирамиды.
+     * Рефакторинг.
+     * @param width
      * @param height
-     * @return
      */
-    public String rightTriangle(int height) {
-
+    private String loppBy(int height, int width, BiPredicate<Integer, Integer> predict) {
         StringBuilder builder = new StringBuilder();
-        int width = height;
-
         for(int row = 0; row != height; row++) {
             for(int col = 0; col != width; col++) {
-                if(row >= col) {
+                if(predict.test(row, col)) {
                     builder.append("^");
                 } else {
                     builder.append(" ");
@@ -28,6 +27,15 @@ public class Paint {
             builder.append(System.lineSeparator());
         }
         return builder.toString();
+    }
+
+    /**
+     * Метод для прорисовки правой части пирамиды.
+     * @param height
+     * @return
+     */
+    public String rightTriangle(int height) {
+        return this.loppBy(height, height, (row, col) -> row >= col);
     }
 
     /**
@@ -36,21 +44,7 @@ public class Paint {
      * @return
      */
     public String leftTriangle(int height) {
-
-        StringBuilder builder = new StringBuilder();
-        int width = height;
-
-        for(int row = 0; row != height; row++) {
-            for(int col = 0; col != width; col++) {
-                if(row >= width - col - 1) {
-                    builder.append("^");
-                } else {
-                    builder.append(" ");
-                }
-            }
-            builder.append(System.lineSeparator());
-        }
-        return builder.toString();
+        return this.loppBy(height, height, (row, col) -> row >= height - col - 1);
     }
 
     /**
@@ -59,19 +53,8 @@ public class Paint {
      * @return
      */
     public String pyramid(int height) {
-
-        StringBuilder builder = new StringBuilder();
-        int width = 2 * height - 1;
-        for (int row = 0; row != height; row++) {
-            for (int col = 0; col != width; col++) {
-                if (row >= height - col - 1 && row + height - 1 >= col) {
-                    builder.append("^");
-                } else {
-                    builder.append(" ");
-                }
-            }
-            builder.append(System.lineSeparator());
-        }
-        return builder.toString();
+        return this.loppBy(height, 2 * height - 1,
+            (row, col) -> row >= height - col - 1 && row + height - 1 >= col);
     }
+
 }
