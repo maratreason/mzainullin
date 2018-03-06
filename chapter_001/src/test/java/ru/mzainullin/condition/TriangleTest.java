@@ -11,8 +11,8 @@ public class TriangleTest {
 
 		// Создаем три объекта класса Point.
 		Point a = new Point(0, 0);
-		Point b = new Point(0, 2);
-		Point c = new Point(2, 0);
+		Point b = new Point(0, 7);
+		Point c = new Point(7, 0);
 
 	 	// Создаем объект треугольник и передаем в него объекты точек.
 		Triangle triangle = new Triangle(a, b, c);
@@ -21,7 +21,7 @@ public class TriangleTest {
 		double result = triangle.area();
 
 	 	// Задаем ожидаемый результат.
-		double expected = 2D;
+		double expected = 24.5D;
 
 	 	//Проверяем результат и ожидаемое значение.
 		assertThat(result, closeTo(expected, 0.1));
