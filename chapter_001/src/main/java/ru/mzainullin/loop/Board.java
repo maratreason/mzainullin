@@ -20,12 +20,14 @@ public class Board {
 		for (int i = 1; i <= height; i++) {
 			for (int j = 1; j <= width; j++) {
 				if ( ((i + j)%2 == 0) ) {
-					if(width > 3 && height > 3) {
-						str.append(" ");
-					}
 					str.append("X");
 				} else {
-					str.append(" ");
+					if(width > 3 || height > 3) {
+						str.append("  ");
+					} else {
+						str.append(" ");
+					}
+
 				}
 			}
 

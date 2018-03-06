@@ -24,7 +24,7 @@ public class BoardTest {
 		String str = board.paint(5, 4);
 		String line = System.lineSeparator();
 		assertThat(str, is(
-			String.format(" X  X  X%s  X  X %s X  X  X%s  X  X %s", line, line, line, line))
+			String.format("X  X  X%s  X  X  %sX  X  X%s  X  X  %s", line, line, line, line))
 		);
 	}
 }
