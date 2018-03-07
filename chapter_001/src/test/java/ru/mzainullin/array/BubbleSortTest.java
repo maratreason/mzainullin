@@ -18,8 +18,6 @@ public class BubbleSortTest {
 
         BubbleSort bubble = new BubbleSort();
         int[] exNums = bubble.sort(numbers);
-
-
         assertThat(exNums, is(expectNumbers));
     }
 

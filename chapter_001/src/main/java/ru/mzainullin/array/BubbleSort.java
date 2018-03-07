@@ -27,15 +27,15 @@ public class BubbleSort {
 
     }
 
-//    public static void main(String[] args) {
-//
-//        int[] numbers = {5, 3, 8, 9, 0, 11, 4, 2};
-//
-//        BubbleSort bubble = new BubbleSort();
-//        int[] sortNums =  bubble.sort(numbers);
-//
-//        for(int nums : sortNums) {
-//            System.out.print(nums + ", ");
-//        }
-//    }
+    /*public static void main(String[] args) {
+
+        int[] numbers = {5, 3, 8, 9, 0, 11, 4, 2};
+
+        BubbleSort bubble = new BubbleSort();
+        int[] sortNums =  bubble.sort(numbers);
+
+        for(int nums : sortNums) {
+            System.out.print(nums + ", ");
+        }
+    }*/
 }
