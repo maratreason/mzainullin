@@ -22,14 +22,7 @@ public class FindLoop {
                 break;
             }
         }
-
         return result;
-    }
-
-    public static void main(String[] args) {
-        int[] nums = new int[]{3, 5, 9, 14, 1, 0, 19, 21};
-        FindLoop loop = new FindLoop();
-        loop.indexOf(nums, 19);
     }
 
 }
