@@ -19,7 +19,6 @@ public class FindLoop {
         for(int i = 0; i < data.length; i++) {
             if(data[i] == el) {
                 result = i;
-                System.out.println("Index number of: " + result);
                 break;
             }
         }
