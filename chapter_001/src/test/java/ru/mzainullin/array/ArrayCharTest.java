@@ -14,7 +14,7 @@ public class ArrayCharTest {
     @Test
     public void whenStartWithPrefixThenTrue() {
         ArrayChar word = new ArrayChar("Hello");
-        boolean result = word.startWith("He");
+        boolean result = word.startWith("Hel");
         assertThat(result, is(true));
     }
 
