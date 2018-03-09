@@ -48,11 +48,9 @@ public class Triangle {
 		double s;
 
 		if (this.exists(ab, ac, bc)) {
-			s = Math.sqrt(p * ((p-ab) * (p-ac) * (p-bc)));
-			rsl = s;
+			rsl = Math.sqrt(p * ((p-ab) * (p-ac) * (p-bc)));
 		}
 		return rsl;
-
 	}
 
 	/**
@@ -63,12 +61,7 @@ public class Triangle {
 	 * @return
 	 */
 	private boolean exists(double ab, double ac, double bc) {
-		boolean flag = false;
-
-		if(ab + bc >= ac && ab + ac >= bc && ac + bc >= ab) {
-			flag = true;
-		}
-		return flag;
+		return ab + bc >= ac && ab + ac >= bc && ac + bc >= ab;
 	}
 
 }
