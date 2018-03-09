@@ -32,5 +32,4 @@ public class ArrayDublicate {
         }
         return Arrays.copyOf(array, temp);
     }
-
 }
