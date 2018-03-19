@@ -25,4 +25,11 @@ public class ArrayCharTest {
         assertThat(result, is(false));
     }
 
+    /*@Test
+    public void whenOneWordInSecondWord() {
+        ArrayChar word = new ArrayChar("Hello");
+        boolean result = word.contains("Hello", "ell");
+        assertThat(result, is(true));
+    }*/
+
 }

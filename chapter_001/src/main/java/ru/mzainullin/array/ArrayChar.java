@@ -25,13 +25,46 @@ public class ArrayChar {
         // проверить. что массив data имеет первые элементы одинаковые с value
 
         for (int i = 0; i != value.length; i++) {
-                if (value[i] == data[i]) {
+            if (value[i] == data[i]) {
+                result = true;
+                break;
+            } else {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Метод проверяющий что словo String находится в другом слове String.
+     * @param origin
+     * @param sub
+     * @return
+     */
+    /*boolean contains(String origin, String sub) {
+        char[] value = origin.toCharArray();
+        char[] expectValue = sub.toCharArray();
+
+        int count = 0;
+
+        boolean result = true;
+
+        for (int i = 0; i != value.length; i++) {
+            for (int j = 0; j != expectValue.length; j++) {
+                char[] temp;
+                if (value[i] == expectValue[j]) {
+                    temp = expectValue;
+                    i++;
+                    j++;
                     result = true;
                 } else {
                     result = false;
                 }
             }
+
+
+        }
         return result;
-    }
+    }*/
 
 }
