@@ -17,5 +17,4 @@ public class Doctor extends Profession {
     public String repair(Patient patient) {
         return patient.getName() + " вылечен...";
     }
-
 }

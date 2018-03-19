@@ -8,7 +8,6 @@ package ru.mzainullin.OOP;
 public class House {
     private String name = "ПентХаус";
 
-
     public String getName() {
         return this.name = name;
     }

@@ -14,4 +14,5 @@ public class Teacher extends Profession {
     public String teach(Student student) {
         return student.getName() +  " учится...";
     }
+
 }
