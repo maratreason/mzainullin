@@ -16,6 +16,7 @@ public class StartUITest {
         assertThat(tracker.getAll()[0], is(item));
     }
 
+
     @Test
     public void whenReplaceNameThenReturnNewName() {
         Tracker tracker = new Tracker();
