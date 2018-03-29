@@ -11,7 +11,6 @@ import java.util.*;
  */
 public class Tracker {
 
-
     private final Item[] items = new Item[100];
     private int position = 0;
     private static final Random RN = new Random();
@@ -36,7 +35,7 @@ public class Tracker {
      * @param id = номер id заявки
      */
     public void replace(String id, Item item) {
-        if(this.items[this.position].getId().equals(id)) {
+        if(item.getId().equals(id)) {
             item.setId(id);
         }
     }
@@ -46,9 +45,13 @@ public class Tracker {
      * @param id
      */
     public void delete(String id){
-        if(this.items[this.position].getId().equals(id)) {
-            this.items[this.position] = null;
+        for(Item item : this.items) {
+            if(item.getId().equals(id)) {
+                item = null;
+                break;
+            }
         }
+
     }
 
     /**
@@ -60,6 +63,7 @@ public class Tracker {
         for(int index = 0; index != result.length; index++) {
             if(result != null) {
                 result[position].getName();
+
             }
         }
         return result;

@@ -16,9 +16,29 @@ public class StartUI {
             System.out.println(item.getName());
         }
 
-        for(Item item : tracker.findByName("Лиза")) {
+        Item previous = new Item("previous","testDescription",123L);
+        tracker.add(previous);
+
+        Item next = new Item("next","testDescription2",1234L);
+        tracker.add(next);
+
+        next.setId(previous.getId());
+
+        System.out.println("---------------");
+
+        for(Item item : tracker.getAll()) {
             System.out.println(item.getName());
         }
+        System.out.println("---------------");
+
+        tracker.replace(previous.getId(), next);
+        for(Item item : tracker.getAll()) {
+            System.out.println(item.getName());
+        }
+        System.out.println("---------------");
+
+        System.out.println("delete");
+        tracker.delete(previous.getId());
 
         for(Item item : tracker.getAll()) {
             System.out.println(item.getName());
