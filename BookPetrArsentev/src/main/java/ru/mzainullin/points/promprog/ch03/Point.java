@@ -7,7 +7,7 @@ package ru.mzainullin.points.promprog.ch03;
  * 1.04.2018
  */
 public class Point {
-    
+
     private final double x;
     private final double y;
 
