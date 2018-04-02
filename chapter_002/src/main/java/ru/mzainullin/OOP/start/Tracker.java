@@ -11,13 +11,14 @@ import java.util.*;
  */
 public class Tracker {
 
-    private final Item[] items = new Item[100];
     private int position = 0;
     private static final Random RN = new Random();
-
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
+
+    private final Item[] items = new Item[100];
+
 
     /**
      * Метод реализаущий добавление заявки в хранилище
@@ -29,30 +30,36 @@ public class Tracker {
         return item;
     }
 
+
     /**
      * Метод реализаущий замену заявки по id
      * @param item новая заявка
      * @param id = номер id заявки
      */
     public void replace(String id, Item item) {
-        if(item.getId().equals(id)) {
-            item.setId(id);
+        for(int index = 0; index != this.position; index++) {
+            if(items[index].getId().equals(id)) {
+                item.setId(items[index].getId());
+                items[index] = item;
+                break;
+            }
         }
     }
+
 
     /**
      * Метод реализаущий удаление заявки по id
      * @param id
      */
     public void delete(String id){
-        for(Item item : this.items) {
-            if(item.getId().equals(id)) {
-                item = null;
+        for(int index = 0; index != this.position; index++) {
+            if(items[index].getId().equals(id)) {
+                items[index] = null;
                 break;
             }
         }
-
     }
+
 
     /**
      * Метод реализующий поиск всех имеющихся заявок
@@ -61,13 +68,13 @@ public class Tracker {
     public Item[] findAll(){
         Item[] result = new Item[position];
         for(int index = 0; index != result.length; index++) {
-            if(result != null) {
-                result[position].getName();
-
+            if(result[index] != null) {
+                result[index].getId();
             }
         }
         return result;
     }
+
 
     /**
      * Метод реализующий поиск всех заявок по имени
@@ -77,13 +84,12 @@ public class Tracker {
         Item[] result = new Item[position];
         for(int index = 0; index != result.length; index++) {
             if(result[index] != null && result[index].getName().equals(key)) {
-                System.out.println("Есть такое имя " + result[index].getName());
-            } else {
-                System.out.println("Нет такого имени");
+                result[index].getName();
             }
         }
         return result;
     }
+
 
     /**
      * Метод реализаущий поиск по идентификатору
@@ -100,6 +106,11 @@ public class Tracker {
         return result;
     }
 
+
+    /**
+     * Метод получить все заявки
+     * @return result
+     */
     public Item[] getAll() {
         Item[] result = new Item[position];
         for(int index = 0; index != this.position; index++) {

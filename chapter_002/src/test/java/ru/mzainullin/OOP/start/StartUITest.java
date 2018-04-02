@@ -25,15 +25,40 @@ public class StartUITest {
         // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
         tracker.add(previous);
 
+
         // Создаем новую заявку.
         Item next = new Item("test2","testDescription2",1234L);
         // Проставляем старый id из previous, который был сгенерирован выше.
         next.setId(previous.getId());
 
+
         // Обновляем заявку в трекере.
         tracker.replace(previous.getId(), next);
         // Проверяем, что заявка с таким id имеет новые имя test2.
         assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
+
+
+        // Найти все заявки в трекере.
+        tracker.findAll();
+        // Проверяем, что заявка с таким id имеет новые имя test2.
+        assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
+
+
+        // Найти заявку по имени в трекере.
+        tracker.findByName(previous.getName());
+        // Проверяем, что заявка с таким id имеет новые имя test2.
+        assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
+
+
+        // Удаляем заявку в трекере.
+        tracker.delete(previous.getId());
+        // is() ждет строку, поэтому пришлось добавить эту переменную
+        String strNull = null;
+        // Проверяем, что заявка с таким id имеет новые имя test2.
+        assertThat(tracker.findById(previous.getId()), is(strNull));
+
+
+
     }
 
 }
