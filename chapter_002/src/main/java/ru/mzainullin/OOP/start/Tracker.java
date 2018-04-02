@@ -16,7 +16,6 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-
     private final Item[] items = new Item[100];
 
 

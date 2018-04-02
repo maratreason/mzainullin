@@ -57,8 +57,6 @@ public class StartUITest {
         // Проверяем, что заявка с таким id имеет новые имя test2.
         assertThat(tracker.findById(previous.getId()), is(strNull));
 
-
-
     }
 
 }
