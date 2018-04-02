@@ -62,7 +62,6 @@ public class StartUITest {
 
     @Test
     public void whenFindAllThenReturnAll() {
-
         Tracker tracker = new Tracker();
 
         Item previous = new Item("Задача", "Выучить Java", 555L);

@@ -76,19 +76,6 @@ public class Tracker {
 
 
     /**
-     * Метод получить все заявки
-     * @return result
-     */
-//    public Item[] findAll() {
-//        Item[] result = new Item[position];
-//        for(int index = 0; index != this.position; index++) {
-//            result[index] = this.items[index];
-//        }
-//        return result;
-//    }
-
-
-    /**
      * Метод реализующий поиск всех заявок по имени
      * @return текущее имя указанное в поиске
      */
