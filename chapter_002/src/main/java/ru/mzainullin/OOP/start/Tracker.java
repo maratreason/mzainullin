@@ -18,7 +18,6 @@ public class Tracker {
     }
     private final Item[] items = new Item[100];
 
-
     /**
      * Метод реализаущий добавление заявки в хранилище
      * @param item новая заявка
@@ -69,10 +68,24 @@ public class Tracker {
         for(int index = 0; index != result.length; index++) {
             if(result[index] != null) {
                 result[index].getId();
+                result[index].getDescription();
             }
         }
         return result;
     }
+
+
+    /**
+     * Метод получить все заявки
+     * @return result
+     */
+//    public Item[] findAll() {
+//        Item[] result = new Item[position];
+//        for(int index = 0; index != this.position; index++) {
+//            result[index] = this.items[index];
+//        }
+//        return result;
+//    }
 
 
     /**
@@ -101,19 +114,6 @@ public class Tracker {
                 result = item;
                 break;
             }
-        }
-        return result;
-    }
-
-
-    /**
-     * Метод получить все заявки
-     * @return result
-     */
-    public Item[] getAll() {
-        Item[] result = new Item[position];
-        for(int index = 0; index != this.position; index++) {
-            result[index] = this.items[index];
         }
         return result;
     }

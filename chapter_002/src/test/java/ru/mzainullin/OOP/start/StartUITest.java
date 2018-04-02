@@ -13,12 +13,13 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = new Item("test1","testDescription",123L);
         tracker.add(item);
-        assertThat(tracker.getAll()[0], is(item));
+        assertThat(tracker.findAll()[0], is(item));
     }
 
 
     @Test
     public void whenReplaceNameThenReturnNewName() {
+
         Tracker tracker = new Tracker();
 
         Item previous = new Item("test1","testDescription",123L);
@@ -56,6 +57,26 @@ public class StartUITest {
         String strNull = null;
         // Проверяем, что заявка с таким id имеет новые имя test2.
         assertThat(tracker.findById(previous.getId()), is(strNull));
+
+    }
+
+    @Test
+    public void whenFindAllThenReturnAll() {
+
+        Tracker tracker = new Tracker();
+
+        Item previous = new Item("Задача", "Выучить Java", 555L);
+        tracker.add(previous);
+
+        Item next = new Item("test2", "testDescription2", 1234L);
+        next.setId(previous.getId());
+
+        // Найти заявку по имени в трекере.
+        tracker.findAll();
+        // Проверяем, что заявка с таким id имеет новые имя test2.
+        assertThat(tracker.findById(previous.getId()).getName(), is("Задача"));
+        assertThat(tracker.findById(previous.getId()).getDescription(), is("Выучить Java"));
+        assertThat(tracker.findById(previous.getId()).getCreate(), is(555L));
 
     }
 

@@ -9,17 +9,25 @@ import ru.mzainullin.OOP.models.Task;
  * @since 18.03.2018
  */
 public class StartUI {
-    public static void main(String[] args) {
 
+    private Input input;
+
+    public StartUI(Input input) {
+        this.input = input;
+    }
+
+    public void init() {
+        String name = input.ask("Введите имя");
         Tracker tracker = new Tracker();
-        tracker.add(new Task("Task", "descTask"));
-        tracker.add(new Item("Лиза", "descItem", 1));
-        tracker.add(new Task("iTask", "desciTask"));
-        tracker.add(new Item("iItem", "desciItem", 2));
+        tracker.add(new Task(name, "firstDesc"));
 
-        for(Item item : tracker.getAll()) {
+        for(Item item : tracker.findAll()) {
             System.out.println(item.getName());
         }
+    }
 
+    public static void main(String[] args) {
+        Input input = new ConsoleInput();
+        new StartUI(input).init();
     }
 }
