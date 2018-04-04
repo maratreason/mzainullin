@@ -1,4 +1,4 @@
-package ru.mzainullin.OOP.models;
+package ru.mzainullin.oop.models;
 
 /**
  * @author Marat Zainullin (maratreason@mail.ru)
@@ -12,7 +12,14 @@ public class Item {
     public String description;
     public long create;
 
-    public Item(){}
+    public Item() {
+    }
+
+    public Item(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
 
     public Item(String name, String description, long create) {
         this.name = name;

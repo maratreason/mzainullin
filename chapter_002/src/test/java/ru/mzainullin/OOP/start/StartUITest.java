@@ -1,20 +1,20 @@
-package ru.mzainullin.OOP.start;
+package ru.mzainullin.oop.start;
 
 import org.junit.Test;
-import ru.mzainullin.OOP.models.Item;
+import ru.mzainullin.oop.models.Item;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
 
-    @Test
-    public void whenAddNewItemThenTrackerHasSameItem() {
-        Tracker tracker = new Tracker();
-        Item item = new Item("test1","testDescription",123L);
-        tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
-    }
+    // @Test
+    // public void whenAddNewItemThenTrackerHasSameItem() {
+    //     Tracker tracker = new Tracker();
+    //     Item item = new Item("test1","testDescription",123L);
+    //     tracker.add(item);
+    //     assertThat(tracker.findAll()[0], is(item));
+    // }
 
 
     @Test
@@ -22,13 +22,13 @@ public class StartUITest {
 
         Tracker tracker = new Tracker();
 
-        Item previous = new Item("test1","testDescription",123L);
+        Item previous = new Item("test1", "testDescription", 123L);
         // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
         tracker.add(previous);
 
 
         // Создаем новую заявку.
-        Item next = new Item("test2","testDescription2",1234L);
+        Item next = new Item("test2", "testDescription2", 1234L);
         // Проставляем старый id из previous, который был сгенерирован выше.
         next.setId(previous.getId());
 

@@ -1,4 +1,5 @@
-package ru.mzainullin.OOP;
+
+package ru.mzainullin.oop;
 
 /**
  * @author Marat Zainullin.

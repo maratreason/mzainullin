@@ -1,4 +1,4 @@
-package ru.mzainullin.OOP;
+package ru.mzainullin.oop;
 
 /**
  * @author Marat Zainullin.
@@ -10,7 +10,7 @@ public class Student {
     private String name = "Шурик";
 
     public String getName() {
-        return this.name = name;
+        return name;
     }
 
 }

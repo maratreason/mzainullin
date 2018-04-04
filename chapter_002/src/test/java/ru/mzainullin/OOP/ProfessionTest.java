@@ -1,4 +1,4 @@
-package ru.mzainullin.OOP;
+package ru.mzainullin.oop;
 
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;

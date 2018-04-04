@@ -3,7 +3,6 @@
     <artifactId>chapter_002</artifactId>
     <version>2.0</version>
     <packaging>jar</packaging>
-
     <parent>
         <groupId>ru.mzainullin</groupId>
         <artifactId>mzainullin</artifactId>
@@ -23,7 +22,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <finalName>chapter_002</finalName>
+                            <finalName>mzainullin</finalName>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>ru.mzainullin.OOP.start.StartUI</mainClass>
@@ -33,6 +32,7 @@
                     </execution>
                 </executions>
             </plugin>
+        
         </plugins>
     </build>
 

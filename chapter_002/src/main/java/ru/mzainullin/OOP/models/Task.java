@@ -1,4 +1,4 @@
-package ru.mzainullin.OOP.models;
+package ru.mzainullin.oop.models;
 
 /**
  * @author Marat Zainullin (maratreason@mail.ru)
