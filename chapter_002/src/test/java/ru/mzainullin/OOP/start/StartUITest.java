@@ -69,13 +69,10 @@ public class StartUITest {
         Item next = new Item("test2", "testDescription2", 1234L);
         next.setId(previous.getId());
 
-        // Найти заявку по имени в трекере.
+        // Найти все заявки в трекере.
         tracker.findAll();
         // Проверяем, что заявка с таким id имеет новые имя test2.
         assertThat(tracker.findById(previous.getId()).getName(), is("Задача"));
-        assertThat(tracker.findById(previous.getId()).getDescription(), is("Выучить Java"));
-        assertThat(tracker.findById(previous.getId()).getCreate(), is(555L));
 
     }
-
 }
