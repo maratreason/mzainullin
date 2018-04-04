@@ -42,7 +42,6 @@ public class StartUI {
     //Позиция текущих заявок.
     private int position = 0;
 
-
     /**
      * Конструтор инициализирующий поля.
      * @param input ввод данных.
