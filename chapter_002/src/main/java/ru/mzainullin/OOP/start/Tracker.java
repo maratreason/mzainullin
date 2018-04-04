@@ -67,21 +67,10 @@ public class Tracker {
         Item[] result = new Item[position];
         for (int index = 0; index != result.length; index++) {
             if (result[index] != null) {
-                result[index].getId();
-                result[index].getDescription();
+                System.out.println(result[index].getId());
+                System.out.println(result[index].getName());
+                System.out.println(result[index].getDescription());
             }
-        }
-        return result;
-    }
-
-    /**
-     * Метод получить все заявки
-     * @return result
-     */
-    public Item[] getAll() {
-        Item[] result = new Item[position];
-        for (int index = 0; index != this.position; index++) {
-            result[index] = this.items[index];
         }
         return result;
     }
@@ -116,5 +105,6 @@ public class Tracker {
         }
         return result;
     }
+
 
 }

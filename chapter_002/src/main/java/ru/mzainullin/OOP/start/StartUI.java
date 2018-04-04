@@ -39,6 +39,9 @@ public class StartUI {
     //Хранилище заявок.
     private final Tracker tracker;
 
+    //Позиция текущих заявок.
+    private int position = 0;
+
 
     /**
      * Конструтор инициализирующий поля.
@@ -88,6 +91,7 @@ public class StartUI {
 
         Item item = new Item(name, desc);
         this.tracker.add(item);
+        position++;
         System.out.println("--- Новая заявка с getId=" + item.getId() + " ---");
     }
 
@@ -97,9 +101,9 @@ public class StartUI {
      */
     private void showAllItems() {
         System.out.println("--- Показать все заявки ---");
-        this.tracker.findAll();
-        Item item = new Item();
-        System.out.println("--- Все заявки=" + item.getName() + " ---");
+        for(Item item : tracker.findAll()) {
+            System.out.println("--- Все заявки=" + item + " ---");
+        }
     }
 
 
@@ -108,8 +112,11 @@ public class StartUI {
      */
     private void editItem() {
         System.out.println("--- Редактировать заявку ---");
-        Item item = new Item();
+        String name = this.input.ask("Введите новое имя заявки");
+        String desc = this.input.ask("Введите описание заявки");
+        Item item = new Item(name, desc);
         this.tracker.replace(item.getId(), item);
+        System.out.println("--- Заявка с id=" + item.getId() + " изменена ---");
     }
 
 
@@ -158,4 +165,5 @@ public class StartUI {
     public static void main(String[] args) {
         new StartUI(new ConsoleInput(), new Tracker()).init();
     }
+
 }
