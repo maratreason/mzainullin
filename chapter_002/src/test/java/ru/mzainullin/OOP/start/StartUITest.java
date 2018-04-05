@@ -3,6 +3,8 @@ package ru.mzainullin.oop.start;
 import org.junit.Test;
 import ru.mzainullin.oop.models.Item;
 
+import java.util.Arrays;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -71,8 +73,11 @@ public class StartUITest {
 
         // Найти все заявки в трекере.
         tracker.findAll();
-        // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findById(previous.getId()).getName(), is("Задача"));
 
+        for(Item item : tracker.findAll()) {
+            System.out.println(item);
+        }
+        // Проверяем, что заявка с таким id имеет новые имя test2.
+        assertThat(tracker.findAll().toString(), is("Задача"));
     }
 }

@@ -16,7 +16,7 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-    private final Item[] items = new Item[100];
+    private final Item[] items = new Item[10];
 
     /**
      * Метод реализаущий добавление заявки в хранилище
@@ -65,13 +65,9 @@ public class Tracker {
      * @return коллекция заявок
      */
     public Item[] findAll() {
-        Item[] result = new Item[position];
-        for (int index = 0; index != result.length; index++) {
-            if (result[index] != null) {
-                System.out.println(result[index].getId());
-                System.out.println(result[index].getName());
-                System.out.println(result[index].getDescription());
-            }
+        Item[] result = new Item[this.position];
+        for (int index = 0; index != this.position; index++) {
+            result[index] = this.items[index];
         }
         return result;
     }
@@ -106,6 +102,5 @@ public class Tracker {
         }
         return result;
     }
-
 
 }
