@@ -100,7 +100,7 @@ public class StartUI {
      */
     private void showAllItems() {
         System.out.println("--- Показать все заявки ---");
-        for(Item item : tracker.findAll()) {
+        for (Item item : tracker.findAll()) {
             System.out.print("ID заявки = " + item.getId().toString());
             System.out.print(", Имя заявки = " + item.getName().toString());
             System.out.println(", Описание заявки = " + item.getDescription().toString());
@@ -113,7 +113,7 @@ public class StartUI {
      */
     private void editItem() {
         System.out.println("--- Редактировать заявку ---");
-        for(Item item : tracker.findAll()) {
+        for (Item item : tracker.findAll()) {
             System.out.print("ID заявки = " + item.getId().toString());
             System.out.print("Имя заявки = " + item.getName().toString());
             System.out.println(", Описание заявки = " + item.getDescription().toString());
@@ -145,8 +145,8 @@ public class StartUI {
 
         Item[] result = new Item[this.position];
         String expectId = this.input.ask("Введите id");
-        for(Item item : tracker.findAll()) {
-            if(item.getId().equals(expectId)) {
+        for (Item item : tracker.findAll()) {
+            if (item.getId().equals(expectId)) {
                 System.out.println("Заявка с id: " + item.getId());
                 System.out.print("Имя заявки = " + item.getName().toString());
                 System.out.println(", Описание заявки = " + item.getDescription().toString());

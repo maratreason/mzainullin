@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class StartUITest {
+public class TrackerTest {
 
     // @Test
     // public void whenAddNewItemThenTrackerHasSameItem() {
@@ -74,7 +74,7 @@ public class StartUITest {
         // Найти все заявки в трекере.
         tracker.findAll();
 
-        for(Item item : tracker.findAll()) {
+        for (Item item : tracker.findAll()) {
             System.out.println(item);
         }
         // Проверяем, что заявка с таким id имеет новые имя test2.
