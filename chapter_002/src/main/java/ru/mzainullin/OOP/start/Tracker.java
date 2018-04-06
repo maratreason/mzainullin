@@ -37,7 +37,6 @@ public class Tracker {
     public void replace(String id, Item item) {
         for (int index = 0; index != this.position; index++) {
             if (items[index].getId().equals(id)) {
-                item.setId(items[index].getId());
                 items[index] = item;
                 break;
             }
@@ -57,7 +56,6 @@ public class Tracker {
             }
         }
     }
-
 
 
     /**

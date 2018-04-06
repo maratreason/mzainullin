@@ -113,17 +113,28 @@ public class StartUI {
      */
     private void editItem() {
         System.out.println("--- Редактировать заявку ---");
-        for (Item item : tracker.findAll()) {
-            System.out.print("ID заявки = " + item.getId().toString());
-            System.out.print("Имя заявки = " + item.getName().toString());
-            System.out.println(", Описание заявки = " + item.getDescription().toString());
-        }
 
-//        String name = this.input.ask("Введите новое имя заявки");
-//        String desc = this.input.ask("Введите описание заявки");
-//
-//        this.tracker.replace(item.getId(), item);
-//        System.out.println("--- Заявка с id=" + item.getId() + " изменена ---");
+        for (Item item : tracker.findAll()) {
+
+            System.out.println(item.getName());
+            System.out.println("Выберите заявку...");
+
+            String oldName = this.input.ask("Укажите имя существующей заявки");
+
+            if(item.getName().equals(oldName)) {
+
+                String newName = this.input.ask("Введите новое имя заявки");
+                String newDesc = this.input.ask("Введите новое описание для заявки");
+
+                item.name = newName;
+                item.description = newDesc;
+
+                tracker.replace(item.getId(), item);
+                break;
+
+            }
+            System.out.println("--- Заявка изменена. ---");
+        }
     }
 
 
@@ -133,7 +144,12 @@ public class StartUI {
     private void deleteItem() {
         System.out.println("--- Удалить заявку ---");
         Item item = new Item();
-        this.tracker.delete(item.getId());
+
+        String deleteId = this.input.ask("Введите номер ID для удаления");
+
+        if(item.getId().equals(deleteId)) {
+            item = null;
+        }
     }
 
 
