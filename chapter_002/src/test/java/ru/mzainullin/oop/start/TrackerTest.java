@@ -27,14 +27,16 @@ public class TrackerTest {
 
         // Создаем новую заявку.
         Item next = new Item("test2", "testDescription2", 1234L);
-        next.setId(previous.getId());
+        tracker.add(next);
 
         // Удаляем заявку в трекере.
         tracker.delete(previous.getId());
         // is() ждет строку, поэтому пришлось добавить эту переменную
+
         String strNull = null;
         // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findById(previous.getId()), is(strNull));
+        assertThat(tracker.findById(previous.getId()).getId(), is(strNull));
+        assertThat(tracker.findById(next.getId()).getId(), is("test2"));
     }
 
     @Test
@@ -84,12 +86,14 @@ public class TrackerTest {
         // Создаем новую заявку.
         Item next = new Item("test2", "testDescription2", 1234L);
         // Проставляем старый id из previous, который был сгенерирован выше.
-        next.setId(previous.getId());
+        tracker.add(next);
+
+        Item third = new Item("test3", "testDescription3", 5534L);
 
         // Обновляем заявку в трекере.
-        tracker.replace(previous.getId(), next);
+        tracker.replace(previous.getId(), third);
         // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
+        assertThat(tracker.findByName(third.getName()), is("test3"));
     }
 
     @Test
