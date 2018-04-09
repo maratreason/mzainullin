@@ -2,7 +2,6 @@ package ru.mzainullin.oop.start;
 
 import org.junit.Test;
 import ru.mzainullin.oop.models.Item;
-
 import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;

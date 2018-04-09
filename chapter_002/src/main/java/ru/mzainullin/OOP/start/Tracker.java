@@ -49,10 +49,10 @@ public class Tracker {
      * @param id
      */
     public void delete(String id) {
+        Item[] result = new Item[this.position];
         for (int index = 0; index != this.position; index++) {
-            if (items[index].getId().equals(id)) {
-                items[index] = null;
-                break;
+            if (!items[index].getId().equals(id)) {
+                System.arraycopy(result, 0, items, index, this.position-1);
             }
         }
     }
@@ -100,5 +100,4 @@ public class Tracker {
         }
         return result;
     }
-
 }
