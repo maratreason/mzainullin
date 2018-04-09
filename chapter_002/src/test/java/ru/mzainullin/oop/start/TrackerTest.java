@@ -33,10 +33,8 @@ public class TrackerTest {
         tracker.delete(previous.getId());
         // is() ждет строку, поэтому пришлось добавить эту переменную
 
-        String strNull = null;
         // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findById(previous.getId()).getId(), is(strNull));
-        assertThat(tracker.findById(next.getId()).getId(), is("test2"));
+        assertThat(tracker.findAll(), is(next));
     }
 
     @Test
