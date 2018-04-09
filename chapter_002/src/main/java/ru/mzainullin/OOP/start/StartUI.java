@@ -148,8 +148,10 @@ public class StartUI {
         String deleteId = this.input.ask("Введите номер ID для удаления");
 
         if(item.getId().equals(deleteId)) {
-            item = null;
+            tracker.delete(item.getId());
         }
+
+        System.out.println("--- Заявка удалена ---");
     }
 
 

@@ -3,6 +3,7 @@ package ru.mzainullin.oop.start;
 import ru.mzainullin.oop.models.Item;
 
 import java.util.*;
+import org.apache.commons.lang.ArrayUtils;
 
 /**
  * @author Marat Zainullin
@@ -16,7 +17,7 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-    private final Item[] items = new Item[10];
+    private Item[] items = new Item[10];
 
     /**
      * Метод реализаущий добавление заявки в хранилище
@@ -50,10 +51,20 @@ public class Tracker {
      */
     public void delete(String id) {
         Item[] result = new Item[this.position];
-        for (int index = 0; index != this.position; index++) {
+        for (int index = 0; index != items.length; index++) {
+            result[index] = items[index];
+
+//            if (result[index].getId().equals(id)) {
+//                ArrayUtils.remove(result, index);
+//                break;
+//            }
+
             if (!items[index].getId().equals(id)) {
-                System.arraycopy(result, 0, items, index, this.position-1);
+                System.arraycopy(items, 0, result, 0, items.length-1);
+                break;
             }
+
+
         }
     }
 

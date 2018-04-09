@@ -33,7 +33,7 @@ public class TrackerTest {
         // is() ждет строку, поэтому пришлось добавить эту переменную
 
         // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findAll(), is(next));
+        assertThat(tracker.findAll()[0].getName(), is(next.getName()));
     }
 
     @Test
