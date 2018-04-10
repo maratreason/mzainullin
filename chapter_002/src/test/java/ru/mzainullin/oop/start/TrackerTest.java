@@ -28,12 +28,14 @@ public class TrackerTest {
         Item next = new Item("test2", "testDescription2", 1234L);
         tracker.add(next);
 
+        Item third = new Item("tes3", "testDescription3", 1234L);
+        tracker.add(third);
+
         // Удаляем заявку в трекере.
         tracker.delete(previous.getId());
-        // is() ждет строку, поэтому пришлось добавить эту переменную
 
         // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findAll()[0].getName(), is(next.getName()));
+        assertThat(tracker.findAll()[0].getName(), is("test2"));
     }
 
     @Test

@@ -51,21 +51,18 @@ public class Tracker {
      */
     public void delete(String id) {
         Item[] result = new Item[this.position];
-        for (int index = 0; index != items.length; index++) {
-            result[index] = items[index];
+        for (int index = 0; index != items.length - 1; index++) {
 
-//            if (result[index].getId().equals(id)) {
-//                ArrayUtils.remove(result, index);
-//                break;
-//            }
-
-            if (!items[index].getId().equals(id)) {
-                System.arraycopy(items, 0, result, 0, items.length-1);
+            if (items[index].getId().equals(id)) {
+                result[index] = items[index + 1];
+//              System.arraycopy(items, 0, result, 0, index);
                 break;
             }
-
+            result[index] = items[index];
+//              System.arraycopy(items, index + 1, result, index, items.length - index - 1);
 
         }
+        items = result;
     }
 
 
