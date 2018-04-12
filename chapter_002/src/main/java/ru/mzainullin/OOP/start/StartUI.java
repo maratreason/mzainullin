@@ -139,19 +139,18 @@ public class StartUI {
 
 
     /**
-     * Метод реализует показ всех заявок в хранилище.
+     * Метод реализует удаление текущей заявки.
      */
     private void deleteItem() {
         System.out.println("--- Удалить заявку ---");
-        Item item = new Item();
 
         String deleteId = this.input.ask("Введите номер ID для удаления");
-
-        if(item.getId().equals(deleteId)) {
-            tracker.delete(item.getId());
+        for (Item item : tracker.findAll()) {
+            if (item.getId().equals(deleteId)) {
+                tracker.delete(item.getId());
+                System.out.println("--- Заявка удалена ---");
+            }
         }
-
-        System.out.println("--- Заявка удалена ---");
     }
 
 
