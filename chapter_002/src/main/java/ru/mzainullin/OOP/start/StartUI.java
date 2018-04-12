@@ -160,7 +160,6 @@ public class StartUI {
     private void findByItemId() {
         System.out.println("--- Найти заявку по идентификатору ---");
 
-        Item[] result = new Item[this.position];
         String expectId = this.input.ask("Введите id");
         for (Item item : tracker.findAll()) {
             if (item.getId().equals(expectId)) {
@@ -170,7 +169,6 @@ public class StartUI {
                 break;
             } else {
                 System.out.println("Заявки с таким id не существует...");
-                break;
             }
         }
     }
@@ -181,9 +179,21 @@ public class StartUI {
      */
     private void findByItemName() {
         System.out.println("--- Найти заявку по имени заявки ---");
-        Item item = new Item();
 
-        this.tracker.findByName(item.getName());
+        String expectName = this.input.ask("Введите имя");
+
+        for(Item item : tracker.findAll()) {
+            this.tracker.findByName(expectName);
+            if(item.getName().equals(expectName)) {
+                System.out.println("Заявка с id: " + item.getId());
+                System.out.print("Имя заявки = " + item.getName().toString());
+                System.out.println(", Описание заявки = " + item.getDescription().toString());
+                break;
+            } else {
+                System.out.println("Заявки с таким именем не существует...");
+                break;
+            }
+        }
     }
 
 
