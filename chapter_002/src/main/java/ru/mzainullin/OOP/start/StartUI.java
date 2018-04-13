@@ -1,9 +1,6 @@
 package ru.mzainullin.oop.start;
 
 import ru.mzainullin.oop.models.Item;
-import ru.mzainullin.oop.models.Task;
-
-import java.util.Arrays;
 
 /**
  * @author Marat Zainullin (maratreason@mail.ru)
@@ -162,14 +159,17 @@ public class StartUI {
 
         String expectId = this.input.ask("Введите id");
         for (Item item : tracker.findAll()) {
-            if (item.getId().equals(expectId)) {
+            this.tracker.findById(expectId);
+            if(item.getId().equals(expectId)) {
                 System.out.println("Заявка с id: " + item.getId());
                 System.out.print("Имя заявки = " + item.getName().toString());
                 System.out.println(", Описание заявки = " + item.getDescription().toString());
                 break;
             } else {
                 System.out.println("Заявки с таким id не существует...");
+                break;
             }
+
         }
     }
 
