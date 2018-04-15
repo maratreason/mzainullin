@@ -6,6 +6,7 @@ import ru.mzainullin.oop.models.Item;
  * @author Marat Zainullin (maratreason@mail.ru)
  * @version 1.0
  * @since 18.03.2018
+ * Консольное приложение
  */
 public class StartUI {
 
