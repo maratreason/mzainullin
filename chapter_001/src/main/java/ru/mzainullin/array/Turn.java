@@ -9,7 +9,7 @@ public class Turn {
 
     /**
      * Метод делает реверс массива.
-     * @param array
+     * @param array - входной параметр
      * @return перевернутый массив.
      */
     public int[] back(int[] array) {
@@ -18,7 +18,7 @@ public class Turn {
             return null;
         }
 
-        for(int i = 0; i < array.length / 2; i++) {
+        for (int i = 0; i < array.length / 2; i++) {
 
             int temp = array[i];
             array[i] = array[array.length - 1 - i];

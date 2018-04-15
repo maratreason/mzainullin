@@ -10,8 +10,10 @@ public class Max {
 
 	/**
 	* Метод для вычисления большего числа из двух введенных.
-	* @param first, second.
-	* @return Большее из двух.
+	* @param first = первое число
+	* @param second = второе число
+    * @param third = третье число
+	* @return Большее из трех.
 	*/
 	public int max(int first, int second, int third) {
 		return Math.max(Math.max(first, second), third);

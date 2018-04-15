@@ -118,7 +118,7 @@ public class StartUI {
 
             String oldName = this.input.ask("Укажите имя существующей заявки");
 
-            if(item.getName().equals(oldName)) {
+            if (item.getName().equals(oldName)) {
 
                 String newName = this.input.ask("Введите новое имя заявки");
                 String newDesc = this.input.ask("Введите новое описание для заявки");
@@ -160,7 +160,7 @@ public class StartUI {
         String expectId = this.input.ask("Введите id");
         for (Item item : tracker.findAll()) {
             this.tracker.findById(expectId);
-            if(item.getId().equals(expectId)) {
+            if (item.getId().equals(expectId)) {
                 System.out.println("Заявка с id: " + item.getId());
                 System.out.print("Имя заявки = " + item.getName().toString());
                 System.out.println(", Описание заявки = " + item.getDescription().toString());
@@ -182,9 +182,9 @@ public class StartUI {
 
         String expectName = this.input.ask("Введите имя");
 
-        for(Item item : tracker.findAll()) {
+        for (Item item : tracker.findAll()) {
             this.tracker.findByName(expectName);
-            if(item.getName().equals(expectName)) {
+            if (item.getName().equals(expectName)) {
                 System.out.println("Заявка с id: " + item.getId());
                 System.out.print("Имя заявки = " + item.getName().toString());
                 System.out.println(", Описание заявки = " + item.getDescription().toString());

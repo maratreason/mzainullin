@@ -8,9 +8,9 @@ package ru.mzainullin.loop;
 public class Board {
 
 	/**
-	* @method paint - рисуем шахматную доску.
-	* @param width, height.
-	* @return 
+	* @param width = ширина.
+	* @param height = высота.
+	* @return str = результат.
 	*/
 	public String paint(int width, int height) {
 
@@ -19,10 +19,10 @@ public class Board {
 
 		for (int i = 1; i <= height; i++) {
 			for (int j = 1; j <= width; j++) {
-				if ( ((i + j)%2 == 0) ) {
+				if (((i + j) % 2 == 0)) {
 					str.append("X");
 				} else {
-					if(width > 3 || height > 3) {
+					if (width > 3 || height > 3) {
 						str.append("  ");
 					} else {
 						str.append(" ");
@@ -34,8 +34,6 @@ public class Board {
 			str.append(line);
 		}
 		return str.toString();
-
 	}
-
 
 }

@@ -15,7 +15,6 @@ public class Calculator {
 	* Сложение.
 	* @param first первый аргумент.
 	* @param second второй аргумент.
-	* @return результат.
 	*/
 	public void add(double first, double second) {
 		this.result = first + second;
@@ -25,7 +24,6 @@ public class Calculator {
 	* Вычитание.
 	* @param first первый аргумент.
 	* @param second второй аргумент.
-	* @return результат.
 	*/
 	public void subtract(double first, double second) {
 		this.result = first - second;
@@ -35,7 +33,6 @@ public class Calculator {
 	* Умножение.
 	* @param first первый аргумент.
 	* @param second второй аргумент.
-	* @return результат.
 	*/
 	public void multiple(double first, double second) {
 		this.result = first * second;
@@ -45,7 +42,6 @@ public class Calculator {
 	* Деление.
 	* @param first первый аргумент.
 	* @param second второй аргумент.
-	* @return результат.
 	*/
 	public void divide(double first, double second) {
 		this.result = first / second;
@@ -53,7 +49,7 @@ public class Calculator {
 
 	/**
 	* Метод получения результата вычисления
-	* @return результат.
+	 * @return - result.
 	*/
 	public double getResult() {
 		return this.result;

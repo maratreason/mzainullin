@@ -15,7 +15,7 @@ public class ArrayChar {
 
     /**
      * Метод проверяет что слово начинается с префикса
-     * @param prefix
+     * @param prefix = входной параметр
      * @return если слово начинается с префикса
      */
     public boolean startWith(String prefix) {

@@ -9,13 +9,13 @@ public class Square {
 
     /**
      * Метод Возведение числа в квадрат и запись в массив.
-     * @param bound
+     * @param bound - входной параметр
      * @return результат умноженный на результат.
      */
     public int[] calculate(int bound) {
         int[] result = new int[bound];
 
-        for(int i = 1; i < bound; i++) {
+        for (int i = 1; i < bound; i++) {
             result[i] = i * i;
             System.out.println(result[i]);
         }

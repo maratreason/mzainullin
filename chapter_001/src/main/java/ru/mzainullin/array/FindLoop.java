@@ -9,15 +9,15 @@ public class FindLoop {
 
     /**
      * Метод поиска элемента в массиве.
-     * @param data
-     * @param el
+     * @param data - первый параметр
+     * @param el - второй параметр
      * @return индекс элемента
      */
     public int indexOf(int[] data, int el) {
         int result = -1;
 
-        for(int i = 0; i < data.length; i++) {
-            if(data[i] == el) {
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == el) {
                 result = i;
                 break;
             }

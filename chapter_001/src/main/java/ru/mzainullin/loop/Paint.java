@@ -11,14 +11,15 @@ public class Paint {
 
     /**
      * Рефакторинг.
-     * @param width
-     * @param height
+     * @param width = ширина
+     * @param height = высота
+     * @return готовый рефакторинг
      */
     private String loppBy(int height, int width, BiPredicate<Integer, Integer> predict) {
         StringBuilder builder = new StringBuilder();
-        for(int row = 0; row != height; row++) {
-            for(int col = 0; col != width; col++) {
-                if(predict.test(row, col)) {
+        for (int row = 0; row != height; row++) {
+            for (int col = 0; col != width; col++) {
+                if (predict.test(row, col)) {
                     builder.append("^");
                 } else {
                     builder.append(" ");
@@ -31,8 +32,7 @@ public class Paint {
 
     /**
      * Метод для прорисовки правой части пирамиды.
-     * @param height
-     * @return
+     * @param height = высота
      */
     public String rightTriangle(int height) {
         return this.loppBy(height, height, (row, col) -> row >= col);
@@ -40,8 +40,8 @@ public class Paint {
 
     /**
      * Метод для прорисовки левой части пирамиды.
-     * @param height
-     * @return
+     * @param height = высота
+     * @return прорисовка левой части
      */
     public String leftTriangle(int height) {
         return this.loppBy(height, height, (row, col) -> row >= height - col - 1);
@@ -49,8 +49,8 @@ public class Paint {
 
     /**
      * Метод для прорисовки полной пирамиды.
-     * @param height
-     * @return
+     * @param height = высота
+     * @return прорисовка полной пирамиды
      */
     public String pyramid(int height) {
         return this.loppBy(height, 2 * height - 1,

@@ -48,7 +48,7 @@ public class Triangle {
 		double s;
 
 		if (this.exists(ab, ac, bc)) {
-			rsl = Math.sqrt(p * ((p-ab) * (p-ac) * (p-bc)));
+			rsl = Math.sqrt(p * ((p - ab) * (p - ac) * (p - bc)));
 		}
 		return rsl;
 	}
