@@ -50,6 +50,12 @@ public class StartUI {
         this.input = input;
     }
 
+    public StartUI(Input input, Tracker tracker, int pos) {
+        this.tracker = tracker;
+        this.input = input;
+        this.position = pos;
+    }
+
 
     /**
      * Основой цикл программы.
@@ -58,7 +64,7 @@ public class StartUI {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
-            String answer = this.input.ask("Выбоерите пункт меню:");
+            String answer = this.input.ask("Выберите пункт меню:");
             if (ADD.equals(answer)) {
                 this.createItem();
             } else if (SHOW_ALL.equals(answer)) {
@@ -98,10 +104,13 @@ public class StartUI {
      */
     private void showAllItems() {
         System.out.println("--- Показать все заявки ---");
+
         for (Item item : tracker.findAll()) {
-            System.out.print("ID заявки = " + item.getId().toString());
-            System.out.print(", Имя заявки = " + item.getName().toString());
-            System.out.println(", Описание заявки = " + item.getDescription().toString());
+            if (item != null) {
+                System.out.print("ID заявки = " + item.getId().toString());
+                System.out.print(", Имя заявки = " + item.getName().toString());
+                System.out.println(", Описание заявки = " + item.getDescription().toString());
+            }
         }
     }
 
@@ -157,7 +166,6 @@ public class StartUI {
      */
     private void findByItemId() {
         System.out.println("--- Найти заявку по идентификатору ---");
-
         String expectId = this.input.ask("Введите id");
         for (Item item : tracker.findAll()) {
             this.tracker.findById(expectId);
@@ -170,7 +178,6 @@ public class StartUI {
                 System.out.println("Заявки с таким id не существует...");
                 break;
             }
-
         }
     }
 

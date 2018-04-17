@@ -94,7 +94,7 @@ public class Tracker {
      * Метод реализаущий поиск по идентификатору
      * @return result
      */
-    protected Item findById(String id) {
+    public Item findById(String id) {
         Item result = null;
         for (Item item : items) {
             if (item != null && item.getId().equals(id)) {
