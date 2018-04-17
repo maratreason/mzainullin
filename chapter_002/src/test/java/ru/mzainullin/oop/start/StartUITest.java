@@ -84,14 +84,14 @@ public class StartUITest {
         // создаём Tracker
         Tracker tracker = new Tracker();
         //Напрямую добавляем 2 заявки item и item1
-        Item item = tracker.add(new Item());
+        Item item = tracker.add(new Item("first name", "first desc"));
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"5", "test name", "6"});
+        Input input = new StubInput(new String[]{"5", "first name", "6"});
         // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker).init();
 
         // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
-        assertThat(tracker.findById(item.getId()).getName(), is("test name"));
+        assertThat(tracker.findById(item.getId()).getName(), is(item.getName()));
     }
 
 
@@ -101,14 +101,13 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         //Напрямую добавляем 2 заявки item и item1
         Item item = tracker.add(new Item());
-        item.setId("14365896794");
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"4", "14365896794", "6"});
+        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker).init();
 
         // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
-        assertThat(tracker.findById(item.getId()).getId(), is("14365896794"));
+        assertThat(tracker.findById(item.getId()).getId(), is(item.getId()));
     }
 
 }

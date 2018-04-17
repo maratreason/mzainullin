@@ -13,13 +13,14 @@ public class Item {
     public long create;
 
     public Item() {
+        this.name = "test name";
+        this.description = "desc";
     }
 
     public Item(String name, String description) {
         this.name = name;
         this.description = description;
     }
-
 
     public Item(String name, String description, long create) {
         this.name = name;
