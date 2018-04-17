@@ -72,9 +72,7 @@ public class StartUITest {
         // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker).init();
 
-//        String deletedItem = null;
         // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
-//        assertThat(tracker.findById(item.getId()), is(deletedItem));
         assertThat(tracker.findById(item1.getId()).getName(), is("second name"));
     }
 
