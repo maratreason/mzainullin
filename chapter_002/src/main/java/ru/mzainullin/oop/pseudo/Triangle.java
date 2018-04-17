@@ -7,6 +7,10 @@ package ru.mzainullin.oop.pseudo;
  */
 public class Triangle implements Shape {
 
+    /**
+     * Метод для прорисовки треугольника
+     * @return треугольник
+     */
     public String draw() {
         StringBuilder triangle = new StringBuilder();
         triangle.append("   +   \n");

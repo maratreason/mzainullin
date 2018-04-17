@@ -7,6 +7,10 @@ package ru.mzainullin.oop.pseudo;
  */
 public class Square implements Shape {
 
+    /**
+     * Метод для прорисовки квадрата
+     * @return квадрат
+     */
     public String draw() {
         StringBuilder square = new StringBuilder();
         square.append("+++++++\n");

@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+
 /**
  * @author Marat Zainullin
  * @version 1.1

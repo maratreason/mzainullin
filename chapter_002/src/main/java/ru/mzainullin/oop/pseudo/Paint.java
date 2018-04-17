@@ -9,16 +9,18 @@ public class Paint {
 
     private Shape shape;
 
+    /**
+     * Метод для прорисовки фигуры
+     * @param shape - фигура
+     */
     public void draw(Shape shape) {
         System.out.println(shape.draw());
     }
 
     public static void main(String[] args) {
-
         Paint paint = new Paint();
         paint.draw(new Triangle());
         paint.draw(new Square());
-
     }
 
 }
