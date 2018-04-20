@@ -61,26 +61,36 @@ public class StartUI {
      * Основой цикл программы.
      */
     public void init() {
-        boolean exit = false;
-        while (!exit) {
-            this.showMenu();
-            String answer = this.input.ask("Выберите пункт меню:");
-            if (ADD.equals(answer)) {
-                this.createItem();
-            } else if (SHOW_ALL.equals(answer)) {
-                this.showAllItems();
-            } else if (EDIT.equals(answer)) {
-                this.editItem();
-            } else if (DELETE.equals(answer)) {
-                this.deleteItem();
-            } else if (FIND_BY_ID.equals(answer)) {
-                this.findByItemId();
-            } else if (FIND_BY_NAME.equals(answer)) {
-                this.findByItemName();
-            } else if (EXIT.equals(answer)) {
-                exit = true;
-            }
-        }
+//        boolean exit = false;
+//        while (!exit) {
+//            this.showMenu();
+//            String answer = this.input.ask("Выберите пункт меню:");
+//            if (ADD.equals(answer)) {
+//                this.createItem();
+//            } else if (SHOW_ALL.equals(answer)) {
+//                this.showAllItems();
+//            } else if (EDIT.equals(answer)) {
+//                this.editItem();
+//            } else if (DELETE.equals(answer)) {
+//                this.deleteItem();
+//            } else if (FIND_BY_ID.equals(answer)) {
+//                this.findByItemId();
+//            } else if (FIND_BY_NAME.equals(answer)) {
+//                this.findByItemName();
+//            } else if (EXIT.equals(answer)) {
+//                exit = true;
+//            }
+//        }
+        Tracker tracker = new Tracker();
+        MenuTracker menu = new MenuTracker(this.input, tracker);
+        menu.fillActions();
+
+        do {
+            menu.show();
+            int key = Integer.valueOf(input.ask("select: "));
+            menu.select(key);
+        } while (!"y".equals(this.input.ask("Exit? y : ")));
+
     }
 
 
@@ -120,25 +130,19 @@ public class StartUI {
      */
     private void editItem() {
         System.out.println("--- Редактировать заявку ---");
-
         for (Item item : tracker.findAll()) {
-
             System.out.println(item.getName());
             System.out.println("Выберите заявку...");
-
             String oldName = this.input.ask("Укажите имя существующей заявки");
 
             if (item.getName().equals(oldName)) {
-
                 String newName = this.input.ask("Введите новое имя заявки");
                 String newDesc = this.input.ask("Введите новое описание для заявки");
 
                 item.name = newName;
                 item.description = newDesc;
-
                 tracker.replace(item.getId(), item);
                 break;
-
             }
             System.out.println("--- Заявка изменена. ---");
         }
