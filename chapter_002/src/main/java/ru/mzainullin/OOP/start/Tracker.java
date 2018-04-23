@@ -31,6 +31,21 @@ public class Tracker {
 
 
     /**
+     * Новый метод перезаписи заявки по id
+     * @param newId - перезапись
+     */
+    public void edit(Item newId) {
+        for (int index = 0; index != items.length; index++) {
+            Item item = items[index];
+            if (item != null && item.getId().equals(newId.getId())) {
+                items[index] = newId;
+                break;
+            }
+        }
+    }
+
+
+    /**
      * Метод реализаущий замену заявки по id
      * @param item новая заявка
      * @param id = номер id заявки

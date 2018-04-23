@@ -52,8 +52,7 @@ class DeleteItem implements UserAction {
 
 
 /**
- * find task by id class
- * Удаляет но вылетает ошибка nullpointer.
+ * find task by id clas
  */
 class FindById implements UserAction {
     public int key() {
@@ -77,7 +76,6 @@ class FindById implements UserAction {
 
 /**
  * find task by id class
- * Удаляет но вылетает ошибка nullpointer.
  */
 class FindByName implements UserAction {
     public int key() {
@@ -165,7 +163,9 @@ public class MenuTracker {
 
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.findAll()) {
-                System.out.println(String.format("%s. %s", item.getId(), item.getName()));
+                if (item != null) {
+                    System.out.println(String.format("%s. %s", item.getId(), item.getName()));
+                }
             }
         }
 
