@@ -5,6 +5,27 @@ import ru.mzainullin.oop.models.Task;
 
 
 /**
+ * Exit class
+ */
+class ExitProgramm implements UserAction {
+    public int key() {
+        return 6;
+    }
+
+    public void execute(Input input, Tracker tracker) {
+        String answer = input.ask("select: ");
+        if("6".equals(answer)) {
+            System.exit(1);
+        }
+    }
+
+    public String info() {
+        return String.format("%s. %s", this.key(), "Exit Programm");
+    }
+}
+
+
+/**
  * edit class
  */
 class EditItem implements UserAction {
@@ -120,6 +141,7 @@ public class MenuTracker {
         this.actions[3] = new DeleteItem();
         this.actions[4] = new FindById();
         this.actions[5] = new FindByName();
+        this.actions[6] = new ExitProgramm();
     }
 
     public void select(int key) {

@@ -11,7 +11,7 @@ import ru.mzainullin.oop.models.Item;
 public class StartUI {
 
     // Переделать значения должны быть из меню.
-    private int[] ranges = new int[] {0, 1, 2, 3, 4, 5};
+    private int[] ranges = new int[] {0, 1, 2, 3, 4, 5, 6};
 
     //Получение данных от пользователя.
     private final Input input;
@@ -41,11 +41,14 @@ public class StartUI {
             menu.show();
             menu.select(input.ask("select:", ranges));
         } while (!"y".equals(this.input.ask("Exit? y/n : ")));
+
+
     }
 
 
     public static void main(String[] args) {
-        Input input = new ValidateInput();
+        Item item = new Item();
+        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, new Tracker()).init();
     }
 
