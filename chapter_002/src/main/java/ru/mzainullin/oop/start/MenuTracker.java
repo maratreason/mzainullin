@@ -39,7 +39,7 @@ class DeleteItem implements UserAction {
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Enter task's id you want to delete: ");
         for (Item item : tracker.findAll()) {
-            if (item.getId().equals(id)) {
+            if (item != null && item.getId().equals(id)) {
                 tracker.delete(item.getId());
             }
         }

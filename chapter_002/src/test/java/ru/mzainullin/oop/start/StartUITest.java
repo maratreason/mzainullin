@@ -37,13 +37,11 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameNameRef() {
         Tracker tracker = new Tracker();     // создаём Tracker
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});   //создаём StubInput с последовательностью действий
-        new StartUI(input, tracker).init();     //   создаём StartUI и вызываем метод init()
+        new StartUI(input, tracker).init();
         Item item = tracker.add(new Item("first", "first desc"));
 
         assertThat(tracker.findById(item.getId()).getName(),
-                is( new StringBuilder()
-                        .append("first").toString()
-                )
+                is(new StringBuilder().append("first").toString())
         );
     }
 
@@ -60,9 +58,7 @@ public class StartUITest {
         new StartUI(input, tracker).init();
 
         assertThat(tracker.findById(item.getId()).getName(),
-            is( new StringBuilder()
-                    .append("test name").toString()
-            )
+            is(new StringBuilder().append("test name").toString())
         );
     }
 
@@ -72,16 +68,14 @@ public class StartUITest {
         // создаём Tracker
         Tracker tracker = new Tracker();
         //Напрямую добавляем заявку
-        Item item = tracker.add(new Item( "second name", "second desc"));
+        Item item = tracker.add(new Item("second name", "second desc"));
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"2", item.getName(), "third name", "third desc", "6"});
+        Input input = new StubInput(new String[] {"2", item.getName(), "third name", "third desc", "6"});
         // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker).init();
 
         assertThat(tracker.findById(item.getId()).getName(),
-                is( new StringBuilder()
-                        .append("third name").toString()
-                )
+                is(new StringBuilder().append("third name").toString())
         );
     }
 
@@ -91,17 +85,15 @@ public class StartUITest {
         // создаём Tracker
         Tracker tracker = new Tracker();
         //Напрямую добавляем 2 заявки item и item1
-        Item item = tracker.add(new Item( "first name", "first desc"));
-        Item item1 = tracker.add(new Item( "second name", "second desc"));
+        Item item = tracker.add(new Item("first name", "first desc"));
+        Item item1 = tracker.add(new Item("second name", "second desc"));
         //создаём StubInput с последовательностью действий
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
         // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker).init();
 
         assertThat(tracker.findById(item1.getId()).getName(),
-                is( new StringBuilder()
-                        .append("second name").toString()
-                )
+                is(new StringBuilder().append("second name").toString())
         );
     }
 
@@ -118,9 +110,7 @@ public class StartUITest {
         new StartUI(input, tracker).init();
 
         assertThat(tracker.findById(item.getId()).getId(),
-                is( new StringBuilder()
-                        .append(item.getId()).toString()
-                )
+                is(new StringBuilder().append(item.getId()).toString())
         );
     }
 
@@ -137,9 +127,7 @@ public class StartUITest {
         new StartUI(input, tracker).init();
 
         assertThat(tracker.findById(item.getId()).getName(),
-                is( new StringBuilder()
-                        .append(item.getName()).toString()
-                )
+                is(new StringBuilder().append(item.getName()).toString())
         );
     }
 

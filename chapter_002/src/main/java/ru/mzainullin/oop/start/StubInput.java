@@ -19,4 +19,15 @@ public class StubInput implements Input {
         return this.answers[this.position++];
     }
 
+    /**
+     *
+     * @param question - первый параметр
+     * @param range - второй параметр. диапазон
+     * @return -1
+     */
+    public int ask(String question, int[] range) {
+//        throw new UnsupportedOperationException("Unsupported operation");
+        return -1;
+    }
+
 }

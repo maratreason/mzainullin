@@ -6,5 +6,18 @@ package ru.mzainullin.oop.start;
  * @since 02.04.2018
  */
 public interface Input {
+	/**
+	 *
+	 * @param question - Вопрос
+	 * @return - Ответ
+	 */
 	String ask(String question);
+
+	/**
+	 *
+	 * @param question - Вопрос
+	 * @param range - Диапазон
+	 * @return - Ответ
+	 */
+	int ask(String question, int[] range);
 }
