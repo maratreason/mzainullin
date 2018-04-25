@@ -4,9 +4,6 @@ import ru.mzainullin.oop.models.Item;
 import ru.mzainullin.oop.models.Task;
 
 
-/**
- * exit class
- */
 class Exit implements UserAction {
 
     public int key() {
@@ -22,9 +19,7 @@ class Exit implements UserAction {
     }
 }
 
-/**
- * edit class
- */
+
 class EditItem implements UserAction {
     public int key() {
         return 2;
@@ -45,9 +40,6 @@ class EditItem implements UserAction {
 }
 
 
-/**
- * delete class
- */
 class DeleteItem implements UserAction {
     public int key() {
         return 3;
@@ -68,9 +60,6 @@ class DeleteItem implements UserAction {
 }
 
 
-/**
- * find task by id class
- */
 class FindById implements UserAction {
     public int key() {
         return 4;
@@ -91,9 +80,6 @@ class FindById implements UserAction {
 }
 
 
-/**
- * find task by name class
- */
 class FindByName implements UserAction {
     public int key() {
         return 5;
@@ -144,9 +130,6 @@ public class MenuTracker {
         this.actions[key].execute(this.input, this.tracker);
     }
 
-    /**
-     * Метод печатающий заявку.
-     */
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
@@ -154,6 +137,7 @@ public class MenuTracker {
             }
         }
     }
+
 
     private class AddItem implements UserAction {
 

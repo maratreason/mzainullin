@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * @author Marat Zainullin
- * @version $Id$
+ * @version 1.0
  * @since 0.1
  */
 public class Tracker {
@@ -117,5 +117,4 @@ public class Tracker {
         }
         return result;
     }
-
 }
