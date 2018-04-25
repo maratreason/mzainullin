@@ -5,27 +5,6 @@ import ru.mzainullin.oop.models.Task;
 
 
 /**
- * Exit class
- */
-class ExitProgramm implements UserAction {
-    public int key() {
-        return 6;
-    }
-
-    public void execute(Input input, Tracker tracker) {
-        String answer = input.ask("select: ");
-        if("6".equals(answer)) {
-            System.exit(1);
-        }
-    }
-
-    public String info() {
-        return String.format("%s. %s", this.key(), "Exit Programm");
-    }
-}
-
-
-/**
  * edit class
  */
 class EditItem implements UserAction {
@@ -60,7 +39,7 @@ class DeleteItem implements UserAction {
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Enter task's id you want to delete: ");
         for (Item item : tracker.findAll()) {
-            if (item != null && item.getId().equals(id)) {
+            if (item.getId().equals(id)) {
                 tracker.delete(item.getId());
             }
         }
@@ -73,7 +52,8 @@ class DeleteItem implements UserAction {
 
 
 /**
- * find task by id clas
+ * find task by id class
+ * Удаляет но вылетает ошибка nullpointer.
  */
 class FindById implements UserAction {
     public int key() {
@@ -97,6 +77,7 @@ class FindById implements UserAction {
 
 /**
  * find task by id class
+ * Удаляет но вылетает ошибка nullpointer.
  */
 class FindByName implements UserAction {
     public int key() {
@@ -134,6 +115,10 @@ public class MenuTracker {
         this.tracker = tracker;
     }
 
+    public void init() {
+
+    }
+
     public void fillActions() {
         this.actions[0] = this.new AddItem();
         this.actions[1] = new MenuTracker.ShowItems();
@@ -141,7 +126,6 @@ public class MenuTracker {
         this.actions[3] = new DeleteItem();
         this.actions[4] = new FindById();
         this.actions[5] = new FindByName();
-        this.actions[6] = new ExitProgramm();
     }
 
     public void select(int key) {
@@ -185,9 +169,7 @@ public class MenuTracker {
 
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.findAll()) {
-                if (item != null) {
-                    System.out.println(String.format("%s. %s", item.getId(), item.getName()));
-                }
+                System.out.println(String.format("%s. %s", item.getId(), item.getName()));
             }
         }
 

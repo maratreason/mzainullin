@@ -28,7 +28,7 @@ public class ConsoleInput implements Input {
 	 * @param range - второй параметр. диапазон
 	 * @return exception or key
 	 */
-	public int ask(String question, int[] range) {
+	/*public int ask(String question, int[] range) {
 		int key = Integer.valueOf(this.ask(question));
 		boolean exist = false;
 		for (int value : range) {
@@ -42,6 +42,6 @@ public class ConsoleInput implements Input {
 		} else {
 			throw new MenuOutException("Вы вышли за пределы выбора пунктов меню.");
 		}
-	}
+	}*/
 
 }
