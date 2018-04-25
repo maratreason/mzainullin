@@ -50,14 +50,13 @@ public class StartUITest {
     public void whenUserChooseShowAllItemsRef() {
         Tracker tracker = new Tracker();     // создаём Tracker
 
-        Item item = tracker.add(new Item());
+        Item item = tracker.add(new Item("test name", "desc"));
         item.setId("1234");
-        //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"1", item.getId(), "test name", "desc", "6"});
-        // создаём StartUI и вызываем метод init()
+
+        Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
 
-        assertThat(tracker.findById(item.getId()).getName(),
+        assertThat(tracker.findAll()[0].getName(),
             is(new StringBuilder().append("test name").toString())
         );
     }
@@ -70,7 +69,7 @@ public class StartUITest {
         //Напрямую добавляем заявку
         Item item = tracker.add(new Item("second name", "second desc"));
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[] {"2", item.getName(), "third name", "third desc", "6"});
+        Input input = new StubInput(new String[] {"2", item.getId(), "third name", "third desc", "6"});
         // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker).init();
 
@@ -130,6 +129,5 @@ public class StartUITest {
                 is(new StringBuilder().append(item.getName()).toString())
         );
     }
-
 
 }

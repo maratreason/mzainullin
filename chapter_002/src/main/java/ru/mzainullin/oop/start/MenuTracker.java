@@ -5,6 +5,24 @@ import ru.mzainullin.oop.models.Task;
 
 
 /**
+ * exit class
+ */
+class Exit implements UserAction {
+
+    public int key() {
+        return 6;
+    }
+
+    public void execute(Input input, Tracker tracker) {
+
+    }
+
+    public String info() {
+        return String.format("%s. %s", this.key(), "Exit");
+    }
+}
+
+/**
  * edit class
  */
 class EditItem implements UserAction {
@@ -29,7 +47,6 @@ class EditItem implements UserAction {
 
 /**
  * delete class
- * Удаляет но вылетает ошибка nullpointer.
  */
 class DeleteItem implements UserAction {
     public int key() {
@@ -53,7 +70,6 @@ class DeleteItem implements UserAction {
 
 /**
  * find task by id class
- * Удаляет но вылетает ошибка nullpointer.
  */
 class FindById implements UserAction {
     public int key() {
@@ -76,8 +92,7 @@ class FindById implements UserAction {
 
 
 /**
- * find task by id class
- * Удаляет но вылетает ошибка nullpointer.
+ * find task by name class
  */
 class FindByName implements UserAction {
     public int key() {
@@ -108,15 +123,11 @@ public class MenuTracker {
 
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[6];
+    private UserAction[] actions = new UserAction[7];
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
-    }
-
-    public void init() {
-
     }
 
     public void fillActions() {
@@ -126,6 +137,7 @@ public class MenuTracker {
         this.actions[3] = new DeleteItem();
         this.actions[4] = new FindById();
         this.actions[5] = new FindByName();
+        this.actions[6] = new Exit();
     }
 
     public void select(int key) {
