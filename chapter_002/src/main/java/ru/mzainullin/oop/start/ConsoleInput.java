@@ -12,6 +12,7 @@ public class ConsoleInput implements Input {
 	private Scanner scn = new Scanner(System.in);
 
 	/**
+	 * Метод ввода данных пользователя.
 	 * При каждом вызове метода ask мы увеличиваем счетчик и
 	 * при следующем вызове он вернет нам новое значение.
 	 * @param question - вопрос
@@ -23,12 +24,12 @@ public class ConsoleInput implements Input {
 	}
 
 	/**
-	 *
+	 * Перегруженный метод ввода данных пользователя.
 	 * @param question - первый параметр
 	 * @param range - второй параметр. диапазон
 	 * @return exception or key
 	 */
-	/*public int ask(String question, int[] range) {
+	public int ask(String question, int[] range) {
 		int key = Integer.valueOf(this.ask(question));
 		boolean exist = false;
 		for (int value : range) {
@@ -42,6 +43,6 @@ public class ConsoleInput implements Input {
 		} else {
 			throw new MenuOutException("Вы вышли за пределы выбора пунктов меню.");
 		}
-	}*/
+	}
 
 }

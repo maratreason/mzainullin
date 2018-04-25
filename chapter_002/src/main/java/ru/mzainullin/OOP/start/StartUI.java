@@ -1,8 +1,10 @@
 package ru.mzainullin.oop.start;
 
+import ru.mzainullin.oop.models.Item;
+
 /**
  * @author Marat Zainullin (maratreason@mail.ru)
- * @version 1.0
+ * @version 1.1
  * @since 18.03.2018
  * Консольное приложение
  */
@@ -10,8 +12,13 @@ public class StartUI {
 
     private final Input input;
     private final Tracker tracker;
+    private int[] ranges = new int[] {0, 1, 2, 3, 4, 5, 6, 7};
 
-
+    /**
+     * Конструтор инициализирующий поля.
+     * @param input ввод данных.
+     * @param tracker хранилище заявок.
+     */
     public StartUI(Input input, Tracker tracker) {
         this.tracker = tracker;
         this.input = input;
@@ -24,7 +31,7 @@ public class StartUI {
         menu.fillActions();
         while(!exit) {
             menu.show();
-            int key = Integer.valueOf(input.ask("select: "));
+            int key = Integer.valueOf(input.ask("select: ", ranges));
             menu.select(key);
             if("6".equals(String.valueOf(key))) {
                 exit = true;
@@ -34,7 +41,8 @@ public class StartUI {
 
 
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        Input input = new ValidateInput();
+        new StartUI(input, new Tracker()).init();
     }
 
 }

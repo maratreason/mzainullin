@@ -48,7 +48,7 @@ class DeleteItem implements UserAction {
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Enter task's id you want to delete: ");
         for (Item item : tracker.findAll()) {
-            if (item.getId().equals(id)) {
+            if (item != null && item.getId().equals(id)) {
                 tracker.delete(item.getId());
             }
         }
@@ -103,7 +103,7 @@ class FindByName implements UserAction {
 /**
  * @author Marat Zainullin
  * @version 1.1
- * @since 20.04.2018
+ * @since 25.04.2018
  */
 public class MenuTracker {
 
@@ -130,6 +130,7 @@ public class MenuTracker {
         this.actions[key].execute(this.input, this.tracker);
     }
 
+
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
@@ -137,7 +138,6 @@ public class MenuTracker {
             }
         }
     }
-
 
     private class AddItem implements UserAction {
 
@@ -165,7 +165,9 @@ public class MenuTracker {
 
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.findAll()) {
-                System.out.println(String.format("%s. %s", item.getId(), item.getName()));
+                if (item != null) {
+                    System.out.println(String.format("%s. %s", item.getId(), item.getName()));
+                }
             }
         }
 
