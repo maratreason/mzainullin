@@ -2,9 +2,14 @@ package ru.mzainullin.oop.start;
 
 public class ValidateInput extends ConsoleInput {
 
-    ConsoleInput consoleInput;
-    public ValidateInput(ConsoleInput consoleInput1) {
-        this.consoleInput = consoleInput1;
+    private final Input input;
+
+    public ValidateInput(final Input input) {
+        this.input = input;
+    }
+
+    public String ask(String question) {
+        return this.input.ask(question);
     }
 
     public int ask(String question, int[] range) {
@@ -22,5 +27,4 @@ public class ValidateInput extends ConsoleInput {
         } while (invalid);
         return value;
     }
-
 }
