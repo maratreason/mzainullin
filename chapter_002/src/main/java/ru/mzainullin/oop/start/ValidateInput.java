@@ -2,6 +2,11 @@ package ru.mzainullin.oop.start;
 
 public class ValidateInput extends ConsoleInput {
 
+    ConsoleInput consoleInput;
+    public ValidateInput(ConsoleInput consoleInput1) {
+        this.consoleInput = consoleInput1;
+    }
+
     public int ask(String question, int[] range) {
         boolean invalid = true;
         int value = -1;
