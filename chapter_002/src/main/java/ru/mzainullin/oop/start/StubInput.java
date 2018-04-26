@@ -29,5 +29,4 @@ public class StubInput implements Input {
 //        throw new UnsupportedOperationException("Unsupported operation");
         return -1;
     }
-
 }

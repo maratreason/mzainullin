@@ -44,5 +44,4 @@ public class ConsoleInput implements Input {
 			throw new MenuOutException("Вы вышли за пределы выбора пунктов меню.");
 		}
 	}
-
 }
