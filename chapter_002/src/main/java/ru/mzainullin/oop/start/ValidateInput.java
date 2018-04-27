@@ -1,5 +1,10 @@
 package ru.mzainullin.oop.start;
 
+/**
+ * @author Marat Zainullin (maratreason@mail.ru)
+ * @version 1.0
+ * @since 26.04.2018
+ */
 public class ValidateInput implements Input {
 
     private final Input input;

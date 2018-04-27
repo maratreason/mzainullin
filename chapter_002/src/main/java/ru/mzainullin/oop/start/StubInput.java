@@ -20,7 +20,7 @@ public class StubInput implements Input {
     }
 
     /**
-     *
+     * Перегруженный метод ask.
      * @param question - первый параметр
      * @param range - второй параметр. диапазон
      * @return -1
