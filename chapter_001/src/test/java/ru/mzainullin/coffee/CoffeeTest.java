@@ -16,5 +16,4 @@ public class CoffeeTest {
         CoffeeMachine coffee = new CoffeeMachine();
         assertThat(coffee.changes(98, 35), is("10 10 10 10 10 10 2 1"));
     }
-
 }
