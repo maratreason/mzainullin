@@ -22,14 +22,12 @@ public class PriorityQueue {
 //            this.tasks.add(task);
 //        }
 
-        for (int index = 0; index < tasks.size(); index++) {
+        for (int index = 0; index < this.tasks.size(); index++) {
             if (task.getPriority() <= tasks.get(index).getPriority()) {
-                tasks.addFirst(task);
-                break;
-            } else {
-                tasks.add(index, task);
+                this.tasks.add(index, task);
                 break;
             }
+            this.tasks.add(task);
         }
     }
 
@@ -40,11 +38,6 @@ public class PriorityQueue {
     public static void main(String[] args) {
 
         LinkedList<Task> tasks1 = new LinkedList<>();
-//        tasks1.add(new Task("1 Задача низкого приоритета", 5));
-//        tasks1.add(new Task("2 Задача высокого приоритета", 1));
-//        tasks1.add(new Task("3 Задача высокого приоритета", 1));
-//        tasks1.add(new Task("4 Задача низкого приоритета", 5));
-//        tasks1.add(new Task("5 Задача среднего приоритета", 3));
 
         PriorityQueue queue = new PriorityQueue();
         queue.put(new Task("1 Задача низкого приоритета", 5));
@@ -53,14 +46,8 @@ public class PriorityQueue {
         queue.put(new Task("4 Задача низкого приоритета", 5));
         queue.put(new Task("5 Задача среднего приоритета", 3));
 
-        for (int index = 0; index < tasks1.size(); index++) {
-            tasks1 = queue.take();
-//            tasks1.add(index, queue.take());
-        }
 
-        for (Task task : tasks1) {
-            System.out.println(task.getPriority() + " : " + task.getDesc());
-        }
 
     }
+
 }
