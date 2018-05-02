@@ -27,8 +27,8 @@ public class PriorityQueue {
                 this.tasks.add(index, task);
                 break;
             }
-            this.tasks.add(task);
         }
+        this.tasks.add(task);
     }
 
     public Task take() {
@@ -37,16 +37,12 @@ public class PriorityQueue {
 
     public static void main(String[] args) {
 
-        LinkedList<Task> tasks1 = new LinkedList<>();
-
         PriorityQueue queue = new PriorityQueue();
         queue.put(new Task("1 Задача низкого приоритета", 5));
         queue.put(new Task("2 Задача высокого приоритета", 1));
         queue.put(new Task("3 Задача высокого приоритета", 1));
         queue.put(new Task("4 Задача низкого приоритета", 5));
         queue.put(new Task("5 Задача среднего приоритета", 3));
-
-
 
     }
 
