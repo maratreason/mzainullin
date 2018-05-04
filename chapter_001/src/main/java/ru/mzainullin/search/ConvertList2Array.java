@@ -1,5 +1,6 @@
 package ru.mzainullin.search;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,6 +9,7 @@ import java.util.List;
  * @since 02.05.2018
  */
 public class ConvertList2Array {
+
     public int[][] toArray(List<Integer> list, int rows) {
         int cells = (int) Math.ceil((double) list.size() / rows);
         int[][] array = new int[rows][cells];
@@ -22,4 +24,25 @@ public class ConvertList2Array {
         }
         return array;
     }
+
+
+    public List<Integer> convert (List<int[]> list) {
+
+        List<Integer> newList = new ArrayList<>();
+
+        for (int[] arr : list) {
+            for(int fromArr : arr) {
+                newList.add(fromArr);
+            }
+        }
+        return newList;
+    }
+
+    /*
+    *   list.add(new int[]{1, 2})
+    *   list.add(new int[]{3, 4, 5, 6})
+    *   List<Integer> result = convertList.convert(list)
+    *
+    *   List<Integer> result будет содержать элементы: (1, 2, 3, 4, 5, 6)
+    * */
 }
