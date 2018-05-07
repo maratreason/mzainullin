@@ -20,13 +20,9 @@ public class UserConvert {
      * @return - ассоциативный массив
      */
     public HashMap<Integer, User> process(List<User> list) {
-
         HashMap<Integer, User> users = new HashMap<Integer, User>();
-
         User user = new User();
-
         Iterator<User> it = list.iterator();
-
         while (it.hasNext()) {
             users.put(user.getId(), it.next());
         }
