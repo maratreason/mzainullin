@@ -1,9 +1,7 @@
 package ru.mzainullin.search;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Marat Zainullin
@@ -20,11 +18,9 @@ public class UserConvert {
      * @return - ассоциативный массив
      */
     public HashMap<Integer, User> process(List<User> list) {
-        HashMap<Integer, User> users = new HashMap<Integer, User>();
-        User user = new User();
-        Iterator<User> it = list.iterator();
-        while (it.hasNext()) {
-            users.put(user.getId(), it.next());
+        HashMap<Integer, User> users = new HashMap<>();
+        for (User currentUser : list) {
+            users.put(currentUser.getId(), currentUser);
         }
         return users;
     }
