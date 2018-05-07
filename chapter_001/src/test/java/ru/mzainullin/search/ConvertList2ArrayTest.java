@@ -34,21 +34,14 @@ public class ConvertList2ArrayTest {
     public void whenGetListAndConvertToNewList() {
         int[] num = {1, 2, 3, 4, 5};
         ConvertList2Array list = new ConvertList2Array();
-        List<int[]> someList = new ArrayList<int[]>();
+        List<int[]> someList = new ArrayList<>();
         someList.addAll(Arrays.asList(num));
+
         someList.add(new int[]{7, 8, 9});
 
-        List<Integer> newList = new ArrayList<>();
+        List<Integer> new2List = new ArrayList<>();
+        new2List.addAll(list.convert(someList));
 
-        someList.toArray();
-
-        for (int[] arr : someList) {
-            for(int nums : arr) {
-                newList.add(nums);
-            }
-
-        }
-
-        assertThat(list.convert(someList), is(newList));
+        assertThat(list.convert(someList), is(new2List));
     }
 }
