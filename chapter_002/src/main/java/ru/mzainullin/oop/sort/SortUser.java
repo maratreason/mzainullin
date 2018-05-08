@@ -19,8 +19,8 @@ public class SortUser {
         User user = new User();
 
         for (int i = 0; i < lists.size(); i++) {
-            int s = user.compareTo(lists.get(i).getAge());
-            newSet.add(list);
+            int s = user.compareTo(lists.get(i));
+            newSet.add(lists.get(i));
         }
 
         return newSet;

@@ -31,5 +31,4 @@ public class User implements Comparable<User> {
         return new Integer(b).compareTo(new Integer(a));
     }
 
-
 }
