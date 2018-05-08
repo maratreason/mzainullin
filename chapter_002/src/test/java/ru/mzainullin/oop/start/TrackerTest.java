@@ -2,7 +2,6 @@ package ru.mzainullin.oop.start;
 
 import org.junit.Test;
 import ru.mzainullin.oop.models.Item;
-import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -14,7 +13,7 @@ public class TrackerTest {
          Tracker tracker = new Tracker();
          Item item = new Item("test1", "testDescription", 123L);
          tracker.add(item);
-         assertThat(tracker.findAll()[0], is(item));
+         assertThat(tracker.findAll().get(0), is(item));
      }
 
     @Test
@@ -35,7 +34,7 @@ public class TrackerTest {
         tracker.delete(previous.getId());
 
         // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findAll()[0].getName(), is("test2"));
+        assertThat(tracker.findAll().get(0).getName(), is("test2"));
     }
 
     @Test
@@ -110,6 +109,6 @@ public class TrackerTest {
         tracker.findAll();
 
         // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findAll()[0].getName(), is("Задача"));
+        assertThat(tracker.findAll().get(0).getName(), is("Задача"));
     }
 }

@@ -3,7 +3,7 @@ package ru.mzainullin.oop.start;
 /**
  * @author Marat Zainullin (maratreason@mail.ru)
  * @version 1.2
- * @since 27.04.2018
+ * @since 07.05.2018
  * Консольное приложение
  */
 public class StartUI {
@@ -47,7 +47,6 @@ public class StartUI {
 
 
     public static void main(String[] args) {
-
         new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
     }
 }

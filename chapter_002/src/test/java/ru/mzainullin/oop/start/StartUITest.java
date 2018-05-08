@@ -47,22 +47,6 @@ public class StartUITest {
 
 
     @Test
-    public void whenUserChooseShowAllItemsRef() {
-        Tracker tracker = new Tracker();     // создаём Tracker
-
-        Item item = tracker.add(new Item("test name", "desc"));
-        item.setId("1234");
-
-        Input input = new StubInput(new String[]{"1", "6"});
-        new StartUI(input, tracker).init();
-
-        assertThat(tracker.findAll()[0].getName(),
-            is(new StringBuilder().append("test name").toString())
-        );
-    }
-
-
-    @Test
     public void whenEditAndReplaceCurrentItemRef() {
         // создаём Tracker
         Tracker tracker = new Tracker();

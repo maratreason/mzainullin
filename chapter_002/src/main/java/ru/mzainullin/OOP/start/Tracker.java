@@ -1,13 +1,12 @@
 package ru.mzainullin.oop.start;
 
 import ru.mzainullin.oop.models.Item;
-
 import java.util.*;
 
 /**
  * @author Marat Zainullin
- * @version 1.1
- * @since 0.1
+ * @version 1.2
+ * @since 07.05.2018
  */
 public class Tracker {
 
@@ -16,7 +15,7 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-    private Item[] items = new Item[10];
+    private List<Item> items = new ArrayList<>();;
 
 
     /**
@@ -25,7 +24,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        items.add(item);
         return item;
     }
 
@@ -35,10 +34,10 @@ public class Tracker {
      * @param newId - перезапись
      */
     public void edit(Item newId) {
-        for (int index = 0; index != items.length; index++) {
-            Item item = items[index];
+        for (int index = 0; index != items.size(); index++) {
+            Item item = items.get(index);
             if (item != null && item.getId().equals(newId.getId())) {
-                items[index] = newId;
+                items.set(index, newId);
                 break;
             }
         }
@@ -52,8 +51,8 @@ public class Tracker {
      */
     public void replace(String id, Item item) {
         for (int index = 0; index != this.position; index++) {
-            if (items[index].getId().equals(id)) {
-                items[index] = item;
+            if (items.get(index).getId().equals(id)) {
+                items.get(index).setId(id);
                 break;
             }
         }
@@ -65,12 +64,9 @@ public class Tracker {
      * @param id
      */
     public void delete(String id) {
-        for (int index = 0; index != items.length - 1; index++) {
-            if (items[index].getId().equals(id)) {
-                Item[] result = new Item[items.length - 1];
-                System.arraycopy(items, 0, result, 0, index);
-                System.arraycopy(items, index + 1, result, index, items.length - index - 1);
-                items = result;
+        for (int index = 0; index != items.size() - 1; index++) {
+            if (items.get(index).getId().equals(id)) {
+                items.remove(index);
                 break;
             }
         }
@@ -81,12 +77,13 @@ public class Tracker {
      * Метод реализующий поиск всех имеющихся заявок
      * @return коллекция заявок
      */
-    public Item[] findAll() {
-        Item[] result = new Item[this.position];
-        for (int index = 0; index != this.position; index++) {
-            result[index] = this.items[index];
+    public List<Item> findAll() {
+        List<Item> showItems = new ArrayList<>();
+        for (Item item : items) {
+            showItems.add(item);
+//            System.out.println(String.format("%s, %s", item.getName(), item.getDescription()));
         }
-        return result;
+        return showItems;
     }
 
 
@@ -94,14 +91,14 @@ public class Tracker {
      * Метод реализующий поиск всех заявок по имени
      * @return текущее имя указанное в поиске
      */
-    public Item[] findByName(String key) {
-        Item[] result = new Item[position];
-        for (int index = 0; index != result.length; index++) {
-            if (result[index] != null && result[index].getName().equals(key)) {
-                result[index].getName();
+    public List<Item> findByName(String key) {
+        List<Item> item = new ArrayList<>();
+        for (int index = 0; index != item.size(); index++) {
+            if (item.get(index) != null && item.get(index).getName().equals(key)) {
+                item.get(index);
             }
         }
-        return result;
+        return item;
     }
 
 
@@ -110,13 +107,13 @@ public class Tracker {
      * @return result
      */
     public Item findById(String id) {
-        Item result = null;
-        for (Item item : items) {
-            if (item != null && item.getId().equals(id)) {
-                result = item;
+        Item item = new Item();
+        for (int index = 0; index < items.size(); index ++) {
+            if (items.get(index) != null && items.get(index).getId().equals(id)) {
+                item = items.get(index);
                 break;
             }
         }
-        return result;
+        return item;
     }
 }
