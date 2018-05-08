@@ -28,7 +28,7 @@ public class User implements Comparable<User> {
     public int compareTo(User o) {
         int a = this.getAge();
         int b = o.getAge();
-        return new Integer(b).compareTo(new Integer(a));
+        return new Integer(a).compareTo(new Integer(b));
     }
 
 }
