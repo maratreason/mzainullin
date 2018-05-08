@@ -14,13 +14,15 @@ public class SortUser {
      * @return отсортированный список.
      */
     public Set<User> sort (List<User> lists) {
-        Set<User> newSet = new TreeSet<>();
+        Set<User> newSet = new TreeSet<User>();
+
         User user = new User();
 
-        for (int index = 0; index != lists.size(); index++) {
-            user.compareTo(lists.get(index));
-            newSet.add(user);
+        for (int i = 0; i < lists.size(); i++) {
+            int s = user.compareTo(lists.get(i).getAge());
+            newSet.add(list);
         }
+
         return newSet;
     }
 }

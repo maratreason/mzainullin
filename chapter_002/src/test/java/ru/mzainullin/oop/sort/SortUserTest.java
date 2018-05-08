@@ -1,4 +1,4 @@
-package ru.mzainullin.oop.start.sort;
+package ru.mzainullin.oop.sort;
 
 import org.junit.Test;
 import ru.mzainullin.oop.sort.SortUser;
@@ -31,14 +31,15 @@ public class SortUserTest {
                 )
         );
 
-        newSet.addAll(sortUser.sort(users));
+
+        sortUser.sort(users);
+        newSet.addAll(users);
 
         assertThat(sortUser.sort(users).toString(), is(newSet.toString()));
 
         for(User s : newSet) {
             System.out.println(String.format("%s %s",s.getName(), s.getAge()));
         }
-
     }
 
 }
