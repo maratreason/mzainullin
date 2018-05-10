@@ -20,7 +20,7 @@ public class SortUserTest {
     public void whenPutListAndTakeSortedList() {
         SortUser sortUser = new SortUser();
         List<User> users = new ArrayList<>();
-        Set<User> newSet = new TreeSet<>();
+        TreeSet<User> newSet = new TreeSet<>();
 
         users.addAll(
                 Arrays.asList(
@@ -32,10 +32,10 @@ public class SortUserTest {
         );
 
 
-        sortUser.sort(users);
+        sortUser.sort(users, newSet);
         newSet.addAll(users);
 
-        assertThat(sortUser.sort(users).toString(), is(newSet.toString()));
+        assertThat(sortUser.sort(users, newSet).toString(), is(newSet.toString()));
 
         for(User s : newSet) {
             System.out.println(String.format("%s %s",s.getName(), s.getAge()));

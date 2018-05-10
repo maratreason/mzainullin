@@ -13,12 +13,12 @@ public class SortUser {
      * Метод сортировки пользователей по возрасту
      * @return отсортированный список.
      */
-    public Set<User> sort (List<User> lists) {
-        Set<User> newSet = new TreeSet<User>();
+    public Set<User> sort (List<User> lists, TreeSet<User> newSet) {
         for (int i = 0; i < lists.size(); i++) {
             newSet.add(lists.get(i));
         }
         return newSet;
     }
+
 }
 
