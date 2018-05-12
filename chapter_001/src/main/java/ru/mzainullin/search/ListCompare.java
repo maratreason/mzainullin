@@ -1,5 +1,6 @@
 package ru.mzainullin.search;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -9,18 +10,27 @@ import java.util.List;
  * @since 10.05.2018
  */
 public class ListCompare implements Comparator<String> {
+
     @Override
     public int compare(String left, String right) {
 
-        for (int i = 0; i != left.length(); i++) {
-            for (int j = 0; j != right.length(); j++) {
+        int result = 0;
 
+        char[] leftValue = left.toCharArray();
+        char[] rightValue = right.toCharArray();
+
+        for (int i = 0; i != leftValue.length; i++) {
+            for (int j = 0; j != rightValue.length; j++) {
+                if (leftValue.length > rightValue.length) {
+                    result = -1;
+                } if (leftValue.length < rightValue.length) {
+                    result = 1;
+                } else {
+                    result = 0;
+                }
             }
         }
-
-
-
-        return 0;
+        return result;
     }
 }
 
