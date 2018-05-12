@@ -1,5 +1,8 @@
 package ru.mzainullin.coffee;
 
+import java.util.Arrays;
+import java.util.OptionalInt;
+
 /**
  * @author Marat Zainullin
  * @version 1.0
@@ -16,19 +19,32 @@ public class CoffeeMachine {
         int backMoney = value - price;
         int[] returnMoney = new int[100];
 
-        for (int i = 0; i < value; i++) {
-            if(coins[3] <= backMoney) {
-                returnMoney[position++] = coins[3];
-                backMoney -= coins[3];
-            } else if (coins[2] <= backMoney && coins[3] > backMoney) {
-                returnMoney[position++] = coins[2];
-                backMoney -= coins[2];
-            } else if (coins[1] <= backMoney && coins[2] > backMoney) {
-                returnMoney[position++] = coins[1];
-                backMoney -= coins[1];
-            } else if (coins[0] <= backMoney && coins[1] > backMoney) {
-                returnMoney[position++] = coins[0];
-                backMoney -= coins[0];
+//        for (int i = 0; i < value; i++) {
+//            if(coins[3] <= backMoney) {
+//                returnMoney[position++] = coins[3];
+//                backMoney -= coins[3];
+//            } else if (coins[2] <= backMoney && coins[3] > backMoney) {
+//                returnMoney[position++] = coins[2];
+//                backMoney -= coins[2];
+//            } else if (coins[1] <= backMoney && coins[2] > backMoney) {
+//                returnMoney[position++] = coins[1];
+//                backMoney -= coins[1];
+//            } else if (coins[0] <= backMoney && coins[1] > backMoney) {
+//                returnMoney[position++] = coins[0];
+//                backMoney -= coins[0];
+//            }
+//        }
+
+        for (int coin : coins) {
+            while (value - coin > 0) {
+                OptionalInt max = Arrays.stream(coins).max();
+                int maxCoin = max.getAsInt();
+                returnMoney[position++] = maxCoin;
+                if (backMoney < maxCoin) {
+
+                }
+                backMoney -= coin;
+                value -= coin;
             }
         }
 
