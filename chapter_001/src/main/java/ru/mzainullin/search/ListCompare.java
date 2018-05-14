@@ -14,23 +14,29 @@ public class ListCompare implements Comparator<String> {
     @Override
     public int compare(String left, String right) {
 
+        int size = Math.min(left.length(), right.length());
+
         int result = 0;
 
-        char[] leftValue = left.toCharArray();
-        char[] rightValue = right.toCharArray();
-
-        for (int i = 0; i != leftValue.length; i++) {
-            for (int j = 0; j != rightValue.length; j++) {
-                if (leftValue.length > rightValue.length) {
-                    result = -1;
-                } if (leftValue.length < rightValue.length) {
-                    result = 1;
-                } else {
-                    result = 0;
-                }
+        for (int i = 0; i != size; i++) {
+            if (result != 0) {
+                break;
+            }
+            if (left.charAt(i) == right.charAt(i)) {
+                result = 0;
+            } else if (left.charAt(i) > right.charAt(i)) {
+                result = left.length() - right.length();
+            } else if (left.charAt(i) < right.charAt(i)) {
+                result = right.length() - left.length();
             }
         }
-        return result;
+
+        if (result == 0 && left.length() != right.length()) {
+            result = left.length() - right.length();
+        } else {
+            result = right.length() - left.length();
+        }
+            return result;
     }
 }
 
