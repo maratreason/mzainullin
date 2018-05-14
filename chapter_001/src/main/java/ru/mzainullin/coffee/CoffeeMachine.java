@@ -40,16 +40,16 @@ public class CoffeeMachine {
                 OptionalInt max = Arrays.stream(coins).max();
                 int maxCoin = max.getAsInt();
                 returnMoney[position++] = maxCoin;
-                if (backMoney < maxCoin) {
-
-                }
+//                if (backMoney < maxCoin) {
+//
+//                }
                 backMoney -= coin;
                 value -= coin;
             }
         }
 
         for (int money : returnMoney) {
-            if(money == 0) {
+            if (money == 0) {
                 break;
             } else {
                 System.out.print(money + " ");

@@ -13,7 +13,7 @@ public class SortUser {
      * Метод сортировки пользователей по возрасту
      * @return отсортированный список.
      */
-    public Set<User> sort (List<User> lists, TreeSet<User> newSet) {
+    public Set<User> sort(List<User> lists, TreeSet<User> newSet) {
         for (int i = 0; i < lists.size(); i++) {
             newSet.add(lists.get(i));
         }
@@ -24,7 +24,7 @@ public class SortUser {
      * Метод сортировки по длине имени
      * @return отсортированный список по длине имени
      */
-    public List<User> sortNameLength (List<User> lists) {
+    public List<User> sortNameLength(List<User> lists) {
         for (int index = 0; index != lists.size(); index++) {
             Collections.sort(lists);
         }
@@ -37,7 +37,7 @@ public class SortUser {
      * потом по возрасту.
      * @return отсортированный список
      */
-    public List<User> sortByAllFields (List<User> lists) {
+    public List<User> sortByAllFields(List<User> lists) {
         for (int index = 0; index != lists.size(); index++) {
             lists.sort(
                     Comparator.comparing(User::getName).thenComparing(User::getAge)

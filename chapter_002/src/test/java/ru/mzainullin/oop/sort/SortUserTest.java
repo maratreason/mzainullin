@@ -25,7 +25,7 @@ public class SortUserTest {
         users.addAll(
                 Arrays.asList(
                         new User("Filipp", 25),
-                        new User ("Zed", 15),
+                        new User("Zed", 15),
                         new User("Boris", 47),
                         new User("Asteriks", 34)
                 )
@@ -35,8 +35,8 @@ public class SortUserTest {
 
         assertThat(sortUser.sort(users, newSet).toString(), is(newSet.toString()));
 
-        for(User s : newSet) {
-            System.out.println(String.format("%s %s",s.getName(), s.getAge()));
+        for (User s : newSet) {
+            System.out.println(String.format("%s %s", s.getName(), s.getAge()));
         }
     }
 
@@ -48,7 +48,7 @@ public class SortUserTest {
         users.addAll(
                 Arrays.asList(
                         new User("Filipp", 25),
-                        new User ("Zed", 15),
+                        new User("Zed", 15),
                         new User("Boris", 47),
                         new User("Asteriks", 34)
                 )
@@ -57,8 +57,8 @@ public class SortUserTest {
         sortUser.sortNameLength(users);
         assertThat(sortUser.sortNameLength(users).toString(), is(users.toString()));
 
-        for(User s : users) {
-            System.out.println(String.format("%s %s",s.getName(), s.getAge()));
+        for (User s : users) {
+            System.out.println(String.format("%s %s", s.getName(), s.getAge()));
         }
     }
 
@@ -70,8 +70,8 @@ public class SortUserTest {
         users.addAll(
                 Arrays.asList(
                         new User("Zed", 25),
-                        new User ("Zed", 15),
-                        new User ("Alex", 48),
+                        new User("Zed", 15),
+                        new User("Alex", 48),
                         new User("Boris", 47),
                         new User("Boris", 34)
                 )
@@ -80,8 +80,8 @@ public class SortUserTest {
         sortUser.sortByAllFields(users);
         assertThat(sortUser.sortByAllFields(users).toString(), is(users.toString()));
 
-        for(User s : users) {
-            System.out.println(String.format("%s %s",s.getName(), s.getAge()));
+        for (User s : users) {
+            System.out.println(String.format("%s %s", s.getName(), s.getAge()));
         }
     }
 

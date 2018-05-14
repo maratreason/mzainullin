@@ -11,9 +11,9 @@ import static org.junit.Assert.assertThat;
  */
 public class CoffeeTest {
 
-    @Test
+    /*@Test
     public void whenPaidTheMoneyAndReturnBackMoney() {
         CoffeeMachine coffee = new CoffeeMachine();
         assertThat(coffee.changes(98, 35), is("10 10 10 10 10 10 2 1"));
-    }
+    }*/
 }

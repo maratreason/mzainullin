@@ -26,12 +26,12 @@ public class ConvertList2Array {
     }
 
 
-    public List<Integer> convert (List<int[]> list) {
+    public List<Integer> convert(List<int[]> list) {
 
         List<Integer> newList = new ArrayList<>();
 
         for (int[] arr : list) {
-            for(int fromArr : arr) {
+            for (int fromArr : arr) {
                 newList.add(fromArr);
             }
         }

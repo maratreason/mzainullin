@@ -44,6 +44,9 @@ public class PriorityQueue {
         queue.put(new Task("4 Задача низкого приоритета", 5));
         queue.put(new Task("5 Задача среднего приоритета", 3));
 
+        Task task = queue.take();
+        System.out.println(task.getPriority());
+
     }
 
 }

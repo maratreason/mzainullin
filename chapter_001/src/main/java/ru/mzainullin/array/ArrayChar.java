@@ -61,8 +61,6 @@ public class ArrayChar {
                     result = false;
                 }
             }
-
-
         }
         return result;
     }*/

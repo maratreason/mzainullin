@@ -21,7 +21,7 @@ public class UserConvertTest {
     public void whenConvertListToHaspMap() {
         UserConvert userConvert = new UserConvert();
         List<User> list = new ArrayList<>();
-        list.add(new User(0, "Ivan","Moscow"));
+        list.add(new User(0, "Ivan", "Moscow"));
 
         assertThat(userConvert.process(list).toString(), is("{0=User{id=0, name='Ivan', city='Moscow'}}"));
     }

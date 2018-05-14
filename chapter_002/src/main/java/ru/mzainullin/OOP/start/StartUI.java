@@ -29,11 +29,11 @@ public class StartUI {
         showMessage();
         menu.fillActions();
 
-        while(!exit) {
+        while (!exit) {
             menu.show();
             int key = Integer.valueOf(input.ask("select: ", ranges));
             menu.select(key);
-            if("6".equals(String.valueOf(key))) {
+            if ("6".equals(String.valueOf(key))) {
                 exit = true;
             }
         }

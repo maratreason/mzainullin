@@ -10,8 +10,6 @@ public class User {
     private String name;
     private String city;
 
-    public User() {}
-
     public User(int id, String name, String city) {
         this.id = id;
         this.name = name;
@@ -24,10 +22,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                '}';
+        return "User{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", city='" + city + '\''
+                + '}';
     }
 }
