@@ -23,37 +23,20 @@ public class ListCompare implements Comparator<String> {
                 break;
             }
             if (left.charAt(i) == right.charAt(i)) {
-                result = 0;
             } else if (left.charAt(i) > right.charAt(i)) {
-                result = left.length() - right.length();
+                result = Character.compare(left.charAt(i), right.charAt(i));
             } else if (left.charAt(i) < right.charAt(i)) {
-                result = right.length() - left.length();
+                result = Character.compare(right.charAt(i), left.charAt(i));
+            } else {
+                result = 0;
             }
         }
 
         if (result == 0 && left.length() != right.length()) {
-            result = left.length() - right.length();
+            result = left.compareTo(right);
         } else {
-            result = right.length() - left.length();
+            result = left.compareTo(right);
         }
             return result;
     }
 }
-
-/**
-* Очень часто возникает ситуация, когда нужно сравнить два слова.
-* У нас есть готовый метод String.compareTo.
-* В это задании нужно создать подобный метод самому.
-*
-* - Вам нужно реализовать компаратор для сравнения двух массивов символов.
-*
-* - Необходимо реализовать поэлементное сравнение двух списков, т.е. сравниваем элементы двух списков,
-* находящихся на одних и тех же позициях (по одним и тем же индексом). Сравнение в лексикографическом порядке.
-*
-* - В этом задании нельзя использовать метод String.compateTo.
-*
-* - Вы можете использовать:
-* String.charAt(int index)
-* Integer.compare(int left, int right),
-* Character.compare(char left, char right);
-*/
