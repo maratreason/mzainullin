@@ -8,4 +8,19 @@ package ru.mzainullin.bank;
 public class Account {
     private String value;
     private String requisites;
+
+    public Account(){}
+
+    public Account(String value, String req) {
+        this.requisites = req;
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "value='" + value + '\'' +
+                ", requisites='" + requisites + '\'' +
+                '}';
+    }
 }

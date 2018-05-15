@@ -12,6 +12,11 @@ public class User {
     private String name;
     private String passport;
 
+    public User(String name, String passport) {
+        this.name = name;
+        this.passport = passport;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,5 +29,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(name, passport);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", passport='" + passport + '\'' +
+                '}';
     }
 }
