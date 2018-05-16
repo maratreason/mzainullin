@@ -118,24 +118,17 @@ public class Bank {
 
             for (int index = 0; index != users.size(); index++) {
 
-                fromAccount && toAccount && getUserAccounts(users.get(index).getPassport()).transferMoney(toAccount), amount);
-                this.userListMap.get(user1).contains(account1)
-                        && this.treemap.get(user2).contains(account2)
-                        && getUserAccounts(user1, account1).transfer(
-                        getUserAccounts(user2, account2), amount);
+                getUserAccounts(users.get(index).getPassport()).transferMoney(fromAccount, toAccount, amount);
+//                this.userListMap.get(user1).contains(account1)
+//                        && this.treemap.get(user2).contains(account2)
+//                        && getUserAccounts(user1, account1).transfer(
+//                        getUserAccounts(user2, account2), amount);
 
             }
 
-
-
             isTransfer = true;
         }
-
         return isTransfer;
-    }
-
-    public static void main(String[] args) {
-
     }
 
 }
