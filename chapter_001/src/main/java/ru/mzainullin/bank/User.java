@@ -21,6 +21,8 @@ public class User {
 
     private String passport;
 
+    public User() {}
+
     public User(String name, String passport) {
         this.name = name;
         this.passport = passport;

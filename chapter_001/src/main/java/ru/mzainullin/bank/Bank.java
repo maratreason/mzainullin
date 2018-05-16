@@ -90,7 +90,48 @@ public class Bank {
      */
     public boolean transferMoney (String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         // если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
-        return true;
+        boolean isTransfer = false;
+
+        Map<User, List<Account>> srcMapUser = new HashMap<>();
+
+        for (User user : users) {
+            boolean fromAccount;
+            boolean toAccount;
+
+            // Вычислить откуда аккаунт откуда снимаются деньги
+            if (user.getPassport().equals(srcPassport)) {
+                for (Account acnt : accounts) {
+                    if (acnt.equals(srcRequisite)) {
+                        fromAccount = this.userListMap.get(user).contains(acnt);
+                    }
+                }
+            }
+
+            // Вычислить аккаунт куда перечисляются деньги
+            if (user.getPassport().equals(destPassport)) {
+                for (Account acnt : accounts) {
+                    if (acnt.equals(dstRequisite)) {
+                        toAccount = this.userListMap.get(user).contains(acnt);
+                    }
+                }
+            }
+
+            for (int index = 0; index != users.size(); index++) {
+
+                fromAccount && toAccount && getUserAccounts(users.get(index).getPassport()).transferMoney(toAccount), amount);
+                this.userListMap.get(user1).contains(account1)
+                        && this.treemap.get(user2).contains(account2)
+                        && getUserAccounts(user1, account1).transfer(
+                        getUserAccounts(user2, account2), amount);
+
+            }
+
+
+
+            isTransfer = true;
+        }
+
+        return isTransfer;
     }
 
     public static void main(String[] args) {
