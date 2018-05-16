@@ -13,49 +13,80 @@ public class Bank {
      * Список банковских счетов пользователей.
      */
     Map<User, List<Account>> userListMap = new HashMap<>();
+
+    /**
+     * Список пользователей.
+     */
+    List<User> users = new ArrayList<>();
+    List<Account> accounts = new ArrayList<>();
+
     /**
      * Метод добавления пользователя.
-     * @param user
+     * @param user - новый пользователь.
      */
     public void addUser(User user) {
-
+        userListMap.put(user, new ArrayList<>());
     }
+
 
     /**
      * Метод удаления пользователя.
-     * @param user
+     * @param user - удаляемый пользователь.
      */
-    public void deleteUser(User user) {}
+    public void deleteUser(User user) {
+        userListMap.remove(user);
+    }
+
 
     /**
      * Метод добавить счёт пользователю.
-     * @param passport
-     * @param account
+     * @param passport - номер паспорта
+     * @param account - номер счёта.
      */
-    public void addAccountToUser(String passport, Account account) {}
+    public void addAccountToUser(String passport, Account account) {
+        for (User user : users) {
+            userListMap.get(user).add(account);
+        }
+    }
+
 
     /**
      * Метод удалить один счёт пользователя.
-     * @param passport
-     * @param account
+     * @param passport - номер паспорта.
+     * @param account - номер счёта.
      */
-    public void deleteAccountFromUser(String passport, Account account) {}
+    public void deleteAccountFromUser(String passport, Account account) {
+        for (User user : users) {
+            if (user.getPassport().equals(passport)) {
+                userListMap.get(user).remove(account);
+            }
+        }
+    }
+
 
     /**
      * Метод получить список счетов для пользователя.
-     * @param passport
+     * @param passport - номер паспорта.
      */
-//    public List<Account> getUserAccounts (String passport) {
-//    }
+    public List<Account> getUserAccounts (String passport) {
+        List<Account> currentAccount = new ArrayList<>();
+        for (User user : users) {
+            if (user.getPassport().equals(passport)) {
+                currentAccount = this.userListMap.get(user);
+            }
+        }
+        return currentAccount;
+    }
+
 
     /**
      *  метод для перечисления денег с одного счёта на другой счёт
-     * @param srcPassport
-     * @param srcRequisite
-     * @param destPassport
-     * @param dstRequisite
-     * @param amount
-     * @return
+     * @param srcPassport - с какого паспорта перечислают деньги.
+     * @param srcRequisite - с какого реквизита перечислают деньги.
+     * @param destPassport - в текущий паспорт.
+     * @param dstRequisite - в текущий реквизит.
+     * @param amount - размер перечисленных денег.
+     * @return - деньги перечислены true/false.
      */
     public boolean transferMoney (String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         // если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
@@ -63,27 +94,6 @@ public class Bank {
     }
 
     public static void main(String[] args) {
-
-        List<Account> newList = new ArrayList<>();
-        newList.add(new Account("30000", "1230042132112321510"));
-        newList.add(new Account("40000", "1230042132112321510"));
-
-        Map<User, List<Account>> newMap = new HashMap<>();
-
-        List<User> users = new ArrayList<>();
-        users.add(new User("Ivan", "9304275748"));
-        users.add(new User("Sonya", "9403275755"));
-
-        for (int j = 0; j != users.size(); j++) {
-            newMap.put(users.get(j), newList);
-        }
-
-
-
-
-        for (Map.Entry<User, List<Account>> user : newMap.entrySet()) {
-            System.out.println(String.format("%s ", user));
-        }
 
     }
 

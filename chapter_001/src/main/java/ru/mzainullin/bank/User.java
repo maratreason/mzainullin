@@ -10,6 +10,15 @@ import java.util.Objects;
 public class User {
 
     private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
     private String passport;
 
     public User(String name, String passport) {
