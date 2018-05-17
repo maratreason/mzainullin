@@ -7,7 +7,7 @@ import java.util.Objects;
  * @version 1.0
  * @sicne 15.05.2018
  */
-public class User {
+public class User implements Comparable<User> {
 
     private String name;
 
@@ -48,5 +48,10 @@ public class User {
                 "name='" + name + '\'' +
                 ", passport='" + passport + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return this.getName().compareTo(o.getName());
     }
 }
