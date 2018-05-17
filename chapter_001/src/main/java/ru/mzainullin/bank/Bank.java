@@ -12,20 +12,16 @@ public class Bank {
     /**
      * Список банковских счетов пользователей.
      */
-    Map<User, List<Account>> userListMap = new HashMap<>();
+    Map<User, List<Account>> userListMap = new TreeMap<>();
 
-    /**
-     * Список пользователей.
-     */
-    List<User> users = new ArrayList<>();
-    List<Account> accounts = new ArrayList<>();
+    List<Account> accounts;
 
     /**
      * Метод добавления пользователя.
      * @param user - новый пользователь.
      */
     public void addUser(User user) {
-        userListMap.put(user, new ArrayList<>());
+        this.userListMap.putIfAbsent(user, accounts);
     }
 
 
@@ -34,7 +30,7 @@ public class Bank {
      * @param user - удаляемый пользователь.
      */
     public void deleteUser(User user) {
-        userListMap.remove(user);
+        this.userListMap.remove(user);
     }
 
 
@@ -44,8 +40,10 @@ public class Bank {
      * @param account - номер счёта.
      */
     public void addAccountToUser(String passport, Account account) {
-        for (User user : users) {
-            userListMap.get(user).add(account);
+        for (User user: this.userListMap.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                this.userListMap.get(user).add(account);
+            }
         }
     }
 
@@ -56,9 +54,9 @@ public class Bank {
      * @param account - номер счёта.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        for (User user : users) {
+        for (User user : this.userListMap.keySet()) {
             if (user.getPassport().equals(passport)) {
-                userListMap.get(user).remove(account);
+                this.userListMap.get(user).remove(account);
             }
         }
     }
@@ -70,7 +68,7 @@ public class Bank {
      */
     public List<Account> getUserAccounts (String passport) {
         List<Account> currentAccount = new ArrayList<>();
-        for (User user : users) {
+        for (User user : this.userListMap.keySet()) {
             if (user.getPassport().equals(passport)) {
                 currentAccount = this.userListMap.get(user);
             }
