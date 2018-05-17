@@ -9,6 +9,14 @@ public class Account {
     private String value;
     private String requisites;
 
+    public String getValue() {
+        return value;
+    }
+
+    public String getRequisites() {
+        return requisites;
+    }
+
     public Account(){}
 
     public Account(String value, String req) {
