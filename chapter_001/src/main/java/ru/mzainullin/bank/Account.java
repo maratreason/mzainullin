@@ -9,8 +9,13 @@ public class Account {
     private String value;
     private String requisites;
 
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public String getValue() {
         return value;
+
     }
 
     public String getRequisites() {

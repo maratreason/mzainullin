@@ -111,6 +111,30 @@ public class Bank {
                 }
             }
 
+            for (User transferUser : srcMapUser.keySet()) {
+                if (transferUser.getPassport().equals(srcPassport)) {
+                    for (int i = 0; i != newAccounts.size(); i++) {
+                        if (newAccounts.get(i).getValue().equals(srcRequisite)) {
+                            int num = Integer.parseInt(newAccounts.get(i).getValue());
+                            String result = new Double (num - amount).toString();
+                            newAccounts.get(i).setValue(result);
+                        }
+                    }
+                }
+            }
+
+            for (User transferUser : srcMapUser.keySet()) {
+                if (transferUser.getPassport().equals(destPassport)) {
+                    for (int i = 0; i != newAccounts.size(); i++) {
+                        if (newAccounts.get(i).getValue().equals(dstRequisite)) {
+                            int num = Integer.parseInt(newAccounts.get(i).getValue());
+                            String result = new Double (num + amount).toString();
+                            newAccounts.get(i).setValue(result);
+                        }
+                    }
+                }
+            }
+
             isTransfer = true;
         }
         return isTransfer;
@@ -130,6 +154,17 @@ public class Bank {
         someMap.put(new User("Irina", "8932341312"), someAccounts);
         someMap.put(new User("Ivan", "1152341314"), secondAccounts);
 
+        for (User user : someMap.keySet()) {
+            System.out.println(String.format("%s : %s", user, someMap.get(user)));
+        }
+
+        System.out.println("\n");
+
+        Bank bank = new Bank();
+        bank.transferMoney("1152341314", "11113654623",
+                "8932341312", "94543654623", 12000.0);
+
+        System.out.println("После транзакции:");
         for (User user : someMap.keySet()) {
             System.out.println(String.format("%s : %s", user, someMap.get(user)));
         }
