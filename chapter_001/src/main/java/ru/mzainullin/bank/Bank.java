@@ -78,7 +78,7 @@ public class Bank {
 
 
     /**
-     *  метод для перечисления денег с одного счёта на другой счёт
+     * Метод для перечисления денег с одного счёта на другой счёт
      * @param srcPassport - с какого паспорта перечислают деньги.
      * @param srcRequisite - с какого реквизита перечислают деньги.
      * @param destPassport - в текущий паспорт.
@@ -92,41 +92,48 @@ public class Bank {
 
         Map<User, List<Account>> srcMapUser = new HashMap<>();
 
-        for (User user : users) {
-            boolean fromAccount;
-            boolean toAccount;
+        for (User user : userListMap.keySet()) {
+            List<Account> newAccounts = new ArrayList<>();
 
-            // Вычислить откуда аккаунт откуда снимаются деньги
-            if (user.getPassport().equals(srcPassport)) {
-                for (Account acnt : accounts) {
+            for (Account acnt : accounts) {
+                // Вычислить аккаунт откуда снимаются деньги
+                if (user.getPassport().equals(srcPassport)) {
                     if (acnt.equals(srcRequisite)) {
-                        fromAccount = this.userListMap.get(user).contains(acnt);
+                        newAccounts.add(acnt);
+                        srcMapUser.put(user, newAccounts);
                     }
-                }
-            }
-
-            // Вычислить аккаунт куда перечисляются деньги
-            if (user.getPassport().equals(destPassport)) {
-                for (Account acnt : accounts) {
+                    // Вычислить аккаунт куда перечисляются деньги
+                } else if (user.getPassport().equals(destPassport)) {
                     if (acnt.equals(dstRequisite)) {
-                        toAccount = this.userListMap.get(user).contains(acnt);
+                        newAccounts.add(acnt);
+                        srcMapUser.put(user, newAccounts);
                     }
                 }
-            }
-
-            for (int index = 0; index != users.size(); index++) {
-
-                getUserAccounts(users.get(index).getPassport()).transferMoney(fromAccount, toAccount, amount);
-//                this.userListMap.get(user1).contains(account1)
-//                        && this.treemap.get(user2).contains(account2)
-//                        && getUserAccounts(user1, account1).transfer(
-//                        getUserAccounts(user2, account2), amount);
-
             }
 
             isTransfer = true;
         }
         return isTransfer;
+    }
+
+    public static void main(String[] args) {
+        Map<User, List<Account>> someMap = new TreeMap<>();
+
+        List<Account> someAccounts = new ArrayList<>();
+        someAccounts.add(new Account("30000", "94543654623"));
+        someAccounts.add(new Account("40000", "94543654623"));
+
+        List<Account> secondAccounts = new ArrayList<>();
+        secondAccounts.add(new Account("50000", "11113654623"));
+        secondAccounts.add(new Account("40000", "11113654623"));
+
+        someMap.put(new User("Irina", "8932341312"), someAccounts);
+        someMap.put(new User("Ivan", "1152341314"), secondAccounts);
+
+        for (User user : someMap.keySet()) {
+            System.out.println(String.format("%s : %s", user, someMap.get(user)));
+        }
+
     }
 
 }
@@ -161,7 +168,8 @@ public void deleteAccountFromUser(String passport, Account account) {} - уда�
 
 public List<Accounts> getUserAccounts (String passport) {} - получить список счетов для пользователя.
 
-public boolean transferMoney (String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) - метод для перечисления денег с одного счёта на другой счёт:
+public boolean transferMoney (String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount)
+ - метод для перечисления денег с одного счёта на другой счёт:
 если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
 
 Посмотрите на методы Map.putIfAbsent и List.indexOf, как их можно применить в этом задании.
