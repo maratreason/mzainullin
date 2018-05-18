@@ -6,14 +6,14 @@ package ru.mzainullin.bank;
  * @sicne 15.05.2018
  */
 public class Account {
-    private String value;
+    private double value;
     private String requisites;
 
-    public void setValue(String value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public double getValue() {
         return value;
 
     }
@@ -24,9 +24,19 @@ public class Account {
 
     public Account(){}
 
-    public Account(String value, String req) {
+    public Account(double value, String req) {
         this.requisites = req;
         this.value = value;
+    }
+
+    public boolean transfer(Account destination, double amount) {
+        boolean success = false;
+        if (amount > 0 && amount < this.value && destination != null) {
+            success = true;
+            this.value -= amount;
+            destination.value += amount;
+        }
+        return success;
     }
 
     @Override

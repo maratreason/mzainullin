@@ -86,7 +86,7 @@ public class Bank {
      * @param amount - размер перечисленных денег.
      * @return - деньги перечислены true/false.
      */
-    public boolean transferMoney (String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
+    /*public boolean transferMoney (String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         // если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
         boolean isTransfer = false;
 
@@ -138,18 +138,58 @@ public class Bank {
             isTransfer = true;
         }
         return isTransfer;
+    }*/
+
+
+    private boolean getUserPassport(String destPassport) {
+        boolean isUserPassport = false;
+        if (userListMap.get(accounts).equals(destPassport)) {
+            isUserPassport = true;
+        }
+        return isUserPassport;
     }
+
+    private boolean getUserRequisites(String srcRequisite) {
+        boolean isUserReq = false;
+        if (userListMap.get(accounts).equals(srcRequisite)) {
+            isUserReq = true;
+        }
+        return isUserReq;
+    }
+
+    private Account getAccountActual(String srcRequisite) {
+        Account srcReq = new Account();
+        for (Account account : accounts) {
+            if (account.getRequisites().equals(srcRequisite)) {
+                srcReq = account;
+            }
+        }
+        return srcReq;
+    }
+
+
+
+    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
+        return getUserPassport(destPassport)
+                && getUserPassport(srcPassport)
+                && getUserRequisites(srcRequisite)
+                && getUserRequisites(destRequisite)
+                && getAccountActual(srcRequisite).transfer(getAccountActual(destRequisite), amount);
+    }
+
+
+
 
     public static void main(String[] args) {
         Map<User, List<Account>> someMap = new TreeMap<>();
 
         List<Account> someAccounts = new ArrayList<>();
-        someAccounts.add(new Account("30000", "94543654623"));
-        someAccounts.add(new Account("40000", "94543654623"));
+        someAccounts.add(new Account(30000.0, "94543654623"));
+        someAccounts.add(new Account(40000.0, "94543654623"));
 
         List<Account> secondAccounts = new ArrayList<>();
-        secondAccounts.add(new Account("50000", "11113654623"));
-        secondAccounts.add(new Account("40000", "11113654623"));
+        secondAccounts.add(new Account(50000.0, "11113654623"));
+        secondAccounts.add(new Account(40000.0, "11113654623"));
 
         someMap.put(new User("Irina", "8932341312"), someAccounts);
         someMap.put(new User("Ivan", "1152341314"), secondAccounts);
