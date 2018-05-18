@@ -82,134 +82,37 @@ public class Bank {
      * @param srcPassport - с какого паспорта перечислают деньги.
      * @param srcRequisite - с какого реквизита перечислают деньги.
      * @param destPassport - в текущий паспорт.
-     * @param dstRequisite - в текущий реквизит.
+     * @param destRequisite - в текущий реквизит.
      * @param amount - размер перечисленных денег.
      * @return - деньги перечислены true/false.
      */
-    /*public boolean transferMoney (String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
-        // если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
-        boolean isTransfer = false;
-
-        Map<User, List<Account>> srcMapUser = new HashMap<>();
-
-        for (User user : userListMap.keySet()) {
-            List<Account> newAccounts = new ArrayList<>();
-
-            for (Account acnt : accounts) {
-                // Вычислить аккаунт откуда снимаются деньги
-                if (user.getPassport().equals(srcPassport)) {
-                    if (acnt.equals(srcRequisite)) {
-                        newAccounts.add(acnt);
-                        srcMapUser.put(user, newAccounts);
-                    }
-                    // Вычислить аккаунт куда перечисляются деньги
-                } else if (user.getPassport().equals(destPassport)) {
-                    if (acnt.equals(dstRequisite)) {
-                        newAccounts.add(acnt);
-                        srcMapUser.put(user, newAccounts);
-                    }
-                }
-            }
-
-            for (User transferUser : srcMapUser.keySet()) {
-                if (transferUser.getPassport().equals(srcPassport)) {
-                    for (int i = 0; i != newAccounts.size(); i++) {
-                        if (newAccounts.get(i).getValue().equals(srcRequisite)) {
-                            int num = Integer.parseInt(newAccounts.get(i).getValue());
-                            String result = new Double (num - amount).toString();
-                            newAccounts.get(i).setValue(result);
-                        }
-                    }
-                }
-            }
-
-            for (User transferUser : srcMapUser.keySet()) {
-                if (transferUser.getPassport().equals(destPassport)) {
-                    for (int i = 0; i != newAccounts.size(); i++) {
-                        if (newAccounts.get(i).getValue().equals(dstRequisite)) {
-                            int num = Integer.parseInt(newAccounts.get(i).getValue());
-                            String result = new Double (num + amount).toString();
-                            newAccounts.get(i).setValue(result);
-                        }
-                    }
-                }
-            }
-
-            isTransfer = true;
-        }
-        return isTransfer;
-    }*/
-
-
-    private boolean getUserPassport(String destPassport) {
-        boolean isUserPassport = false;
-        if (userListMap.get(accounts).equals(destPassport)) {
-            isUserPassport = true;
-        }
-        return isUserPassport;
-    }
-
-    private boolean getUserRequisites(String srcRequisite) {
-        boolean isUserReq = false;
-        if (userListMap.get(accounts).equals(srcRequisite)) {
-            isUserReq = true;
-        }
-        return isUserReq;
-    }
-
-    private Account getAccountActual(String srcRequisite) {
-        Account srcReq = new Account();
-        for (Account account : accounts) {
-            if (account.getRequisites().equals(srcRequisite)) {
-                srcReq = account;
-            }
-        }
-        return srcReq;
-    }
-
-
-
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
-        return getUserPassport(destPassport)
-                && getUserPassport(srcPassport)
-                && getUserRequisites(srcRequisite)
-                && getUserRequisites(destRequisite)
-                && getAccountActual(srcRequisite).transfer(getAccountActual(destRequisite), amount);
+        boolean src = false;
+        boolean dst = false;
+        boolean trans = false;
+        List<Account> srcList = getUserAccounts(srcPassport);
+        List<Account> dstList = getUserAccounts(destPassport);
+        for (Account account : srcList) {
+            if (account.getRequisites().equals(srcRequisite)) {
+                src = true;
+                srcList = Arrays.asList(account);
+            }
+        }
+        for (Account account : dstList) {
+            if (account.getRequisites().equals(destRequisite)) {
+                dst = true;
+                dstList = Arrays.asList(account);
+            }
+        }
+        if ((src && dst) && (srcList.get(0).transfer(dstList.get(0), amount))) {
+            trans = true;
+        }
+        return trans;
     }
 
 
 
 
-    public static void main(String[] args) {
-        Map<User, List<Account>> someMap = new TreeMap<>();
-
-        List<Account> someAccounts = new ArrayList<>();
-        someAccounts.add(new Account(30000.0, "94543654623"));
-        someAccounts.add(new Account(40000.0, "94543654623"));
-
-        List<Account> secondAccounts = new ArrayList<>();
-        secondAccounts.add(new Account(50000.0, "11113654623"));
-        secondAccounts.add(new Account(40000.0, "11113654623"));
-
-        someMap.put(new User("Irina", "8932341312"), someAccounts);
-        someMap.put(new User("Ivan", "1152341314"), secondAccounts);
-
-        for (User user : someMap.keySet()) {
-            System.out.println(String.format("%s : %s", user, someMap.get(user)));
-        }
-
-        System.out.println("\n");
-
-        Bank bank = new Bank();
-        bank.transferMoney("1152341314", "11113654623",
-                "8932341312", "94543654623", 12000.0);
-
-        System.out.println("После транзакции:");
-        for (User user : someMap.keySet()) {
-            System.out.println(String.format("%s : %s", user, someMap.get(user)));
-        }
-
-    }
 
 }
 
