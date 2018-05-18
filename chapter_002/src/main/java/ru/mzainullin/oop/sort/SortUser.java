@@ -39,19 +39,13 @@ public class SortUser {
      * @return отсортированный список
      */
     public List<User> sortByAllFields(List<User> lists) {
-        AgeCompare ageSort = new AgeCompare();
-        for (User user : lists) {
-            ageSort.compareTo(user);
-        }
+        lists.sort(new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                return Integer.compare(o1.getAge(), o2.getAge());
+            }
+        });
         return lists;
-    }
-
-    public class AgeCompare implements Comparable<User> {
-        User user;
-        @Override
-        public int compareTo(User o) {
-            return user.getAge().compare(o.getAge());
-        }
     }
 }
 
