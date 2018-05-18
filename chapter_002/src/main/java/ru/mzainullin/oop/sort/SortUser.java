@@ -13,11 +13,8 @@ public class SortUser {
      * Метод сортировки пользователей по возрасту
      * @return отсортированный список.
      */
-    public Set<User> sort(List<User> lists, TreeSet<User> newSet) {
-        for (int i = 0; i < lists.size(); i++) {
-            newSet.add(lists.get(i));
-        }
-        return newSet;
+    public Set<User> sort(List<User> users) {
+        return new TreeSet<>(users);
     }
 
     /**
@@ -25,9 +22,13 @@ public class SortUser {
      * @return отсортированный список по длине имени
      */
     public List<User> sortNameLength(List<User> lists) {
-        for (int index = 0; index != lists.size(); index++) {
-            Collections.sort(lists);
-        }
+        lists.sort(new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+            //и в анонимном классе переопределить compare
+        });
         return lists;
     }
 
@@ -38,12 +39,19 @@ public class SortUser {
      * @return отсортированный список
      */
     public List<User> sortByAllFields(List<User> lists) {
-        for (int index = 0; index != lists.size(); index++) {
-            lists.sort(
-                    Comparator.comparing(User::getName).thenComparing(User::getAge)
-            );
+        AgeCompare ageSort = new AgeCompare();
+        for (User user : lists) {
+            ageSort.compareTo(user);
         }
         return lists;
+    }
+
+    public class AgeCompare implements Comparable<User> {
+        User user;
+        @Override
+        public int compareTo(User o) {
+            return user.getAge().compare(o.getAge());
+        }
     }
 }
 

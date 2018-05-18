@@ -30,10 +30,10 @@ public class SortUserTest {
                         new User("Asteriks", 34)
                 )
         );
-        sortUser.sort(users, newSet);
+        sortUser.sort(users);
         newSet.addAll(users);
 
-        assertThat(sortUser.sort(users, newSet).toString(), is(newSet.toString()));
+        assertThat(sortUser.sort(users).toString(), is(newSet.toString()));
 
         for (User s : newSet) {
             System.out.println(String.format("%s %s", s.getName(), s.getAge()));
