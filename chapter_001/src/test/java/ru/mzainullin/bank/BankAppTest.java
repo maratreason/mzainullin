@@ -25,7 +25,7 @@ public class BankAppTest {
 
         List<Account> secondAccount = new ArrayList<>();
         secondAccount.add(new Account(50000.0, "11113654623"));
-        secondAccount.add(new Account(40000.0, "11113654623"));
+        secondAccount.add(new Account(45000.0, "11113654623"));
 
         userMoney.put(new User("Irina", "8932341312"), firstAccount);
         userMoney.put(new User("Ivan", "1152341314"), secondAccount);
@@ -37,7 +37,7 @@ public class BankAppTest {
         assertThat(bank.transferMoney(
                 "1152341314", "11113654623",
                 "8932341312", "94543654623", 25000.0),
-                is(userMoney.get("Irina")));
+                is(userMoney.get(new User("Irina", "8932341312"))));
     }
 
 }
