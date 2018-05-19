@@ -38,6 +38,11 @@ public class BankAppTest {
                 "1152341314", "11113654623",
                 "8932341312", "94543654623", 25000.0),
                 is(userMoney.get(new User("Irina", "8932341312"))));
+
+        for (User user : userMoney.keySet()) {
+            System.out.println(String.format("%s : %s", user, userMoney.get(user)));
+        }
+
     }
 
 }

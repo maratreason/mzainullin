@@ -105,20 +105,14 @@ public class Bank {
             }
         }
         if ((src && dst) && (srcList.get(0).transfer(dstList.get(0), amount))) {
+
             trans = true;
         }
         return trans;
     }
 
-
-
-
-
 }
 
-// Необходимо реализовать возможность перечислять деньги,
-// как с одного счёта User на другой счёт того же User, так и на счёт другого User.
-// Посмотрите на методы Map.putIfAbsent и List.indexOf, как их можно применить в этом задании.
 
 
 /*
