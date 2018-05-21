@@ -17,6 +17,10 @@ public class ArrayIter implements Iterator {
     Queue<Integer> myQueue = new LinkedList<>();
 
     public ArrayIter(int[][] arr) {
+        if (arr.length == 0) {
+            throw new NoSuchElementException();
+//            arr = new int[][] {};
+        }
         this.array = arr;
         this.outerCursor = 0;
         for (int i = 0; i < arr.length; i++) {
