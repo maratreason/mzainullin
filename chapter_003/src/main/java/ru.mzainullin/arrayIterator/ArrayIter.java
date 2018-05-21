@@ -1,6 +1,6 @@
 package ru.mzainullin.arrayIterator;
 
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author Marat Zainulline
@@ -9,30 +9,45 @@ import java.util.Iterator;
  */
 public class ArrayIter implements Iterator {
 
-    private final int[][] values;
-    private int index = 0;
+    int[][] array;
+    int outerCursor;
+    int lastArrayLen;
+    int totalElems;
+    int tracker = 1;
+    Queue<Integer> myQueue = new LinkedList<>();
 
-    public ArrayIter(final int[][] newArray) {
-        this.values = newArray;
-    }
-
-    @Override
-    public boolean hasNext() {
-        return values.length > index;
-    }
-
-    @Override
-    public Object next() {
-        for (int i = 0; i != values.length; i++) {
-            if (i == values.length) {
-                i = values[i].length;
-                index++;
-                int j = 0;
-                while (j != values.length) {
-                    index++;
-                }
+    public ArrayIter(int[][] arr) {
+        this.array = arr;
+        this.outerCursor = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                totalElems += 1;
             }
         }
-        return values[index];
+        for (int i = 0; i < array[0].length; i++) {
+            myQueue.add(array[0][i]);
+        }
+    }
+
+    public boolean hasNext() {
+        return array.length > outerCursor && totalElems >= tracker;
+    }
+
+    public Object next() {
+        if (myQueue.isEmpty()) {
+            outerCursor++;
+            for (int i = 0; i < array[outerCursor].length; i++) {
+                myQueue.add(array[outerCursor][i]);
+            }
+            if (!myQueue.isEmpty()) {
+                tracker++;
+                return myQueue.remove();
+            }
+        } else {
+            tracker++;
+            return myQueue.remove();
+        }
+        return -1;
     }
 }
+
