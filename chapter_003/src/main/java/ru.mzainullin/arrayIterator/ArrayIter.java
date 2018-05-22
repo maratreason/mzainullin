@@ -73,7 +73,11 @@ public class ArrayIter implements Iterator {
         int result = this.array[this.row][this.column++];
 
         if (this.column >= this.array[this.row].length) {
-           result = this.array[this.row][this.column];
+            //           все что в условии вам нужно дописать там две строчки
+            //          (подсказка нужно произвести манипуляции с row  column)
+
+            this.column -= 1;
+            result = this.array[this.row][this.column];
         }
         return result;
     }
