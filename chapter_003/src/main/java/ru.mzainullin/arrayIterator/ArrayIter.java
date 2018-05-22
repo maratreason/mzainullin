@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class ArrayIter implements Iterator {
 
-    int[][] array;
+    /*int[][] array;
     int outerCursor;
     int lastArrayLen;
     int totalElems;
@@ -19,7 +19,6 @@ public class ArrayIter implements Iterator {
     public ArrayIter(int[][] arr) {
         if (arr.length == 0) {
             throw new NoSuchElementException();
-//            arr = new int[][] {};
         }
         this.array = arr;
         this.outerCursor = 0;
@@ -52,6 +51,32 @@ public class ArrayIter implements Iterator {
             return myQueue.remove();
         }
         return -1;
+    }*/
+
+    private int[][] array; // Массив для хранения элементов.
+    private int row; // Индекс строки
+    private int column; // Индекс столбца.
+
+    public ArrayIter(int[][] arr) {
+        this.array = arr;
     }
+
+    public boolean hasNext() {
+        return row != array.length;
+    }
+
+    public Object next() {
+        if (row >= array.length) {
+            throw new NoSuchElementException();
+        }
+
+        int result = this.array[this.row][this.column++];
+
+        if (this.column >= this.array[this.row].length) {
+           result = this.array[this.row][this.column];
+        }
+        return result;
+    }
+
 }
 
