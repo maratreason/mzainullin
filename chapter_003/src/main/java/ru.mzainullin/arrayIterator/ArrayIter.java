@@ -32,6 +32,7 @@ public class ArrayIter implements Iterator {
             this.column = 0;
             this.row++;
         }
+
         return result;
     }
 }
