@@ -19,27 +19,22 @@ public class PrimeIterator implements Iterator {
 
     /**
      * Метод вычисления простых чисел.
-     * @param n - входящий параметр
+     * @param number - входящий параметр
      * @return - простое число: true / false.
      */
-    public boolean primes(int n) {
-        boolean isPrime = true;
-        if (n < 2) {
-            isPrime =  false;
-        } else if (n == 2) {
-            isPrime = true;
-        } else if (n % 2 == 0) {
-            isPrime = false;
-        }
-        // n > 1 is odd
-        int d = 3;
-        while(d * d <= n) {
-            if (n % d == 0) {
-                isPrime = false;
+    public boolean primes(int number) {
+        boolean result = false;
+        for (int i = 2; i <= number; i++) {
+            if (i > Math.sqrt(number)) {
+                result = true;
+                break;
             }
-            d += 2;
+            if (number % i == 0) {
+                result = false;
+                break;
+            }
         }
-        return isPrime;
+        return result;
     }
 
 
