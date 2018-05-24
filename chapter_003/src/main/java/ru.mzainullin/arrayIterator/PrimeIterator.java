@@ -1,6 +1,7 @@
 package ru.mzainullin.arrayIterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Marat Zainullin
@@ -10,8 +11,6 @@ public class PrimeIterator implements Iterator {
 
     private int[] arr;
     private int position = 0;
-
-    public PrimeIterator() {}
 
     public PrimeIterator(final int[] numbers) {
         this.arr = numbers;
@@ -48,13 +47,12 @@ public class PrimeIterator implements Iterator {
     public boolean hasNext() {
         // it.hasNext() - возвращает true, только если в массиве есть простые числа перед указателем.
         boolean isTrue = false;
-        for (int index = 0; index != arr.length; index++) {
-            if (arr[index] > 0 && primes(arr[index]) == true) {
-                this.position++;
+        for (int index = position; index != arr.length; index++) {
+            if (primes(arr[index])) {
                 isTrue = true;
                 break;
             } else {
-                isTrue = false;
+                this.position++;
             }
         }
         return isTrue;
@@ -63,10 +61,12 @@ public class PrimeIterator implements Iterator {
 
     @Override
     public Object next() {
-        // it.next() - возвращают только простые числа. В этом примере - это 3, 5 и 7.
         int arrPos = 0;
-        if (arr.length > this.position) {
-            arrPos = this.position++;
+        hasNext();
+        if (this.position >= arr.length) {
+            throw new NoSuchElementException();
+        } else {
+            arrPos = arr[position++];
         }
         return arrPos;
     }
