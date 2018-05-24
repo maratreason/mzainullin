@@ -2,6 +2,7 @@ package ru.mzainullin.arrayIterator;
 
 import javax.swing.text.html.HTMLDocument;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Marat Zainullin
@@ -14,21 +15,17 @@ public class EvenIterator implements Iterator {
 
     public EvenIterator(final int[] numbers) {
         this.arr = numbers;
-//        Iterator it = new EvenIterator(new int[]{4, 2, 1, 1});
     }
 
     @Override
     public boolean hasNext() {
         boolean isTrue = false;
-        for (int index = 0; index != arr.length; index++) {
-            if (arr[index] > 0 && arr[index] % 2 == 0) {
-                this.position++;
+        for (int index = position; index != arr.length; index++) {
+            if (arr[position] % 2 == 0) {
                 isTrue = true;
-                next();
                 break;
-            } else {
-                isTrue = false;
             }
+            this.position++;
         }
         return isTrue;
     }
@@ -36,8 +33,11 @@ public class EvenIterator implements Iterator {
     @Override
     public Integer next() {
         int arrPos = 0;
-        if (arr.length > this.position) {
-            arrPos = this.position++;
+        hasNext();
+        if (this.position >= arr.length) {
+            throw new NoSuchElementException();
+        } else {
+            arrPos = arr[position++];
         }
         return arrPos;
     }
