@@ -1,4 +1,4 @@
-package ru.mzainullin.arrayIterator;
+package ru.mzainullin.iterators;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

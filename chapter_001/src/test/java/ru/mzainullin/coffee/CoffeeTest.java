@@ -14,7 +14,7 @@ public class CoffeeTest {
     @Test
     public void whenPaidTheMoneyAndReturnBackMoney() {
         CoffeeMachine coffee = new CoffeeMachine();
-        int [] numbers = {10, 10, 10, 10, 10, 10, 2, 1};
+        int[] numbers = {10, 10, 10, 10, 10, 10, 2, 1};
         assertThat(coffee.changes(98, 35), is(numbers));
     }
 }

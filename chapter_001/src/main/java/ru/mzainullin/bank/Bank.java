@@ -65,7 +65,7 @@ public class Bank {
      * Метод получить список счетов для пользователя.
      * @param passport - номер паспорта.
      */
-    public List<Account> getUserAccounts (String passport) {
+    public List<Account> getUserAccounts(String passport) {
         List<Account> currentAccount = new ArrayList<>();
         for (User user : this.userListMap.keySet()) {
             if (user.getPassport().equals(passport)) {
