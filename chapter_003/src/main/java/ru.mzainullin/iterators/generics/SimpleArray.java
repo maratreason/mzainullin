@@ -9,8 +9,8 @@ import java.util.Iterator;
  */
 public class SimpleArray<T> implements Iterable<T> {
 
-    Object[] objects;
-    int index = 0;
+    private Object[] objects;
+    private int index = 0;
 
     /**
      * Конструктор, инициализирующий массив объектов
@@ -70,16 +70,16 @@ public class SimpleArray<T> implements Iterable<T> {
         Iterator<T> it = new Iterator<T>() {
 
             private int currentIndex = 0;
-            private T[] arrayList;
 
             @Override
             public boolean hasNext() {
-                return currentIndex < objects.length & objects[currentIndex] != null;
+                return currentIndex < objects.length && objects[currentIndex] != null;
             }
 
             @Override
             public T next() {
-                return arrayList[index++];
+                hasNext();
+                return (T) objects[currentIndex++];
             }
 
             @Override

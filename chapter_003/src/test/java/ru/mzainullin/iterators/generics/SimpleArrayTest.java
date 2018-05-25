@@ -1,6 +1,9 @@
 package ru.mzainullin.iterators.generics;
 
 import org.junit.Test;
+
+import java.util.Iterator;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -47,5 +50,30 @@ public class SimpleArrayTest {
         String result = array.get(0);
         assertThat(result, is("Irina"));
     }
+
+
+    @Test
+    public void whenIterateArrayAndReturnIterateIndex() {
+        SimpleArray<String> array = new SimpleArray<String>(5);
+        array.add("Ivan");
+        array.add("Irina");
+        array.add("Igor");
+        String result = "";
+
+        for (String name : array) {
+            result = array.iterator().next();
+            System.out.println(result);
+        }
+
+        assertThat(result, is("Irina"));
+
+        while (array.iterator().hasNext()) {
+            System.out.println("Список имен:");
+            System.out.println(array.iterator().next());
+            break;
+        }
+    }
+
+
 
 }
