@@ -2,6 +2,7 @@ package ru.mzainullin.iterators.generics;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Marat Zainullin
@@ -59,7 +60,7 @@ public class SimpleArray<T> implements Iterable<T> {
     /**
      * Метод получения объекта из массива
      * @param position - позиция объекта в массиве
-     * @return
+     * @return - размер массива определяется параметром position
      */
     public T get(int position) {
         return (T) this.objects[position];
@@ -69,18 +70,28 @@ public class SimpleArray<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<T>() {
 
+            private Object[] newObject = objects;
             private int currentIndex = 0;
 
             @Override
             public boolean hasNext() {
-                return currentIndex < objects.length && objects[currentIndex] != null;
+                return currentIndex < newObject.length && newObject[currentIndex] != null;
             }
 
             @Override
             public T next() {
-                hasNext();
-                return (T) objects[currentIndex++];
+
+                for (int i = 0; i != newObject.length; i++) {
+                    if (this.currentIndex >= newObject.length || hasNext() == false) {
+                        throw new NoSuchElementException();
+                    } else {
+                        currentIndex++;
+                        break;
+                    }
+                }
+                return (T) newObject[currentIndex++];
             }
+
 
             @Override
             public void remove() {

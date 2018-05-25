@@ -58,22 +58,17 @@ public class SimpleArrayTest {
         array.add("Ivan");
         array.add("Irina");
         array.add("Igor");
+        array.add("Alex");
         String result = "";
-
-        for (String name : array) {
-            result = array.iterator().next();
-            System.out.println(result);
-        }
-
-        assertThat(result, is("Irina"));
-
         while (array.iterator().hasNext()) {
             System.out.println("Список имен:");
-            System.out.println(array.iterator().next());
+            result = array.iterator().next();
+            System.out.println(result);
+            result = array.iterator().next();
+            System.out.println(result);
             break;
         }
+        assertThat(result, is("Irina"));
     }
-
-
 
 }
