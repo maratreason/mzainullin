@@ -1,33 +1,92 @@
 package ru.mzainullin.iterators.generics;
 
 
+import java.util.Iterator;
+
 /**
  * @author Marat Zainullin
  * @since 24.05.2018
  */
-public class SimpleArray<T> {
+public class SimpleArray<T> implements Iterable<T> {
 
-    add(T model){
+    Object[] objects;
+    int index = 0;
 
+    /**
+     * Конструктор, инициализирующий массив объектов
+     * @param size - размер массива.
+     */
+    public SimpleArray(int size) {
+        this.objects = new Object[size];
     }
 
-    set(int index, T model){
-
+    /**
+     * Метод добавления объекта
+     * @param model - объект
+     */
+    public void add(T model) {
+        this.objects[index++] = model;
     }
 
-    delete(int index){
-
+    /**
+     * Метод замены текущего объекта на новый
+     * @param index - позиция объекта в массиве
+     * @param model - новый объект
+     * @return - вставленный объект
+     */
+    public T set(int index, T model) {
+        for (int i = 0; i != objects.length; i++) {
+            if(index == i) {
+                this.objects[i] = model;
+            }
+        }
+        return model;
     }
 
-    get(int index){
-
+    /**
+     * Метод удаления объекта по индексу
+     * @param index - позиция удаляемого объекта
+     */
+    public void delete(int index) {
+        if (index >= 0 && index < objects.length) {
+            Object[] tmp = new Object[objects.length - 1];
+            System.arraycopy(objects, 0, tmp, 0, index);
+            System.arraycopy(objects, index + 1, tmp, index, objects.length - index - 1);
+            objects = tmp;
+        }
     }
 
+    /**
+     * Метод получения объекта из массива
+     * @param position - позиция объекта в массиве
+     * @return
+     */
+    public T get(int position) {
+        return (T) this.objects[position];
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        Iterator<T> it = new Iterator<T>() {
+
+            private int currentIndex = 0;
+            private T[] arrayList;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < objects.length & objects[currentIndex] != null;
+            }
+
+            @Override
+            public T next() {
+                return arrayList[index++];
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
+    }
 }
-
-/*
-* сделать универсальную обертку над массивом.
-* Так же, добавьте Iterable<T>.
-* Объект должен принимать количество ячеек. Структура не должна быть динамической.
-* Если идет переполнение надо выкинуть ошибку.
-* */
