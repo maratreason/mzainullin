@@ -5,4 +5,5 @@ package ru.mzainullin.iterators.generics;
  * @since 25.05.2018
  */
 public class UserStore {
+    private SimpleArray<User> array;
 }

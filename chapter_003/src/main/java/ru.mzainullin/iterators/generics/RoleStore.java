@@ -5,4 +5,6 @@ package ru.mzainullin.iterators.generics;
  * @since 25.05.2018
  */
 public class RoleStore {
+    private SimpleArray<Role> array;
 }
+
