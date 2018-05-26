@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 public class SimpleArray<T> implements Iterable<T> {
 
     private Object[] objects;
-    private int index = 0;
+    private int position = 0;
 
     /**
      * Конструктор, инициализирующий массив объектов
@@ -26,7 +26,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param model - объект
      */
     public void add(T model) {
-        this.objects[index++] = model;
+        this.objects[position++] = model;
     }
 
     /**
@@ -59,39 +59,32 @@ public class SimpleArray<T> implements Iterable<T> {
 
     /**
      * Метод получения объекта из массива
-     * @param position - позиция объекта в массиве
+     * @param index - позиция объекта в массиве
      * @return - размер массива определяется параметром position
      */
-    public T get(int position) {
-        return (T) this.objects[position];
+    public T get(int index) {
+        return (T) this.objects[index];
     }
 
     @Override
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<T>() {
 
-            private Object[] newObject = objects;
             private int currentIndex = 0;
 
             @Override
             public boolean hasNext() {
-                return currentIndex < newObject.length && newObject[currentIndex] != null;
+                return currentIndex <= objects.length && objects[currentIndex] != null;
             }
 
             @Override
             public T next() {
-
-                for (int i = 0; i != newObject.length; i++) {
-                    if (this.currentIndex >= newObject.length || hasNext() == false) {
-                        throw new NoSuchElementException();
-                    } else {
-                        currentIndex++;
-                        break;
-                    }
+                hasNext();
+                if (this.currentIndex >= objects.length) {
+                     throw new NoSuchElementException();
                 }
-                return (T) newObject[currentIndex++];
+                return (T) objects[currentIndex++];
             }
-
 
             @Override
             public void remove() {
@@ -99,5 +92,6 @@ public class SimpleArray<T> implements Iterable<T> {
             }
         };
         return it;
+
     }
 }
