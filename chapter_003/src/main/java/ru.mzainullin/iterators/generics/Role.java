@@ -10,4 +10,6 @@ public class Role extends Base {
         super(id);
     }
 
+    private String role;
+
 }

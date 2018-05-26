@@ -6,6 +6,8 @@ package ru.mzainullin.iterators.generics;
  */
 public class User extends Base {
 
+    private String name;
+
     protected User(String id) {
         super(id);
     }

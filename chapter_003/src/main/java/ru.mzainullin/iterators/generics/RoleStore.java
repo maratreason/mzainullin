@@ -4,7 +4,7 @@ package ru.mzainullin.iterators.generics;
  * @author Marat Zainullin
  * @since 25.05.2018
  */
-public class RoleStore {
-    private SimpleArray<Role> array;
+public class RoleStore<T extends Role> {
+    private SimpleArray<Role>[] array;
 }
 
