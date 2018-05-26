@@ -1,5 +1,8 @@
 package ru.mzainullin.iterators.generics;
 
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
@@ -12,6 +15,13 @@ import static org.junit.Assert.assertThat;
  * @since 24.05.2018
  */
 public class SimpleArrayTest {
+
+    private SimpleArray it;
+
+    @Before
+    public void setUp() {
+        it = new SimpleArray(5);
+    }
 
     @Test
     public void whenGenericIsIntegerAndExpectInteger() {
@@ -54,18 +64,24 @@ public class SimpleArrayTest {
 
     @Test
     public void whenIterateArrayAndReturnIterateIndex() {
-        SimpleArray<String> array = new SimpleArray<String>(5);
-        array.add("Ivan");
-        array.add("Irina");
-        array.add("Igor");
-        array.add("Alex");
-        String result = "";
-        while (array.iterator().hasNext()) {
-//            result = array.iterator().next();
-            System.out.println(array.iterator().next());
-            break;
-        }
-//        assertThat(result, is("Irina"));
+        Iterator<SimpleArray> newIterator = it.iterator();
+        it.add("Ivan");
+        it.add("Irina");
+        it.add("Igor");
+        it.add("Alex");
+        it.add("Sveta");
+        assertThat(newIterator.hasNext(), Matchers.is(true));
+        assertThat(newIterator.next(), Matchers.is("Ivan"));
+        assertThat(newIterator.hasNext(), Matchers.is(true));
+        assertThat(newIterator.next(), Matchers.is("Irina"));
+        assertThat(newIterator.hasNext(), Matchers.is(true));
+        assertThat(newIterator.next(), Matchers.is("Igor"));
+        assertThat(newIterator.hasNext(), Matchers.is(true));
+        assertThat(newIterator.next(), Matchers.is("Alex"));
+        assertThat(newIterator.hasNext(), Matchers.is(true));
+        assertThat(newIterator.next(), Matchers.is("Sveta"));
+        assertThat(newIterator.hasNext(), Matchers.is(false));
+        it.iterator().next();
     }
 
 }

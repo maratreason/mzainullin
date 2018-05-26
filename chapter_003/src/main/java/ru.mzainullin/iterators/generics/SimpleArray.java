@@ -74,15 +74,15 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return currentIndex <= objects.length && objects[currentIndex] != null;
+                return currentIndex < objects.length;
             }
 
             @Override
             public T next() {
-                hasNext();
-                if (this.currentIndex >= objects.length) {
-                     throw new NoSuchElementException();
-                }
+                if (hasNext())
+                    if (this.currentIndex >= objects.length) {
+                        throw new NoSuchElementException();
+                    }
                 return (T) objects[currentIndex++];
             }
 
