@@ -6,7 +6,7 @@ package ru.mzainullin.iterators.generics;
  */
 public class UserStore<T extends User> implements Store<T> {
 
-    private T[] userArray;
+    private User[] userArray;
     private int position = 0;
 
     public UserStore(T[] arr) {
@@ -47,10 +47,10 @@ public class UserStore<T extends User> implements Store<T> {
     public boolean delete(String id) {
         for (int index = 0; index != this.userArray.length; index++) {
             if (id.equals(this.userArray[index].getId())) {
-                Object[] tmp = new Object[this.userArray.length - 1];
+                User[] tmp = new User[this.userArray.length - 1];
                 System.arraycopy(this.userArray, 0, tmp, 0, index);
                 System.arraycopy(this.userArray, index + 1, tmp, index, this.userArray.length - index - 1);
-                this.userArray = (T) tmp;
+                this.userArray = tmp;
             }
         }
         return true;
@@ -58,6 +58,12 @@ public class UserStore<T extends User> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        return null;
+        User user = new User(id);
+        for (int index = 0; index != this.userArray.length; index++) {
+            if (id.equals(this.userArray[index].getId())) {
+                user = this.userArray[index];
+            }
+        }
+        return (T) user;
     }
 }
