@@ -4,7 +4,7 @@ package ru.mzainullin.iterators.generics;
  * @author Marat Zainullin
  * @since 25.05.2018
  */
-public class RoleStore<T extends Role> implements Store<T> {
+public class RoleStore<T extends Role> implements Store<Role> {
 
     private Role[] roleArray;
     private int position = 0;
@@ -18,7 +18,7 @@ public class RoleStore<T extends Role> implements Store<T> {
      * @param model - модель для добавления
      */
     @Override
-    public void add(T model) {
+    public void add(Role model) {
         this.roleArray[position++] = model;
     }
 
@@ -29,7 +29,7 @@ public class RoleStore<T extends Role> implements Store<T> {
      * @return - успешно заменили модель (true / false)
      */
     @Override
-    public boolean replace(String id, T model) {
+    public boolean replace(String id, Role model) {
         for (int index = 0; index != this.roleArray.length; index++) {
             if (id.equals(this.roleArray[index].getId())) {
                 this.roleArray[index] = model;
@@ -57,14 +57,14 @@ public class RoleStore<T extends Role> implements Store<T> {
     }
 
     @Override
-    public T findById(String id) {
+    public Role findById(String id) {
         Role role = new Role(id);
         for (int index = 0; index != this.roleArray.length; index++) {
             if (id.equals(this.roleArray[index].getId())) {
                 role = this.roleArray[index];
             }
         }
-        return (T) role;
+        return role;
     }
 }
 

@@ -4,7 +4,7 @@ package ru.mzainullin.iterators.generics;
  * @author Marat Zainullin
  * @since 25.05.2018
  */
-public class UserStore<T extends User> implements Store<T> {
+public class UserStore<T extends User> implements Store<User> {
 
     private User[] userArray;
     private int position = 0;
@@ -18,7 +18,7 @@ public class UserStore<T extends User> implements Store<T> {
      * @param model - модель для добавления
      */
     @Override
-    public void add(T model) {
+    public void add(User model) {
         this.userArray[position++] = model;
     }
 
@@ -29,7 +29,7 @@ public class UserStore<T extends User> implements Store<T> {
      * @return - успешно заменили модель (true / false)
      */
     @Override
-    public boolean replace(String id, T model) {
+    public boolean replace(String id, User model) {
         for (int index = 0; index != this.userArray.length; index++) {
             if (id.equals(this.userArray[index].getId())) {
                 this.userArray[index] = model;
@@ -57,13 +57,13 @@ public class UserStore<T extends User> implements Store<T> {
     }
 
     @Override
-    public T findById(String id) {
+    public User findById(String id) {
         User user = new User(id);
         for (int index = 0; index != this.userArray.length; index++) {
             if (id.equals(this.userArray[index].getId())) {
                 user = this.userArray[index];
             }
         }
-        return (T) user;
+        return user;
     }
 }

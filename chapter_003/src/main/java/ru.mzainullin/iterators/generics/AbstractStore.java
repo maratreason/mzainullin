@@ -5,5 +5,4 @@ package ru.mzainullin.iterators.generics;
  * @since 26.05.2018
  */
 public class AbstractStore {
-
 }
