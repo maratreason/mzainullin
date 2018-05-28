@@ -5,9 +5,6 @@ package ru.mzainullin.iterators.generics;
  * @since 25.05.2018
  */
 public class Role extends Base {
-
-    private String role;
-
     protected Role(String id) {
         super(id);
     }
