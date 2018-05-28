@@ -30,10 +30,28 @@ public class StoreTest {
         array.add(new User("18"));
         array.add(new User("23"));
 
-        String result = array.get(1).toString();
+        User userOne = array.get(0);
+        User userTwo = array.get(1);
+        User userThree = array.get(2);
 
-        assertThat(result, is("18"));
+        assertThat(userOne.getId(), is("0"));
+        assertThat(userTwo.getId(), is("18"));
+        assertThat(userThree.getId(), is("23"));
     }
 
+    @Test
+    public void whenGenericIsRoleAndExpectRoleId() {
+        SimpleArray<Role> array = new SimpleArray<Role>(4);
+        array.add(new Role("1"));
+        array.add(new Role("15"));
+        array.add(new Role("10"));
 
+        Role roleOne = array.get(0);
+        Role roleTwo = array.get(1);
+        Role roleThree = array.get(2);
+
+        assertThat(roleOne.getId(), is("1"));
+        assertThat(roleTwo.getId(), is("15"));
+        assertThat(roleThree.getId(), is("10"));
+    }
 }
