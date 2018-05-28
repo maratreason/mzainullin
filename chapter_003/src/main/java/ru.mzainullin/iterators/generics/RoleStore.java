@@ -9,4 +9,3 @@ public class RoleStore extends AbstractStore<Role> {
         super(simpleArray);
     }
 }
-

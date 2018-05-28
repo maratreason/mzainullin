@@ -18,10 +18,12 @@ public class StoreTest {
 
     private SimpleArray it;
 
+
     @Before
     public void setUp() {
         it = new SimpleArray(5);
     }
+
 
     @Test
     public void whenGenericIsUserAndExpectUserId() {
@@ -39,6 +41,7 @@ public class StoreTest {
         assertThat(userThree.getId(), is("23"));
     }
 
+
     @Test
     public void whenGenericIsRoleAndExpectRoleId() {
         SimpleArray<Role> array = new SimpleArray<Role>(4);
@@ -53,5 +56,69 @@ public class StoreTest {
         assertThat(roleOne.getId(), is("1"));
         assertThat(roleTwo.getId(), is("15"));
         assertThat(roleThree.getId(), is("10"));
+    }
+
+
+    @Test
+    public void whenAddUserAndExpectNewUser() {
+        SimpleArray<User> array = new SimpleArray<User>(5);
+        array.add(new User("0"));
+        array.add(new User("18"));
+
+        User userOne = array.get(0);
+        User userTwo = array.get(1);
+
+        for (User user : array) {
+            if (user != null)
+                System.out.println(user.getId());
+        }
+
+        assertThat(userOne.getId(), is("0"));
+        assertThat(userTwo.getId(), is("18"));
+    }
+
+
+    @Test
+    public void whenDeleteUserAndExpectObjectWithoutDeletedUser() {
+        SimpleArray<User> array = new SimpleArray<User>(5);
+        array.add(new User("0"));
+        array.add(new User("18"));
+        array.add(new User("45"));
+        array.add(new User("47"));
+
+        System.out.println("Список объектов до удаления:");
+        for (User user : array) {
+            if (user != null)
+                System.out.print(user.getId() + " ");
+        }
+        System.out.println("\n");
+        array.delete(2);
+
+        System.out.println("Список объектов после удаления объекта с индексом 2:");
+        for (User user : array) {
+            if (user != null)
+                System.out.print(user.getId() + " ");
+        }
+
+        assertThat(array.get(0).getId(), is("0"));
+        assertThat(array.get(1).getId(), is("18"));
+        assertThat(array.get(2).getId(), is("47"));
+    }
+
+
+    @Test
+    public void whenFindUserByIdAndReturnThatUser() {
+        SimpleArray<Role> array = new SimpleArray<Role>(5);
+        array.add(new Role("0"));
+        array.add(new Role("18"));
+        array.add(new Role("45"));
+        array.add(new Role("47"));
+
+        RoleStore role = new RoleStore(array);
+
+        Role result = role.findById("45");
+
+        assertThat(result, is(array.get(2)));
+
     }
 }

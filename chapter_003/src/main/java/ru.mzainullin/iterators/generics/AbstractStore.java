@@ -6,7 +6,7 @@ package ru.mzainullin.iterators.generics;
  */
 public abstract class AbstractStore<T extends Base> implements Store<T> {
 
-    private Object[] userArray;
+    private T[] userArray;
     private int position = 0;
 
     public AbstractStore(SimpleArray<T> arr) {
@@ -46,31 +46,29 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
     @Override
     public boolean delete(String id) {
         for (int index = 0; index != this.userArray.length; index++) {
-            if (id.equals(this.userArray[index])) {
+            if (id.equals(this.userArray[index].getId())) {
                 Object[] tmp = new Object[this.userArray.length - 1];
                 System.arraycopy(this.userArray, 0, tmp, 0, index);
                 System.arraycopy(this.userArray, index + 1, tmp, index, this.userArray.length - index - 1);
-                this.userArray = tmp;
+//                this.userArray = tmp;
             }
         }
         return true;
     }
 
+    /**
+     * Метод поиска объекта по его Id.
+     * @param id - id объекта.
+     * @return - найденный объект если такой есть.
+     */
     @Override
     public T findById(String id) {
         Object user = new Object();
         for (int index = 0; index != this.userArray.length; index++) {
-            if (id.equals(this.userArray[index])) {
+            if (id.equals(this.userArray[index].getId())) {
                 user = this.userArray[index];
             }
         }
         return (T) user;
-    }
-
-    @Override
-    public String toString() {
-        return "AbstractStore{" +
-                "position=" + position +
-                '}';
     }
 }
