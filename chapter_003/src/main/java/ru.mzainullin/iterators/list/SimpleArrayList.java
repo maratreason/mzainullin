@@ -31,17 +31,10 @@ public class SimpleArrayList<E> {
      */
     public E delete(int index) {
         Node<E> newLink = this.first;
-
         this.first = newLink.next;
-
-        if (newLink.next == null)
-            this.first = null;
-        else
-            newLink.next = null;
-            newLink = this.first;
-
-                    size--;
-        return (E) newLink;
+        newLink.next = newLink;
+        size--;
+        return newLink.date;
     }
 
 

@@ -35,7 +35,7 @@ public class SimpleArrayListTest {
     public void whenDeleteOneElementsThenUseGetSizeResultTwo() {
         list.delete(0);
         assertThat(list.get(0), is(2));
-//        assertThat(list.get(1), is(7));
+        assertThat(list.get(1), is(7));
         assertThat(list.getSize(), is(2));
     }
 }
