@@ -114,11 +114,41 @@ public class StoreTest {
         array.add(new Role("45"));
         array.add(new Role("47"));
 
+        for (Role user : array) {
+            if (user != null)
+                System.out.println(user.getId());
+        }
+
         RoleStore role = new RoleStore(array);
+        Role result = role.findById("47");
 
-        Role result = role.findById("45");
+        assertThat(result, is(array.get(3)));
+    }
 
-        assertThat(result, is(array.get(2)));
 
+    @Test
+    public void whenReplaceUserInsteadOfOldUser() {
+        SimpleArray<Role> array = new SimpleArray<Role>(5);
+        array.add(new Role("0"));
+        array.add(new Role("18"));
+        array.add(new Role("45"));
+
+        System.out.println("Список объектов до перезаписи:");
+        for (Role role : array) {
+            if (role != null)
+                System.out.print(role.getId() + " ");
+        }
+        System.out.println();
+
+        RoleStore role = new RoleStore(array);
+        boolean result = role.replace("18", new Role("23"));
+
+        System.out.println("Список объектов после перезаписи объекта с индексом 1:");
+        for (Role role1 : array) {
+            if (role1 != null)
+                System.out.print(role1.getId() + " ");
+        }
+
+        assertThat(result, is(true));
     }
 }

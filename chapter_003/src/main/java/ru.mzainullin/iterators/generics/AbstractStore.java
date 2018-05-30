@@ -6,12 +6,13 @@ package ru.mzainullin.iterators.generics;
  */
 public abstract class AbstractStore<T extends Base> implements Store<T> {
 
-    private T[] userArray;
+    private SimpleArray<T> simpleArray;
     private int position = 0;
 
     public AbstractStore(SimpleArray<T> arr) {
-        new SimpleArray<T>(100);
+        this.simpleArray = arr;
     }
+
 
     /**
      * Метод для добавления модели
@@ -19,8 +20,9 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
      */
     @Override
     public void add(T model) {
-        this.userArray[position++] = model;
+        this.simpleArray.add(model);
     }
+
 
     /**
      * Метод для замены одной модели на другую
@@ -30,13 +32,15 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
      */
     @Override
     public boolean replace(String id, T model) {
-        for (int index = 0; index != this.userArray.length; index++) {
-            if (id.equals(this.userArray[index])) {
-                this.userArray[index] = model;
+        T result = null;
+        for (T tmp : simpleArray) {
+            if (tmp.getId().equals(id)) {
+                simpleArray.set(Integer.parseInt(tmp.getId()), model);
             }
         }
         return true;
     }
+
 
     /**
      * Метод удаления модели
@@ -45,30 +49,31 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
      */
     @Override
     public boolean delete(String id) {
-        for (int index = 0; index != this.userArray.length; index++) {
-            if (id.equals(this.userArray[index].getId())) {
-                Object[] tmp = new Object[this.userArray.length - 1];
-                System.arraycopy(this.userArray, 0, tmp, 0, index);
-                System.arraycopy(this.userArray, index + 1, tmp, index, this.userArray.length - index - 1);
-//                this.userArray = tmp;
+        T result = null;
+        for (T tmp : simpleArray) {
+            if (tmp.getId().equals(id)) {
+                result = tmp;
             }
         }
         return true;
     }
 
+
     /**
      * Метод поиска объекта по его Id.
      * @param id - id объекта.
-     * @return - найденный объект если такой есть.
+     * @return - индекс найденного объекта.
      */
     @Override
     public T findById(String id) {
-        Object user = new Object();
-        for (int index = 0; index != this.userArray.length; index++) {
-            if (id.equals(this.userArray[index].getId())) {
-                user = this.userArray[index];
+        T result = null;
+        for (T tmp : simpleArray) {
+            if (tmp.getId().equals(id)) {
+                result = tmp;
+                break;
             }
         }
-        return (T) user;
+        return result;
     }
+
 }
