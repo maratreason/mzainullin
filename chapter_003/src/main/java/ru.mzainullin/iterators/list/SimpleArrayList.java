@@ -32,7 +32,7 @@ public class SimpleArrayList<E> {
     public E delete(int index) {
         Node<E> newLink = this.first;
         this.first = newLink.next;
-        newLink.next = newLink;
+        newLink.next = null;
         size--;
         return newLink.date;
     }
