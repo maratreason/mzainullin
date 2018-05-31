@@ -33,6 +33,14 @@ public class DynamicArrayListTest {
 
 
     @Test
+    public void whenRemoveElement() {
+        list.remove(0);
+        Object result = list.get(0);
+        assertThat(result, is("second"));
+    }
+
+
+    @Test
     public void whenIterateArrayAndReturnIterateIndex() {
         Iterator<Object> newIterator = list.iterator();
         assertThat(newIterator.hasNext(), Matchers.is(true));
