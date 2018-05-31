@@ -34,7 +34,18 @@ public class DynamicArrayListTest {
 
     @Test
     public void whenRemoveElement() {
+        System.out.println("До удаления.");
+        for (Object obj : list) {
+            System.out.print(obj + " ");
+        }
+
         list.remove(0);
+
+        System.out.println("\nПосле удаления.");
+        for (Object obj : list) {
+            System.out.print(obj + " ");
+        }
+
         Object result = list.get(0);
         assertThat(result, is("second"));
     }
