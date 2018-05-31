@@ -14,6 +14,14 @@ public class SimpleArray<T> implements Iterable<T> {
     private int position = 0;
 
     /**
+     * Размер массива объектов
+     * @return - текущая позиция
+     */
+    public int size() {
+        return this.position;
+    }
+
+    /**
      * Конструктор, инициализирующий массив объектов
      * @param size - размер массива.
      */

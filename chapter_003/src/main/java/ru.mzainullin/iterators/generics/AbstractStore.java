@@ -32,13 +32,15 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
      */
     @Override
     public boolean replace(String id, T model) {
-        T result = null;
-        for (T tmp : simpleArray) {
-            if (tmp.getId().equals(id)) {
-                simpleArray.set(Integer.parseInt(tmp.getId()), model);
+        boolean result = false;
+        for (int i = 0; i < simpleArray.size(); i++) {
+            if (simpleArray.get(i).getId().equals(id)) {
+                simpleArray.set(i, model);
+                result = true;
+                break;
             }
         }
-        return true;
+        return result;
     }
 
 
