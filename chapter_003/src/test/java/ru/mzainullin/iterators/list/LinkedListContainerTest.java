@@ -11,14 +11,17 @@ import static org.junit.Assert.*;
 
 public class LinkedListContainerTest {
 
-    private LinkedListContainer<Object> list;
+    private LinkedListContainer<Integer> list;
 
     @Before
     public void beforeTest() {
         list = new LinkedListContainer<>();
-        list.add(new String("first"));
-        list.add(new String("second"));
-        list.add(new String("third"));
+//        list.add("first");
+//        list.add("second");
+//        list.add("third");
+        list.add(5);
+        list.add(7);
+        list.add(17);
     }
 
 
@@ -29,15 +32,19 @@ public class LinkedListContainerTest {
             System.out.print(list.get(i) + " ");
         }
 
-        list.add(new String("fourth"));
+//        list.add("fourth");
+        list.add(19);
 
         System.out.println("\nПосле добавления нового элемента.");
         for (int i = 0; i != list.size(); i++) {
             System.out.print(list.get(i) + " ");
         }
+//        for (String s : list) {
+//            System.out.print(s + " ");
+//        }
 
         Object result = list.get(3);
-        assertThat(result, is("fourth"));
+        assertThat(result, is(19));
     }
 
 
@@ -57,7 +64,7 @@ public class LinkedListContainerTest {
 
         LinkedListContainer linkedListContainer = new LinkedListContainer();
 
-        linkedListContainer.remove(1);
+//        linkedListContainer.remove(1);
 
         System.out.println("\nПосле удаления элемента.");
         for (int i = 0; i != list.size(); i++) {
@@ -71,7 +78,7 @@ public class LinkedListContainerTest {
 
     @Test
     public void iterateList() {
-        Iterator<Object> LinkedListIterator = list.iterator();
+        Iterator<Integer> LinkedListIterator = list.iterator();
         assertThat(LinkedListIterator.hasNext(), Matchers.is(true));
         assertThat(LinkedListIterator.next(), Matchers.is("first"));
         assertThat(LinkedListIterator.hasNext(), Matchers.is(true));
