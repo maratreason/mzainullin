@@ -2,4 +2,4 @@
 [![codecov](https://codecov.io/gh/maratreason/mzainullin/branch/master/graph/badge.svg)](https://codecov.io/gh/maratreason/mzainullin)
 
 # mzainullin
-1 уровень.
+2 уровень. Java Junior
