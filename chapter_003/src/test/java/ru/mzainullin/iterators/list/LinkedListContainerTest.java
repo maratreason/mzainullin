@@ -11,17 +11,14 @@ import static org.junit.Assert.*;
 
 public class LinkedListContainerTest {
 
-    private LinkedListContainer<Integer> list;
+    private LinkedListContainer<String> list;
 
     @Before
     public void beforeTest() {
         list = new LinkedListContainer<>();
-//        list.add("first");
-//        list.add("second");
-//        list.add("third");
-        list.add(5);
-        list.add(7);
-        list.add(17);
+        list.add("first");
+        list.add("second");
+        list.add("third");
     }
 
 
@@ -32,8 +29,7 @@ public class LinkedListContainerTest {
             System.out.print(list.get(i) + " ");
         }
 
-//        list.add("fourth");
-        list.add(19);
+        list.add("fourth");
 
         System.out.println("\nПосле добавления нового элемента.");
         for (int i = 0; i != list.size(); i++) {
@@ -44,7 +40,7 @@ public class LinkedListContainerTest {
 //        }
 
         Object result = list.get(3);
-        assertThat(result, is(19));
+        assertThat(result, is("fourth"));
     }
 
 
@@ -78,7 +74,7 @@ public class LinkedListContainerTest {
 
     @Test
     public void iterateList() {
-        Iterator<Integer> LinkedListIterator = list.iterator();
+        Iterator<String> LinkedListIterator = list.iterator();
         assertThat(LinkedListIterator.hasNext(), Matchers.is(true));
         assertThat(LinkedListIterator.next(), Matchers.is("first"));
         assertThat(LinkedListIterator.hasNext(), Matchers.is(true));
