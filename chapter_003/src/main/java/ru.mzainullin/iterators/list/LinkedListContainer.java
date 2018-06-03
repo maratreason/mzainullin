@@ -13,6 +13,7 @@ public class LinkedListContainer<E> implements Iterable<E> {
 
     private int nextIndex;
     private Node<E> first;
+    private Node<E> tail;
 
     /**
      * Класс предназначен для хранения данных.
@@ -36,9 +37,10 @@ public class LinkedListContainer<E> implements Iterable<E> {
      */
     public void add(E value){
         Node<E> newLink = new Node<>(value);
-        newLink.next = this.first;
+        newLink.next = this.tail;
         this.first = newLink;
         this.nextIndex++;
+
     }
 
 
@@ -72,25 +74,21 @@ public class LinkedListContainer<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         Iterator<E> it = new Iterator<E>() {
-//
+
             private int currentIndex = 0;
 
             @Override
             public boolean hasNext() {
-//                return currentIndex < simpleLinkedList.getSize();
                 return false;
             }
-//
+
             @Override
             public E next() {
-//                if (hasNext())
-//                    if (this.currentIndex >= simpleLinkedList.getSize()) {
-//                        throw new NoSuchElementException();
-//                    }
-//                return simpleLinkedList.get(currentIndex++);
+                if (hasNext()) {}
+
                 return null;
             }
-//
+
             @Override
             public void remove() {
                 throw new UnsupportedOperationException();
