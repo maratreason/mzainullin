@@ -11,36 +11,43 @@ import java.util.NoSuchElementException;
  */
 public class LinkedListContainer<E> implements Iterable<E> {
 
-    private int nextIndex;
+    private int size;
     private Node<E> first;
-    private Node<E> tail;
+    private Node<E> last;
 
     /**
      * Класс предназначен для хранения данных.
      * @param <E> - тип данных.
      */
     private static class Node<E> {
-        E date;
+        E item;
         Node<E> next;
-        Node(E date) {
-            this.date = date;
+        Node<E> prev;
+        Node(Node<E> prev, E element, Node<E> next) {
+            this.prev = prev;
+            this.item = element;
+            this.next = next;
         }
     }
 
     public int size() {
-        return this.nextIndex;
+        return this.size;
     }
 
     /**
      * Метод вставляет в начало списка данные.
-     * @param value - данные для вставки.
+     * @param element - данные для вставки.
      */
-    public void add(E value){
-        Node<E> newLink = new Node<>(value);
-        newLink.next = this.tail;
-        this.first = newLink;
-        this.nextIndex++;
-
+    public void add(E element){
+        final Node<E> lastNode = this.last;
+        final Node<E> newNode = new Node<>(lastNode, element, null);
+        this.last = newNode;
+        if (lastNode != null) {
+            lastNode.next = newNode;
+        } else {
+            this.first = newNode;
+        }
+        size++;
     }
 
 
@@ -54,7 +61,7 @@ public class LinkedListContainer<E> implements Iterable<E> {
         for (int i = 0; i < index; i++) {
             result = result.next;
         }
-        return result.date;
+        return result.item;
     }
 
 
@@ -62,12 +69,33 @@ public class LinkedListContainer<E> implements Iterable<E> {
      * Метод удаления первого элемента в списке.
      * @return - коллекция без удаленного элемента.
      */
-    public E delete(int index) {
-        Node<E> newLink = this.first;
-        this.first = this.first.next;
-        this.first.next = newLink;
-        nextIndex--;
-        return newLink.date;
+//    public E delete(int index) {
+//        Node<E> newLink = this.first;
+//        this.first = this.first.next;
+//        this.first.next = newLink;
+//        size--;
+//        return newLink.item;
+//    }
+
+    public boolean delete(E var1) {
+        Node<E> var2;
+        if (var1 == null) {
+            for(var2 = this.first; var2 != null; var2 = var2.next) {
+                if (var2.item == null) {
+                    this.last = var2;
+                    return true;
+                }
+            }
+        } else {
+            for(var2 = this.first; var2 != null; var2 = var2.next) {
+                if (var1.equals(var2.item)) {
+                    this.last = var2;
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 

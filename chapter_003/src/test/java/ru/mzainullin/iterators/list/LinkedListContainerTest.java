@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 
 public class LinkedListContainerTest {
 
-    private SimpleArrayList<Object> list;
+    private LinkedListContainer<Object> list;
 
     @Before
     public void beforeTest() {
-        list = new SimpleArrayList<>();
+        list = new LinkedListContainer<>();
         list.add("first");
         list.add("second");
         list.add("third");
@@ -25,14 +25,14 @@ public class LinkedListContainerTest {
     @Test
     public void whenAddNewElementToLinkedListContainer() {
         System.out.println("До добавления нового элемента.");
-        for (int i = 0; i != list.getSize(); i++) {
+        for (int i = 0; i != list.size(); i++) {
             System.out.print(list.get(i) + " ");
         }
 
         list.add("fourth");
 
         System.out.println("\nПосле добавления нового элемента.");
-        for (int i = 0; i != list.getSize(); i++) {
+        for (int i = 0; i != list.size(); i++) {
             System.out.print(list.get(i) + " ");
         }
 
@@ -50,17 +50,17 @@ public class LinkedListContainerTest {
 
     @Test
     public void whenRemoveElementByIndexFromLinkedListContainer() {
+        LinkedListContainer linkedListContainer = new LinkedListContainer();
+
         System.out.println("До удаления элемента.");
-        for (int i = 0; i != list.getSize(); i++) {
+        for (int i = 0; i != list.size(); i++) {
             System.out.print(list.get(i) + " ");
         }
 
-        LinkedListContainer linkedListContainer = new LinkedListContainer();
-
-//        linkedListContainer.remove(1);
+        linkedListContainer.delete(1);
 
         System.out.println("\nПосле удаления элемента.");
-        for (int i = 0; i != list.getSize(); i++) {
+        for (int i = 0; i != list.size(); i++) {
             System.out.print(list.get(i) + " ");
         }
 
