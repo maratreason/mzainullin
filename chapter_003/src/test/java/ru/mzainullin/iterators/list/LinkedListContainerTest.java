@@ -50,28 +50,21 @@ public class LinkedListContainerTest {
 
     @Test
     public void whenRemoveElementByIndexFromLinkedListContainer() {
-        LinkedListContainer linkedListContainer = new LinkedListContainer();
-
-        System.out.println("До удаления элемента.");
-        for (int i = 0; i != list.size(); i++) {
-            System.out.print(list.get(i) + " ");
-        }
-
-        linkedListContainer.delete(1);
-
-        System.out.println("\nПосле удаления элемента.");
-        for (int i = 0; i != list.size(); i++) {
-            System.out.print(list.get(i) + " ");
-        }
-
-        Object result = list.get(1);
-        assertThat(result, is("third"));
+        LinkedListContainer<Integer> linkedListContainer = new LinkedListContainer<>();
+        linkedListContainer.add(1);
+        linkedListContainer.add(2);
+        linkedListContainer.add(3);
+        assertThat(linkedListContainer.remove(), is(1));
     }
 
 
     @Test
     public void iterateList() {
-        Iterator<Object> newIterator = list.iterator();
+        LinkedListContainer<Object> linkedListContainer = new LinkedListContainer<>();
+        linkedListContainer.add("first");
+        linkedListContainer.add("second");
+        linkedListContainer.add("third");
+        Iterator<Object> newIterator = linkedListContainer.iterator();
         assertThat(newIterator.hasNext(), Matchers.is(true));
         assertThat(newIterator.next(), Matchers.is("first"));
         assertThat(newIterator.hasNext(), Matchers.is(true));
