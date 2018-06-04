@@ -69,7 +69,7 @@ public class LinkedListContainerTest {
     }
 
 
-    /*@Test
+    @Test
     public void iterateList() {
         Iterator<Object> newIterator = list.iterator();
         assertThat(newIterator.hasNext(), Matchers.is(true));
@@ -80,5 +80,5 @@ public class LinkedListContainerTest {
         assertThat(newIterator.next(), Matchers.is("third"));
         assertThat(newIterator.hasNext(), Matchers.is(false));
         list.iterator().next();
-    }*/
+    }
 }

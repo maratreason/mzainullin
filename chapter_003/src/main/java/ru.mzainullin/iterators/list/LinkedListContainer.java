@@ -69,33 +69,16 @@ public class LinkedListContainer<E> implements Iterable<E> {
      * Метод удаления первого элемента в списке.
      * @return - коллекция без удаленного элемента.
      */
-//    public E delete(int index) {
-//        Node<E> newLink = this.first;
-//        this.first = this.first.next;
-//        this.first.next = newLink;
-//        size--;
-//        return newLink.item;
-//    }
-
-    public boolean delete(E var1) {
-        Node<E> var2;
-        if (var1 == null) {
-            for(var2 = this.first; var2 != null; var2 = var2.next) {
-                if (var2.item == null) {
-                    this.last = var2;
-                    return true;
-                }
-            }
-        } else {
-            for(var2 = this.first; var2 != null; var2 = var2.next) {
-                if (var1.equals(var2.item)) {
-                    this.last = var2;
-                    return true;
-                }
+    public E delete(int index) {
+        final Node<E> lastNode = this.last;
+        for (int i = 0; i < index; i++) {
+            if (lastNode.equals(index)) {
+                this.last.next = this.first;
+                this.first.next = lastNode;
+                size--;
             }
         }
-
-        return false;
+        return lastNode.item;
     }
 
 
@@ -107,14 +90,12 @@ public class LinkedListContainer<E> implements Iterable<E> {
 
             @Override
             public boolean hasNext() {
-                return false;
+                return currentIndex < size && last != null;
             }
 
             @Override
             public E next() {
-                if (hasNext()) {}
-
-                return null;
+                return (E) first;
             }
 
             @Override
