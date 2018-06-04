@@ -1,6 +1,5 @@
 package ru.mzainullin.iterators.list;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,18 +59,13 @@ public class LinkedListContainerTest {
 
     @Test
     public void iterateList() {
-        LinkedListContainer<Object> linkedListContainer = new LinkedListContainer<>();
-        linkedListContainer.add("first");
-        linkedListContainer.add("second");
-        linkedListContainer.add("third");
-        Iterator<Object> newIterator = linkedListContainer.iterator();
-        assertThat(newIterator.hasNext(), Matchers.is(true));
-        assertThat(newIterator.next(), Matchers.is("first"));
-        assertThat(newIterator.hasNext(), Matchers.is(true));
-        assertThat(newIterator.next(), Matchers.is("second"));
-        assertThat(newIterator.hasNext(), Matchers.is(true));
-        assertThat(newIterator.next(), Matchers.is("third"));
-        assertThat(newIterator.hasNext(), Matchers.is(false));
-        list.iterator().next();
+        LinkedListContainer<String> linkedListContainer = new LinkedListContainer<>();
+        Iterator<String> itr = linkedListContainer.iterator();
+        linkedListContainer.add("Alisa");
+        linkedListContainer.add("Liza");
+        assertThat(itr.next(), is("Alisa"));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is("Liza"));
+        assertThat(itr.hasNext(), is(false));
     }
 }
