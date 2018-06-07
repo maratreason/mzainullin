@@ -14,10 +14,10 @@ public class SimpleNodeTest {
 
     @Test
     public void whenNodeCycle() {
-        Node first = new Node(1);
-        Node two = new Node(2);
-        Node third = new Node(3);
-        Node four = new Node(4);
+        Node<Integer> first = new Node<>(1);
+        Node<Integer> two = new Node<>(2);
+        Node<Integer> third = new Node<>(3);
+        Node<Integer> four = new Node<>(4);
 
         first.next = two;
         two.next = third;
