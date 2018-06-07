@@ -26,5 +26,4 @@ public class SimpleNodeTest {
 
         assertThat(third.hasCycle(two), is(true));
     }
-
 }
