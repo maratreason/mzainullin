@@ -8,8 +8,7 @@ import java.util.NoSuchElementException;
  * @version 1.0
  * @since 04.06.2018
  */
-public class SimpleQueue<E> implements SimpleListContainer<E> {
-
+public class SimpleStack<E> implements SimpleListContainer<E> {
     private int size = 0;
     private Node<E> first;
     private Node<E> last;
@@ -49,7 +48,7 @@ public class SimpleQueue<E> implements SimpleListContainer<E> {
      * @return первый элемент.
      */
     public E poll() {
-        final Node<E> firstNode = this.first;
+        final Node<E> firstNode = this.last;
         size--;
         return firstNode.item;
     }
