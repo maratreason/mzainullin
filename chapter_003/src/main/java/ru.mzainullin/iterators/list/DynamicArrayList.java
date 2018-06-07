@@ -84,7 +84,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
 
             @Override
             public boolean hasNext() {
-                return currentIndex < INIT_SIZE && array[currentIndex] != null;
+                return currentIndex < CUT_RATE && array[currentIndex] != null;
             }
 
             @Override

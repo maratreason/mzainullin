@@ -15,7 +15,7 @@ public class SimpleSet<E> implements Iterable<E> {
     private Object[] array = new Object[INIT_SIZE];
     private int pointer = 0;
 
-    DynamicArrayList<E> container;
+    DynamicArrayList<E> container = new DynamicArrayList<E>();
 
     /**
      * Метод добавления элемента

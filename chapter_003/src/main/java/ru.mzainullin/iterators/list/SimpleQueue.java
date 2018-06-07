@@ -13,7 +13,7 @@ public class SimpleQueue<E> {
     private int size = 0;
     private Node<E> first;
     private Node<E> last;
-
+    private SimpleListContainer<E> container;
 
     private class Node<E> {
         E item;
@@ -49,9 +49,10 @@ public class SimpleQueue<E> {
      * @return первый элемент.
      */
     public E poll() {
-        final Node<E> firstNode = this.first;
-        size--;
-        return firstNode.item;
+//        final Node<E> firstNode = this.first;
+//        size--;
+//        return firstNode.item;
+        return container.poll();
     }
 
     /**

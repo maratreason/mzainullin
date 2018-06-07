@@ -1,6 +1,8 @@
 package ru.mzainullin.oop.start;
 
 import ru.mzainullin.oop.models.Item;
+
+import java.sql.PreparedStatement;
 import java.util.*;
 
 /**
@@ -8,7 +10,7 @@ import java.util.*;
  * @version 1.2
  * @since 07.05.2018
  */
-public class Tracker {
+public class Tracker implements AutoCloseable {
 
     private int position = 0;
     private static final Random RN = new Random();
@@ -116,4 +118,10 @@ public class Tracker {
         }
         return item;
     }
+
+    @Override
+    public void close() throws Exception {
+
+    }
+
 }
