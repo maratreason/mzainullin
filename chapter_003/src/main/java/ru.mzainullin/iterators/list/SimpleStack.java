@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  * @version 1.0
  * @since 04.06.2018
  */
-public class SimpleStack<E> implements SimpleListContainer<E> {
+public class SimpleStack<E> {
     private int size = 0;
     private Node<E> first;
     private Node<E> last;
@@ -66,39 +66,4 @@ public class SimpleStack<E> implements SimpleListContainer<E> {
         return result.item;
     }
 
-
-
-    @Override
-    public Iterator iterator() {
-        Iterator<E> it = new Iterator<E>() {
-
-            private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currentIndex < size && last != null;
-            }
-
-            @Override
-            public E next() {
-                currentIndex++;
-                Node<E> nextNode = first;
-
-                if (nextNode != null && currentIndex > 1) {
-                    nextNode = nextNode.next;
-                }
-
-                if (nextNode == null) {
-                    throw new NoSuchElementException();
-                }
-                return nextNode.item;
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return it;
-    }
 }
