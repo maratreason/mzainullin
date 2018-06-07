@@ -8,25 +8,28 @@ import java.util.Iterator;
  * @author Marat Zainullin
  * @since 07.06.2018
  */
-public class SimpleSet<E> implements SetImpl<E>, Iterable<E> {
+public class SimpleSet<E> implements Iterable<E> {
 
     private final int INIT_SIZE = 16;
     private final int CUT_RATE = 4;
     private Object[] array = new Object[INIT_SIZE];
     private int pointer = 0;
 
+    DynamicArrayList<E> container;
+
     /**
-     * Метод добавляет новый элемент в список.
-     * При достижении размера внутреннего
-     * массива происходит его увеличение в два раза.
-     * @param item - элемент, которых хотим добавить.
+     * Метод добавления элемента
+     * @param element - новый элемент.
+     * @return - true / false.
      */
-    public void add(E item) {
-        if(pointer == array.length-1)
-            resize(array.length*2);
-        if (array[pointer] != item) {
-            array[pointer++] = item;
+    public boolean add(E element) {
+        for (E check : this.container) {
+            if (check.equals(element)) {
+                return false;
+            }
         }
+        this.container.add(element);
+        return true;
     }
 
     /**
