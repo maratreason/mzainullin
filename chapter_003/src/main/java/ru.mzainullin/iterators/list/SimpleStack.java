@@ -12,7 +12,7 @@ public class SimpleStack<E> {
     private int size = 0;
     private Node<E> first;
     private Node<E> last;
-
+    private LinkedListContainer<E> container = new LinkedListContainer<>();
 
     private class Node<E> {
         E item;

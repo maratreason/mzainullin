@@ -40,8 +40,14 @@ public class SimpleQueueTest {
     }
 
     @Test
-    public void whenPushElement() {
+    public void whenPushElementToQueue() {
         queue.push("nextObject");
         assertThat(queue.get(3), is("nextObject"));
+    }
+
+    @Test
+    public void whenPushElementToStack() {
+        stack.push("nextObject");
+        assertThat(stack.get(3), is("nextObject"));
     }
 }
