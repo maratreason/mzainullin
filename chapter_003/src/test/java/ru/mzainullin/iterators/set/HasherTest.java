@@ -1,6 +1,7 @@
 package ru.mzainullin.iterators.set;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -31,6 +32,7 @@ public class HasherTest {
     }
 
     @Test
+    @Ignore
     public void get() {
     }
 
@@ -40,10 +42,12 @@ public class HasherTest {
     }
 
     @Test
+    @Ignore
     public void getIndexForKey() {
     }
 
     @Test
+    @Ignore
     public void printTable() {
     }
 }

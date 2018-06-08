@@ -2,9 +2,22 @@ package ru.mzainullin.iterators.set;
 
 import java.util.ArrayList;
 
+/**
+ * @author Marat Zainullin
+ * @since 08.06.2018
+ * @param <K> - key
+ * @param <V> - value
+ */
 public class Hasher<K, V> {
-    /* Класс узла связного списка . Используется только в хэш-таблице,
-     * реализуется в виде двусвязного списка . */
+
+
+    /**
+     * Класс узла связного списка.
+     * Используется только в хэш-таблице.
+     * реализуется в виде двусвязного списка.
+     * @param <K>
+     * @param <V>
+     */
     private static class LinkedListNode<K, V> {
         public LinkedListNode<K, V> next;
         public LinkedListNode<K, V> prev;
@@ -25,11 +38,19 @@ public class Hasher<K, V> {
         }
     }
 
+
     private ArrayList<LinkedListNode<K, V>> arr;
 
+
+    /**
+     * Метод создания списка связных списков.
+     * @param capacity - размер.
+     */
     public Hasher(int capacity) {
-        /* Создание списка связных списков . Список заполняется значениями
-         * пull (единственный способ создания массива заданного размера ). */
+        /* Создание списка связных списков.
+         * Список заполняется значениями null.
+         * (единственный способ создания массива заданного размера).
+         */
         arr = new ArrayList<LinkedListNode<K, V>>();
         arr.ensureCapacity(capacity);
         for (int i = 0; i < capacity; i++) {
@@ -37,7 +58,13 @@ public class Hasher<K, V> {
         }
     }
 
-    /* Вставка ключа и значения в хэш-таблицу . */
+
+    /**
+     * Метод вставки ключа и значения в хэш-таблицу.
+     * @param key - ключ.
+     * @param value - значение.
+     * @return - true / false.
+     */
     public V put(K key, V value) {
         LinkedListNode<K, V> node = getNodeForKey(key);
         if (node != null) {
@@ -56,7 +83,12 @@ public class Hasher<K, V> {
         return null;
     }
 
-    /* Удаление узла для ключа . */
+
+    /**
+     * Метод удаления узла для ключа.
+     * @param key - key.
+     * @return - true / false.
+     */
     public V remove(K key) {
         LinkedListNode<K, V> node = getNodeForKey(key);
         if (node == null) {
@@ -77,14 +109,24 @@ public class Hasher<K, V> {
         return node.value;
     }
 
-    /* Получение значения для ключа . */
+
+    /**
+     * Метод получение значения для ключа.
+     * @param key - key
+     * @return - ключ.
+     */
     public V get(K key) {
         if (key == null) return null;
         LinkedListNode<K, V> node = getNodeForKey(key);
         return node == null ? null : node.value;
     }
 
-    /* Получение узла связного списка для заданного ключа . */
+
+    /**
+     * Метод получение узла связного списка для заданного ключа.
+     * @param key - key
+     * @return - true false
+     */
     private LinkedListNode<K, V> getNodeForKey(K key) {
         int index = getIndexForKey(key);
         LinkedListNode<K, V> current = arr.get(index);
@@ -97,6 +139,12 @@ public class Hasher<K, V> {
         return null;
     }
 
+
+    /**
+     * Метод проверяет содержит ли коллекция элемент.
+     * @param e - искомый элемент.
+     * @return - true / false.
+     */
     public boolean contains(K e) {
         boolean isTrue = false;
         LinkedListNode<K, V> node = getNodeForKey(e);
@@ -106,10 +154,16 @@ public class Hasher<K, V> {
         return isTrue;
     }
 
-    /* Очень наивная функция для связывания ключа с индексом . */
+
+    /**
+     * Метод для связывания ключа с индексом.
+     * @param key - ключ.
+     * @return - индекс.
+     */
     public int getIndexForKey(K key) {
         return Math.abs(key.hashCode() % arr.size());
     }
+
 
     public void printTable() {
         for (int i = 0; i < arr.size(); i++) {
