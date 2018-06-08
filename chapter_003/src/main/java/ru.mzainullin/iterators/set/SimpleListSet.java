@@ -69,35 +69,6 @@ public class SimpleListSet<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        Iterator<E> it = new Iterator<E>() {
-
-            private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currentIndex < size && last != null;
-            }
-
-            @Override
-            public E next() {
-                currentIndex++;
-                Node<E> nextNode = first;
-
-                if (nextNode != null && currentIndex > 1) {
-                    nextNode = nextNode.next;
-                }
-
-                if (nextNode == null) {
-                    throw new NoSuchElementException();
-                }
-                return nextNode.item;
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return it;
+        return  this.list.iterator();
     }
 }
