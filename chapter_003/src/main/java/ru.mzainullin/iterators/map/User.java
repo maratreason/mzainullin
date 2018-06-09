@@ -18,6 +18,3 @@ public class User {
         this.birthday = birthday;
     }
 }
-/*
-Создать модель User и три поля String name, int children, Calendar birthday,
- */

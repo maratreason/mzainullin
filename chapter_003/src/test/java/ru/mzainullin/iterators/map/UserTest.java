@@ -2,9 +2,7 @@ package ru.mzainullin.iterators.map;
 
 import org.junit.Test;
 
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -19,10 +17,10 @@ public class UserTest {
         User first = new User("petr", 3, new GregorianCalendar(1982,6,9));
         User second = new User("petr", 3, new GregorianCalendar(1982,6,9));
 
-        Map<User, String> map = new HashMap<>();
-        map.put(first, "first");
-        map.put(second, "first");
-        for (User user : map.keySet()) {
+        Set<User> set = new HashSet<>();
+        set.add(first);
+        set.add(second);
+        for (User user : set) {
             System.out.println(user.name + ", " + user.children + ", " + user.birthday.getTime());
         }
     }
