@@ -17,10 +17,10 @@ public class UserTest {
         User first = new User("petr", 3, new GregorianCalendar(1982,6,9));
         User second = new User("petr", 3, new GregorianCalendar(1982,6,9));
 
-        Set<User> set = new HashSet<>();
-        set.add(first);
-        set.add(second);
-        for (User user : set) {
+        Map<User, Object> map = new HashMap<>();
+        map.put(first, "first");
+        map.put(second, "second");
+        for (User user : map.keySet()) {
             System.out.println(user.name + ", " + user.children + ", " + user.birthday.getTime());
         }
     }
