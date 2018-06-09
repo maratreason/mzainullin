@@ -12,7 +12,15 @@ public class RectangleMoveBack implements Runnable {
     @Override
     public void run() {
         while (true) {
-            this.rect.setX(this.rect.getX() - 3);
+            if (this.rect.getX() == 1) {
+                try {
+                    Thread.sleep(0);
+                    this.rect.setX(this.rect.getX() - 0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            this.rect.setX(this.rect.getX() - 1);
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
