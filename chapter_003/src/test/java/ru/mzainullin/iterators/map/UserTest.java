@@ -17,11 +17,11 @@ public class UserTest {
     @Test
     public void mapUser() {
         User first = new User("petr", 3, new GregorianCalendar(1982,6,9));
-        User second = new User("alex", 5, new GregorianCalendar(1987,6,8));
+        User second = new User("petr", 3, new GregorianCalendar(1982,6,9));
 
         Map<User, String> map = new HashMap<>();
         map.put(first, "first");
-        map.put(second, "second");
+        map.put(second, "first");
         for (User user : map.keySet()) {
             System.out.println(user.name + ", " + user.children + ", " + user.birthday.getTime());
         }
