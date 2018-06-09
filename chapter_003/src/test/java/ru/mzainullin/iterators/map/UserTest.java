@@ -22,6 +22,7 @@ public class UserTest {
         map.put(second, "second");
         for (User user : map.keySet()) {
             System.out.println(user.name + ", " + user.children + ", " + user.birthday.getTime());
+            System.out.println(user.name.hashCode() + ", " + user.children + ", " + user.birthday.getTime().hashCode());
         }
     }
 }
