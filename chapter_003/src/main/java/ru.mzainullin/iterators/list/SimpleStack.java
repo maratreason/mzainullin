@@ -9,10 +9,10 @@ import java.util.NoSuchElementException;
  * @since 04.06.2018
  */
 public class SimpleStack<E> {
+
     private int size = 0;
     private Node<E> first;
     private Node<E> last;
-    private LinkedListContainer<E> container = new LinkedListContainer<>();
 
     private class Node<E> {
         E item;

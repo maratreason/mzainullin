@@ -13,7 +13,6 @@ public class SimpleQueue<E> {
     private int size = 0;
     private Node<E> first;
     private Node<E> last;
-    private LinkedListContainer<E> container = new LinkedListContainer<>();
 
     private class Node<E> {
         E item;
@@ -33,12 +32,6 @@ public class SimpleQueue<E> {
      * @param value - объект.
      */
     public void push(E value) {
-//        for (E check : this.container) {
-//            if (!(check.equals(value))) {
-//                this.container.add(value);
-//                size++;
-//            }
-//        }
         final Node<E> lastNode = this.last;
         final Node<E> newNode = new Node<>(lastNode, value, null);
         this.last = newNode;
@@ -59,7 +52,6 @@ public class SimpleQueue<E> {
         final Node<E> firstNode = this.first;
         size--;
         return firstNode.item;
-//        return container.remove();
     }
 
     /**
