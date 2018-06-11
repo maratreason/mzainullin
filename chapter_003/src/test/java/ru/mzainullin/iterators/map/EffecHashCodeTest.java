@@ -20,7 +20,4 @@ public class EffecHashCodeTest {
         System.out.printf("хэшкод hash3: %s", hash3.hashCode());
 
     }
-
-
-
 }

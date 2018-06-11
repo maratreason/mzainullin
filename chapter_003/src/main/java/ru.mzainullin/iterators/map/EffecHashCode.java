@@ -23,8 +23,15 @@ public class EffecHashCode {
                 Objects.equals(email, that.email);
     }
 
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(name, id, email);
+//    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(name, id, email);
+        int result = 17;
+        result = 31 * result + id;
+        return result;
     }
 }
