@@ -30,6 +30,7 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
      */
     @Override
     public boolean insert(K key, V value) {
+        boolean isTrue = false;
         if (size + 1 >= threshold) {
             threshold *= 2;
             arrayDoubling();
@@ -39,18 +40,18 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
         int index = newNode.hash();
 
         if (hashTable[index] == null) {
-            return simpleAdd(index, newNode);
+            isTrue = simpleAdd(index, newNode);
         }
 
         List<Node<K, V>> nodeList = hashTable[index].getNodes();
 
         for (Node<K, V> node : nodeList) {
             if (keyExistButValueNew(node, newNode, value) || collisionProcessing(node, newNode, nodeList)) {
-                return true;
+                isTrue = true;
             }
         }
 
-        return false;
+        return isTrue;
     }
 
 
@@ -63,24 +64,26 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
 
 
     private boolean keyExistButValueNew(Node<K, V> nodeFromList, Node<K, V> newNode, V value) {
+        boolean isTrue = false;
         if (newNode.getKey().equals(nodeFromList.getKey()) &&
             !newNode.getValue().equals(nodeFromList.getValue())) {
             nodeFromList.setValue(value);
-            return true;
+            isTrue = true;
         }
-        return false;
+        return isTrue;
     }
 
 
     private boolean collisionProcessing(Node<K, V> nodeFromList, Node<K, V> newNode, List<Node<K, V>> nodes) {
+        boolean isTrue = false;
         if (newNode.hashCode() == nodeFromList.hashCode() &&
                 !Objects.equals(newNode.key, nodeFromList.key) &&
                 !Objects.equals(newNode.value, nodeFromList.value)) {
             nodes.add(newNode);
             size++;
-            return true;
+            isTrue = true;
         }
-        return false;
+        return isTrue;
     }
 
 
@@ -104,6 +107,7 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
      */
     @Override
     public V get(K key) {
+        V isNode = null;
         int index = hash(key);
         if (index < hashTable.length && hashTable[index] != null) {
 
@@ -111,23 +115,27 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
 
             for (Node<K, V> node : nodeList) {
                 if (key.equals(node.getKey())) {
-                    return node.getValue();
+                    isNode = (V) node.getValue();
+                } else {
+                    isNode = null;
                 }
             }
         }
-        return null;
+
+        return isNode;
     }
 
 
     @Override
     public boolean delete(K key) {
+        boolean isTrue = false;
         int index = hash(key);
         if(hashTable[index] == null) {
-            return false;
+            isTrue = false;
         }
         if (hashTable[index].getNodes().size() == 1) {
             hashTable[index].getNodes().remove(0);
-            return true;
+            isTrue = true;
         }
 
         List<Node<K, V>> nodeList = hashTable[index].getNodes();
@@ -135,10 +143,10 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
         for (Node<K, V> node : nodeList) {
             if (key.equals(node.getKey())) {
                 nodeList.remove(node);
-                return true;
+                isTrue = true;
             }
         }
-        return false;
+        return isTrue;
     }
 
 
@@ -159,17 +167,19 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
 
             @Override
             public boolean hasNext() {
+                boolean isTrue = false;
                 if (valueCounter == size) {
-                    return false;
+                    isTrue = false;
                 }
                 if (subIterator == null || !subIterator.hasNext()) {
                     if (moveToNextCell()) {
                         subIterator = hashTable[counterArray].getNodes().iterator();
                     } else {
-                        return false;
+                        isTrue = false;
                     }
                 }
-                return subIterator.hasNext();
+                isTrue = subIterator.hasNext();
+                return isTrue;
             }
 
             private boolean moveToNextCell() {
@@ -230,17 +240,18 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
 
         @Override
         public boolean equals(Object obj) {
+            boolean isTrue = false;
             if (this == obj) {
-                return true;
+                isTrue = true;
             }
 
             if (obj instanceof Node) {
                 Node<K, V> node = (Node) obj;
-                return (Objects.equals(key, node.getKey()) &&
+                isTrue = (Objects.equals(key, node.getKey()) &&
                         Objects.equals(value, node.getValue()) ||
                         Objects.equals(hash, node.hashCode()));
             }
-            return false;
+            return isTrue;
         }
     }
 }
