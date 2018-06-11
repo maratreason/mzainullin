@@ -15,33 +15,33 @@ import static org.junit.Assert.*;
  */
 public class SimpleHashSetTest {
 
-    List<Integer> list = new LinkedList<>();
+    SimpleHashSet<Integer> hashSet = new SimpleHashSet<>();
 
     @Before
     public void add() {
-        list.add(3);
-        list.add(5);
-        list.add(6);
+        hashSet.add(3);
+        hashSet.add(5);
+        hashSet.add(6);
     }
 
 
     @Test
     public void whenAddElementToSimpleHashSet() {
-        list.add(17);
-        assertThat(list.contains(17), is(true));
+        hashSet.add(17);
+        assertThat(hashSet.contains(17), is(true));
     }
 
     @Test
     public void whenCheckContainsElementInSimpleHashSet() {
-        assertThat(list.contains(6), is(true));
-        assertThat(list.contains(7), is(false));
+        assertThat(hashSet.contains(6), is(true));
+        assertThat(hashSet.contains(7), is(false));
     }
 
     @Test
     public void whenRemoveElementFromSimpleHashSet() {
-        System.out.println("size: " + list.size());
-        list.remove(6);
-        assertThat(list.size(), is(2));
-        System.out.println("size: " + list.size());
+        System.out.println("size: " + hashSet.size());
+        hashSet.remove(6);
+        assertThat(hashSet.size(), is(2));
+        System.out.println("size: " + hashSet.size());
     }
 }
