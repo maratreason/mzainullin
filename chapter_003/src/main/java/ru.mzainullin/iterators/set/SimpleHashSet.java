@@ -1,59 +1,187 @@
 package ru.mzainullin.iterators.set;
 
-import ru.mzainullin.iterators.list.DynamicArrayList;
+import ru.mzainullin.iterators.map.SimpleMapImpl;
 
-import java.util.Set;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Марат Зайнуллин.
  * @since 07.06.2018.
- * @param <K> - Тип данных - Ключ.
+ * @param <E> - Тип данных - Ключ.
  */
-public class SimpleHashSet<K> {
+public class SimpleHashSet<E> {
 
-    SimpleSet<K> container = new SimpleSet<K>();
+    private Node<E>[] hashTable;
+    private int size = 0;
+    private float threshold;
 
-    /**
-     * Метод добавления элемента в коллекцию.
-     * @param e - добавленный элемент.
-     * @return - true / false.
-     */
-    boolean add (K e) {
-        return this.container.add(e);
+    public SimpleHashSet() {
+        hashTable = new Node[16];
+        threshold = hashTable.length * 0.75f;
+    }
+
+    private class Node<E> {
+        private List<Node<E>> nodes;
+        private int hash;
+        private E element;
+
+        private Node(E element) {
+            this.element = element;
+            nodes = new LinkedList<Node<E>>();
+        }
+
+        private List getNodes() {
+            return nodes;
+        }
+
+        private int hash() {
+            return hashCode() % hashTable.length;
+        }
+
+        private E getElement() {
+            return element;
+        }
+
+        private void setElement(E element) {
+            this.element = element;
+        }
     }
 
 
-    /**
-     * Метод проверяющий существования элемента в коллекции.
-     * @param e - проверяемый элемент.
-     * @return - true / false.
-     */
-    boolean contains (K e) {
-        boolean isTrue = false;
-        for (K check : this.container) {
-            if (check.equals(e)) {
-                isTrue =  true;
+    boolean add (E element) {
+        if (size + 1 >= threshold) {
+            threshold *= 2;
+            arrayDoubling();
+        }
+
+        Node<E> newNode = new Node<>(element);
+        int index = newNode.hash();
+
+        if (hashTable[index] == null) {
+            return simpleAdd(index, newNode);
+        }
+
+        List<Node<E>> nodeList = hashTable[index].getNodes();
+
+        for (Node<E> node : nodeList) {
+            if (collisionProcessing(node, newNode, nodeList)) {
+                return true;
             }
         }
-        return isTrue;
+        return false;
     }
 
 
-    /**
-     * Метод удаления элемента из коллекции.
-     * @param e - удаляемый элемент.
-     * @return - true / false.
-     */
-    boolean remove (K e) {
-        boolean isTrue = false;
-        for (K check : this.container) {
-            if (check.equals(e)) {
-                isTrue =  true;
+    public boolean simpleAdd(int index, Node<E> newNode) {
+        hashTable[index] = new Node<>(null);
+        hashTable[index].getNodes().add(newNode);
+        size++;
+        return true;
+    }
+
+
+    private boolean keyExistButValueNew(Node<E> nodeFromList, Node<E> newNode, E element) {
+        if (newNode.getElement().equals(nodeFromList.getElement())) {
+            nodeFromList.setElement(element);
+            return true;
+        }
+        return false;
+    }
+
+
+    private boolean collisionProcessing(Node<E> nodeFromList, Node<E> newNode, List<Node<E>> nodes) {
+        if (newNode.hashCode() == nodeFromList.hashCode() &&
+                !Objects.equals(newNode.element, nodeFromList.element)) {
+            nodes.add(newNode);
+            size++;
+            return true;
+        }
+        return false;
+    }
+
+
+    private void arrayDoubling() {
+        Node<E>[] oldHashTable = hashTable;
+        hashTable = new Node[oldHashTable.length * 2];
+        size = 0;
+        for (Node<E> node : oldHashTable) {
+            if (node != null) {
+                add(node.element);
             }
         }
-        return isTrue;
     }
 
+
+    boolean remove (E element) {
+        int index = hash(element);
+        if (hashTable[index] == null) {
+            return false;
+        }
+
+        if(hashTable[index].getNodes().size() == 1) {
+            hashTable[index].getNodes().remove(0);
+            return true;
+        }
+
+        List<Node<E>> nodeList = hashTable[index].getNodes();
+
+        for (Node<E> node : nodeList) {
+            if (element.equals(node.getElement())) {
+                nodeList.remove(node);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public E contains (E element) {
+        int index = hash(element);
+        if (index < hashTable.length && hashTable[index] != null) {
+
+            List<Node<E>> list = hashTable[index].getNodes();
+            for (Node<E> node : list) {
+                if (element.equals(node.getElement())) {
+                    return node.getElement();
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public int size() {
+        return size;
+    }
+
+
+    private int hash(E key) {
+        int hash = 31;
+        hash = hash * 17 + key.hashCode();
+        return hash % hashTable.length;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SimpleHashSet<?> that = (SimpleHashSet<?>) o;
+        return size == that.size &&
+                Float.compare(that.threshold, threshold) == 0 &&
+                Arrays.equals(hashTable, that.hashTable);
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size, threshold);
+        result = 31 * result + Arrays.hashCode(hashTable);
+        return result;
+    }
 }
 
 
