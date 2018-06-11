@@ -22,7 +22,6 @@ public class SimpleListSetTest {
         assertThat(simpleSet.get(0), is(0));
         assertThat(simpleSet.get(1), is(4));
         assertThat(simpleSet.get(2), is(6));
-
         assertThat(simpleSet.size(), is(3));
     }
 

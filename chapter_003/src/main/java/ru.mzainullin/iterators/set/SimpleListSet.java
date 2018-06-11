@@ -12,10 +12,6 @@ import java.util.NoSuchElementException;
  */
 public class SimpleListSet<E> implements Iterable<E> {
 
-    private int size;
-    private Node<E> first;
-    private Node<E> last;
-
     LinkedListContainer<E> list = new LinkedListContainer<>();
 
     /**
