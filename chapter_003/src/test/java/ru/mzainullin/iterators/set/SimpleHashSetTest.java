@@ -24,7 +24,6 @@ public class SimpleHashSetTest {
         hashSet.add(6);
     }
 
-
     @Test
     public void whenAddElementToSimpleHashSet() {
         hashSet.add(17);
@@ -39,9 +38,9 @@ public class SimpleHashSetTest {
 
     @Test
     public void whenRemoveElementFromSimpleHashSet() {
-        System.out.println("size: " + hashSet.size());
+        System.out.printf("size: %s элемента\n", hashSet.size());
         hashSet.remove(6);
         assertThat(hashSet.size(), is(2));
-        System.out.println("size: " + hashSet.size());
+        System.out.printf("После удаления - size: %s элемента", hashSet.size());
     }
 }
