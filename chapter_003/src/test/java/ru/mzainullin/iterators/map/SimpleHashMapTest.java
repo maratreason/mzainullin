@@ -45,7 +45,6 @@ public class SimpleHashMapTest {
     }
 
     @Test
-    @Ignore
     public void whenIterateDataInCollection() {
         Iterator<String> it = simpleMap.iterator();
         assertThat(it.hasNext(), Matchers.is(true));

@@ -172,7 +172,7 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
                     isTrue = false;
                 }
                 if (subIterator == null || !subIterator.hasNext()) {
-                    if (moveToNextCell()) {
+                    if (hashTable[counterArray] != null) {
                         subIterator = hashTable[counterArray].getNodes().iterator();
                     } else {
                         isTrue = false;
@@ -182,19 +182,12 @@ public class SimpleHashMap<K, V> implements SimpleMapImpl<K, V> {
                 return isTrue;
             }
 
-            private boolean moveToNextCell() {
-                counterArray++;
-                while (hashTable[counterArray] == null) {
-                    counterArray++;
-                }
-                return hashTable[counterArray] != null;
-            }
-
             @Override
             public V next() {
                 valueCounter++;
                 return subIterator.next().getValue();
             }
+
         };
     }
 
