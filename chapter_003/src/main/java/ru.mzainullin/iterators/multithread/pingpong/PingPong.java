@@ -9,6 +9,14 @@ import javafx.stage.Stage;
 public class PingPong extends Application {
     private static final String JOB4J = "Пинг-понг www.job4j.ru";
 
+    private void sleep2sec(){
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+
+        }
+    }
+
     @Override
     public void start(Stage stage) {
         int limitX = 300;
@@ -21,5 +29,18 @@ public class PingPong extends Application {
         stage.setTitle(JOB4J);
         stage.setResizable(false);
         stage.show();
+
+        while(!Thread.currentThread().isInterrupted()){
+            sleep2sec();
+            if (Thread.interrupted()) {
+                stage.setOnCloseRequest(
+                        event -> Thread.interrupted()
+                );
+            }
+
+            System.out.println("Завершение работы потока");
+        }
+
+
     }
 }

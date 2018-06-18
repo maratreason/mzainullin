@@ -18,6 +18,7 @@ public class RectangleMove implements Runnable {
     public void run() {
 
         while (true) {
+
             if (this.rect.getX() >= 300D || this.rect.getX() <= 0D) {
                 this.moveX *= CHANGE;
             }
@@ -41,10 +42,14 @@ public class RectangleMove implements Runnable {
                 }
             }
 
+
+
             try {
                 Thread.sleep(30);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
+
             }
         }
 

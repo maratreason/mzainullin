@@ -6,5 +6,5 @@ package ru.mzainullin.iterators.tree;
  * @param <T> - параметр
  */
 public class Tree<T> {
-//    Node<T> root;
+    private Tree T;
 }

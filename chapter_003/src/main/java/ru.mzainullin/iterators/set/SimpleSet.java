@@ -22,6 +22,18 @@ public class SimpleSet<E> implements Iterable<E> {
         return true;
     }
 
+    public void remove(E e) {
+        for (int i = 0; i != this.container.size(); i++) {
+            if (this.container.get(i).equals(e)) {
+                this.container.remove(i);
+            }
+        }
+    }
+
+    public int size() {
+        return container.size();
+    }
+
     @Override
     public Iterator<E> iterator() {
         return  this.container.iterator();
