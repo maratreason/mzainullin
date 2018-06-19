@@ -27,29 +27,18 @@ public class RectangleMove implements Runnable {
                 this.moveY *= CHANGE;
             }
 
-            if (this.rect.getX() < 300 || this.rect.getY() < 300) {
-                this.rect.setX(this.rect.getX() + moveX);
-                this.rect.setY(this.rect.getY() + moveY);
-            } else if (this.rect.getX() == 300 || this.rect.getY() == 300) {
-
-                if (this.rect.getX() > 0 || this.rect.getY() > 0) {
-                    this.rect.setX(this.rect.getX() - moveX);
-                    this.rect.setY(this.rect.getY() - moveY);
-                } else {
-                    this.rect.setX(this.rect.getX() + moveX);
-                    this.rect.setY(this.rect.getY() + moveY);
-                }
+            this.rect.setX(this.rect.getX() + moveX);
+            this.rect.setY(this.rect.getY() + moveY);
 
             }
 
+
             try {
-                Thread.sleep(30);
+                Thread.sleep(40);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-
-
     }
+
 }
 
