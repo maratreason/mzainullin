@@ -23,10 +23,6 @@ public class PingPong extends Application {
         stage.setResizable(false);
         stage.show();
 
-        if(thread.interrupted()) {
-            System.exit(0);
-        }
-
         stage.setOnCloseRequest(
                 event -> {
                     thread.interrupt();

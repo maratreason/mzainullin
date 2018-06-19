@@ -30,14 +30,14 @@ public class RectangleMove implements Runnable {
             this.rect.setX(this.rect.getX() + moveX);
             this.rect.setY(this.rect.getY() + moveY);
 
-            }
-
-
             try {
                 Thread.sleep(40);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+        }
+
     }
 
 }
