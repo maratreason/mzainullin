@@ -26,11 +26,8 @@ public class PingPong extends Application {
         stage.setOnCloseRequest(
                 event -> {
                     thread.interrupt();
-                    System.exit(0);
                 }
         );
-
-
 
     }
 }
