@@ -12,30 +12,60 @@ public class Node<E extends Comparable<E>> implements SimpleTree<E> {
     private final List<Node<E>> children = new ArrayList<>();
     private final E value;
     private Node<E> root;
+    private Node<E> leftChild;
+    private Node<E> rightChild;
+
 
     public Node(final E value) {
         this.value = value;
     }
 
+
     public void add(Node<E> child) {
         Node<E> newNode = this;
-        if (newNode.findBy(value) != null) {
-            this.children.add(child);
+        if (newNode == null) {
+            root = newNode;
         }
+        else {
+            Node<E> current = root;  // start at root
+            Node<E> parent;
+            while(true) {  // (exits internally)
+                parent = current;
+                if (child < current) { // go left?
+                    current = current.leftChild;
+                    if(current == null) { // insert on left
+                        parent.leftChild = newNode;
+                        return;
+                    }
+                }  // end if go left
+                else { // or go right?
+                    current = current.rightChild;
+                    if(current == null) { // insert on right
+                        parent.rightChild = newNode;
+                        return;
+                    }
+                }  // end else go right
+            }  // end while
+        }  // end else not root
+        this.children.add(child);
     }
+
 
     public List<Node<E>> leaves() {
         return this.children;
     }
 
+
     public boolean eqValue(E that) {
         return this.value.compareTo(that) == 0;
     }
+
 
     @Override
     public boolean add(E parent, E child) {
         return false;
     }
+
 
     @Override
     public Optional<Node<E>> findBy(E value) {
@@ -61,28 +91,3 @@ public class Node<E extends Comparable<E>> implements SimpleTree<E> {
         return null;
     }
 }
-
-
-/*
-    Давайте рассмотрим пример реализации метода findBy
-
-    В качестве базового алгоритма мы будет использовать алгоритм поиска в ширину.
-
-@Override
-public Optional<Node<E>> findBy(E value) {
-        Optional<Node<E>> rsl = Optional.empty();
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-
-        }     while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (el.eqValue(value)) {
-                rsl = Optional.of(el);
-                break;
-        }
-        for (Node<E> child : el.leaves()) {
-            data.offer(child);
-      }
-      return rsl;
-   }
-*/

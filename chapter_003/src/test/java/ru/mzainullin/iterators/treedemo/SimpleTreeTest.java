@@ -10,15 +10,15 @@ public class SimpleTreeTest {
 
     @Test
     public void when6ElFindLastThen6() {
-        SimpleTree<Integer> tree = new SimpleTree<>();
-        tree.add(1);
-        tree.add(13);
-        tree.add(-21);
-        tree.add(6);
-
-        for (Integer i : tree) {
-            System.out.println(i);
-        }
+//        SimpleTree<Integer> tree = new SimpleTree<>();
+//        tree.add(1);
+//        tree.add(13);
+//        tree.add(-21);
+//        tree.add(6);
+//
+//        for (Integer i : tree) {
+//            System.out.println(i);
+//        }
 //        assertThat(tree.find(6), is(true));
 
     }
