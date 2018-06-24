@@ -14,6 +14,7 @@ public class Node<E extends Comparable<E>> implements SimpleTree<E> {
     private Node<E> root;
     private Node<E> leftChild;
     private Node<E> rightChild;
+    private Node<E> parent;
 
 
     public Node(final E value) {
@@ -22,31 +23,13 @@ public class Node<E extends Comparable<E>> implements SimpleTree<E> {
 
 
     public void add(Node<E> child) {
-        Node<E> newNode = this;
-        if (newNode == null) {
-            root = newNode;
+        Node<E> newNode = root;
+        findBy(child.value);
+        if (child.value != root.value) {
+            parent.leftChild = child;
+        } else {
+            parent.rightChild = child;
         }
-        else {
-            Node<E> current = root;  // start at root
-            Node<E> parent;
-            while(true) {  // (exits internally)
-                parent = current;
-                if (child < current) { // go left?
-                    current = current.leftChild;
-                    if(current == null) { // insert on left
-                        parent.leftChild = newNode;
-                        return;
-                    }
-                }  // end if go left
-                else { // or go right?
-                    current = current.rightChild;
-                    if(current == null) { // insert on right
-                        parent.rightChild = newNode;
-                        return;
-                    }
-                }  // end else go right
-            }  // end while
-        }  // end else not root
         this.children.add(child);
     }
 
