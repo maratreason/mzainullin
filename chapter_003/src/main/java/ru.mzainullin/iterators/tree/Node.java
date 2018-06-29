@@ -23,14 +23,13 @@ public class Node<E extends Comparable<E>> implements SimpleTree<E> {
 
 
     public void add(Node<E> child) {
-        Node<E> newNode = root;
-        findBy(child.value);
-        if (child.value != root.value) {
-            parent.leftChild = child;
+        findBy(parent.value);
+        if (findBy(parent.value).equals(child)) {
+            parent.children.add(child);
         } else {
-            parent.rightChild = child;
+            root.children.add(child);
         }
-        this.children.add(child);
+
     }
 
 
