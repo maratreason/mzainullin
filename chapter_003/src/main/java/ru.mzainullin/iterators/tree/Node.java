@@ -23,11 +23,26 @@ public class Node<E extends Comparable<E>> implements SimpleTree<E> {
 
 
     public void add(Node<E> child) {
-        findBy(parent.value);
-        if (findBy(parent.value).equals(child)) {
-            parent.children.add(child);
+        if (root == null) {
+            root = child;
         } else {
-            root.children.add(child);
+            Node<E> current = root;
+            while(true) {
+                parent = current;
+                if (parent.eqValue(child.value)) {
+                    current = current.leftChild;
+                    if (current == null) {
+                        parent.leftChild = child;
+                        return;
+                    }
+                } else {
+                    current = current.rightChild;
+                    if (current == null) {
+                        parent.rightChild = child;
+                        return;
+                    }
+                }
+            }
         }
 
     }
