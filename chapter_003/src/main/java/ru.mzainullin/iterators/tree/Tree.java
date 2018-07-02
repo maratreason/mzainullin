@@ -47,19 +47,57 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return rsl;
     }
 
+    /**
+     * Метод должен проверять количество дочерних элементов в дереве.
+     * Если их <= 2 - то дерево бинарное.
+     * Метод должен циклически пройти по всем элементам дерева.
+     * Для этого можно использовать итератор.
+     *
+     * @return - true / false
+     */
+    @Override
+    public boolean isBinary() {
+        E elem = root.getValue();
+        Tree<E> tree = new Tree<E>(elem);
+        boolean isTrue = false;
+        int counter = 0;
+
+        if (tree.iterator().hasNext()) {
+            tree.iterator().next();
+            counter++;
+        }
+
+        if (counter <= 2) {
+            isTrue = true;
+        } else {
+            isTrue = false;
+        }
+
+        return isTrue;
+    }
+
 
     @Override
-    public Iterator iterator() {
-        Iterator it = new Iterator() {
+    public Iterator<E> iterator() {
+
+        Iterator<E> it = new Iterator<E>() {
+            int count = 0;
+            private Node<E> next;
 
             @Override
             public boolean hasNext() {
-                return root != null;
+                return next != null && count <= 2;
             }
 
             @Override
-            public Object next() {
-                return modCount++;
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException("All nodes have been visited!");
+                } else {
+                    count++;
+                }
+
+                return root.getValue();
             }
         };
         return it;

@@ -34,4 +34,18 @@ public class TreeTest {
                 is(false)
         );
     }
+
+    @Test
+    public void whenTreeRootHaveIsBinaryChilds() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        assertThat(tree.isBinary(), is(true));
+    }
+
+    @Test
+    public void whenTreeRootHasntIsBinaryChilds() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 5);
+        assertThat(tree.isBinary(), is(false));
+    }
 }
