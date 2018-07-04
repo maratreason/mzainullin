@@ -79,27 +79,40 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     @Override
     public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            Queue<Node<E>> nodes;
+            private int expectedModCount = modCount;
 
-        Iterator<E> it = new Iterator<E>() {
-            int count = 0;
-            private Node<E> next;
+            private Queue<Node<E>> getAll() {
+                if (nodes == null) {
+                    this.nodes = new LinkedList<>();
+                    addChild(root);
+                }
+                return this.nodes;
+            }
+
+            private void addChild(Node<E> currentNode) {
+                for (Node<E> child : currentNode.leaves()) {
+                    this.nodes.offer(child);
+                    addChild(child);
+                }
+            }
 
             @Override
             public boolean hasNext() {
-                return next != null && count <= 2;
+                return !getAll().isEmpty();
             }
 
             @Override
             public E next() {
                 if (!hasNext()) {
-                    throw new NoSuchElementException("All nodes have been visited!");
-                } else {
-                    count++;
+                    throw new NoSuchElementException();
                 }
-
-                return root.getValue();
+                if (this.expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return this.nodes.poll().getValue();
             }
         };
-        return it;
     }
 }
