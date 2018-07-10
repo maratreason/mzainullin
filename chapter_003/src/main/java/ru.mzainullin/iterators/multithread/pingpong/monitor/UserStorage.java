@@ -1,5 +1,7 @@
 package ru.mzainullin.iterators.multithread.pingpong.monitor;
 
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import java.util.List;
  * @version 1.0
  * @since 10.07.2018
  */
+@ThreadSafe
 public class UserStorage {
 
     private List<User> users = new LinkedList<>();

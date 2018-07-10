@@ -25,5 +25,4 @@ public class UserStorageTest {
         assertThat(storage.getUserMoney(user1), is(50));
         assertThat(storage.getUserMoney(user2), is(250));
     }
-
 }
