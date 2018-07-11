@@ -1,5 +1,6 @@
 package ru.mzainullin.iterators.multithread.pingpong.monitor;
 
+import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import java.util.List;
 @ThreadSafe
 public class UserStorage {
 
+    @GuardedBy("this")
     private List<User> users = new LinkedList<>();
 
 
@@ -21,7 +23,7 @@ public class UserStorage {
      * @param user - пользователь
      * @return true / false
      */
-    boolean add(User user) {
+    public synchronized boolean add(User user) {
         return this.users.add(user);
     }
 
@@ -30,7 +32,7 @@ public class UserStorage {
      * @param user - пользователь
      * @return true / false
      */
-    boolean update(User user) {
+    public synchronized boolean update(User user) {
         for (int index = 0; index != this.users.size(); index++){
             if (users.get(index).getId() == user.getId()) {
                 users.remove(index);
@@ -45,7 +47,7 @@ public class UserStorage {
      * @param user - пользователь
      * @return true / false
      */
-    boolean delete(User user) {
+    public synchronized boolean delete(User user) {
         for (int index = 0; index != this.users.size(); index++){
             if (users.get(index).getId() == user.getId()) {
                 users.remove(index);
@@ -54,7 +56,7 @@ public class UserStorage {
         return true;
     }
 
-    int getUserMoney(User user) {
+    public synchronized int getUserMoney(User user) {
         int money = 0;
         for (int index = 0; index != this.users.size(); index++){
             if (this.users.get(index).equals(user)) {
@@ -70,7 +72,7 @@ public class UserStorage {
      * @param toId - id пользователя, куда переводятся деньги
      * @param amount - сумма перевода
      */
-    Object transfer(int fromId, int toId, int amount) {
+    public synchronized Object transfer(int fromId, int toId, int amount) {
 
         UserStorage userStorage = new UserStorage();
 
