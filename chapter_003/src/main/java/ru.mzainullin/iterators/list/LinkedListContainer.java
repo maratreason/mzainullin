@@ -1,5 +1,8 @@
 package ru.mzainullin.iterators.list;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -7,10 +10,15 @@ import java.util.NoSuchElementException;
  * @author Marat Zainullin
  * @since 31.05.2018
  */
+@ThreadSafe
 public class LinkedListContainer<E> implements Iterable<E> {
 
     private int size;
+
+    @GuardedBy("this")
     private Node<E> first;
+
+    @GuardedBy("this")
     private Node<E> last;
 
     /**

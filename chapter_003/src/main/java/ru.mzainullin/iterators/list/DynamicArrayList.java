@@ -1,5 +1,8 @@
 package ru.mzainullin.iterators.list;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -7,11 +10,15 @@ import java.util.Iterator;
  * @author Marat Zainullin
  * @since 30.05.2018
  */
+@ThreadSafe
 public class DynamicArrayList<E> implements Iterable<E> {
 
     private final int INIT_SIZE = 16;
     private final int CUT_RATE = 4;
+
+    @GuardedBy("this")
     private Object[] array = new Object[INIT_SIZE];
+
     private int pointer = 0;
 
 
@@ -100,25 +107,3 @@ public class DynamicArrayList<E> implements Iterable<E> {
         return it;
     }
 }
-
-
-/*
-Необходимо создать динамический контейнер с методами:
-
-1) add(E value);
-2) E get(int index);
-3) реализовать интерфейс Iterable<E>.
-
-Внутри контейнер должен базироваться на массиве (Object[] container).
-Использовать стандартные коллекции JDK (ArrayList, LinkedList и т.д.) запрещено.
-Контейнер должен быть динамическим, т.е. при полном заполнении увеличиваться.
-
-Итератор должен реализовывать fail-fast поведение, т.е. если с момента создания итератора коллекция подверглась
-структурному изменению, итератор должен кидать ConcurrentModificationException.
-
-Это достигается через введение счетчика изменений - modCount. Каждая операция,
-которая структурно модифицирует коллекцию должна инкрементировать этот счетчик.
-В свою очередь итератор запоминает значение этого счетчика на момент своего создания (expectedModCount),
-а затем на каждой итерации сравнивает сохраненное значение, с текущим значением поля modCount,
-если они отличаются, то генерируется исключение.
-*/
