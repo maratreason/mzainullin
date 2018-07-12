@@ -36,7 +36,7 @@ public class LinkedListContainer<E> implements Iterable<E> {
         }
     }
 
-    public int size() {
+    public synchronized int size() {
         return this.size;
     }
 
@@ -44,7 +44,7 @@ public class LinkedListContainer<E> implements Iterable<E> {
      * Метод вставляет в начало списка данные.
      * @param element - данные для вставки.
      */
-    public void add(E element){
+    public synchronized void add(E element){
         final Node<E> lastNode = this.last;
         final Node<E> newNode = new Node<>(lastNode, element, null);
         this.last = newNode;
@@ -62,7 +62,7 @@ public class LinkedListContainer<E> implements Iterable<E> {
      * @param index - искомый индекс.
      * @return - данные под нужным индексом.
      */
-    public E get(int index) {
+    public synchronized E get(int index) {
         Node<E> result = this.first;
         for (int i = 0; i < index; i++) {
             result = result.next;
@@ -75,7 +75,7 @@ public class LinkedListContainer<E> implements Iterable<E> {
      * Метод удаления первого элемента в списке.
      * @return - коллекция без удаленного элемента.
      */
-    public E remove() {
+    public synchronized E remove() {
         E result = this.first.item;
         if (size > 1) {
             this.first.next.prev = null;

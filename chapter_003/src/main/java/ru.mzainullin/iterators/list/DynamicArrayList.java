@@ -28,7 +28,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
      * массива происходит его увеличение в два раза.
      * @param item - элемент, которых хотим добавить.
      */
-    public void add(E item) {
+    public synchronized void add(E item) {
         if(pointer == array.length-1)
             resize(array.length*2);
         array[pointer++] = item;
@@ -40,7 +40,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
      * @param index - индекс искомого элемента.
      * @return - возвращает индекс найденного элемента.
      */
-    public E get(int index) {
+    public synchronized E get(int index) {
         return (E) array[index];
     }
 
@@ -54,7 +54,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
      * места.
      * @param index - индекс удаляемого элемента.
      */
-    public void remove(int index) {
+    public synchronized void remove(int index) {
         for (int i = index; i<pointer; i++)
             array[i] = array[i+1];
         array[pointer] = null;
@@ -68,7 +68,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
      * Метод возвращает количество элементов в списке.
      * @return - количество элементов.
      */
-    public int size() {
+    public synchronized int size() {
         return pointer;
     }
 
@@ -77,7 +77,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
      * Вспомогательный метод для масштабирования.
      * @param newLength - новая копия массива после изменений.
      */
-    private void resize(int newLength) {
+    private synchronized void resize(int newLength) {
         Object[] newArray = new Object[newLength];
         System.arraycopy(array, 0, newArray, 0, pointer);
         array = newArray;
