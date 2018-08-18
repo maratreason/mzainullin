@@ -15,7 +15,7 @@ public class StartUI {
     /**
      * Конструтор инициализирующий поля.
      * @param input ввод данных.
-     * @param tracker хранилище заявок.
+     * @param tracker хранилище заявок.0
      */
     public StartUI(Input input, Tracker tracker) {
         this.tracker = tracker;

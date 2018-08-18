@@ -1,8 +1,11 @@
 package ru.mzainullin.oop.start;
 
 import ru.mzainullin.oop.models.Item;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.mzainullin.testsql.SQLStorage;
 
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.*;
 
 /**
@@ -17,7 +20,9 @@ public class Tracker implements AutoCloseable {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-    private List<Item> items = new ArrayList<>();;
+    private List<Item> items = new ArrayList<>();
+    ConnectDB connectDB = new ConnectDB();
+    private static final Logger Log = LoggerFactory.getLogger(SQLStorage.class);
 
 
     /**
@@ -27,6 +32,33 @@ public class Tracker implements AutoCloseable {
     public Item add(Item item) {
         item.setId(this.generateId());
         items.add(item);
+        String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
+        String username = "postgres";
+        String password = "1111";
+        Connection conn = null;
+
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement st = conn.prepareStatement("INSERT INTO items (description, name) values (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            st.setString(2, item.getName());
+            st.setString(1, item.getDescription());
+            st.executeUpdate();
+            ResultSet generatedKeys = st.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                System.out.println(generatedKeys.getInt(1));
+            }
+        } catch(Exception e) {
+            Log.error(e.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch(SQLException e) {
+                    Log.error(e.getMessage(), e);
+                }
+            }
+        }
+
         return item;
     }
 
@@ -36,13 +68,40 @@ public class Tracker implements AutoCloseable {
      * @param newId - перезапись
      */
     public void edit(Item newId) {
-        for (int index = 0; index != items.size(); index++) {
-            Item item = items.get(index);
-            if (item != null && item.getId().equals(newId.getId())) {
-                items.set(index, newId);
-                break;
+
+            String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
+            String username = "postgres";
+            String password = "1111";
+            Connection conn = null;
+
+            try {
+                conn = DriverManager.getConnection(url, username, password);
+                PreparedStatement st = conn.prepareStatement("UPDATE items SET name=?, description=? WHERE id=?");
+
+                for (int index = 0; index != items.size(); index++) {
+                    Item item = items.get(index);
+                    if (item != null && item.getId().equals(newId.getId())) {
+                        items.set(index, newId);
+                        st.setString(1, items.get(index).getName());
+                        st.setString(2, items.get(index).getDescription());
+                        st.setString(3, items.get(index).getId());
+                        st.executeUpdate();
+                        break;
+                    }
+                }
+
+            } catch(Exception e) {
+                Log.error(e.getMessage());
+            } finally {
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch(SQLException e) {
+                        Log.error(e.getMessage(), e);
+                    }
+                }
             }
-        }
+
     }
 
 
@@ -83,8 +142,34 @@ public class Tracker implements AutoCloseable {
         List<Item> showItems = new ArrayList<>();
         for (Item item : items) {
             showItems.add(item);
-//            System.out.println(String.format("%s, %s", item.getName(), item.getDescription()));
         }
+
+        String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
+        String username = "postgres";
+        String password = "1111";
+        Connection conn = null;
+
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("SELECT id, name, description FROM items");
+            while (res.next()) {
+                System.out.println(String.format("%d %s %s", res.getInt("id"), res.getString("name"), res.getString("description")));
+            }
+            res.close();
+            st.close();
+        } catch(Exception e) {
+            Log.error(e.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch(SQLException e) {
+                    Log.error(e.getMessage(), e);
+                }
+            }
+        }
+
         return showItems;
     }
 
