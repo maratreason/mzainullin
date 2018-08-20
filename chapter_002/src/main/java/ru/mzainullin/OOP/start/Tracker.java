@@ -35,18 +35,19 @@ public class Tracker implements AutoCloseable {
         String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
         String username = "postgres";
         String password = "1111";
-        Connection conn = null;
+        final Connection conn = DriverManager.getConnection(url, username, password);
 
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-            PreparedStatement st = conn.prepareStatement("INSERT INTO items (description, name) values (?, ?)", Statement.RETURN_GENERATED_KEYS);
+        try(PreparedStatement st = conn.prepareStatement("INSERT INTO items (description, name) values (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             st.setString(2, item.getName());
             st.setString(1, item.getDescription());
             st.executeUpdate();
-            ResultSet generatedKeys = st.getGeneratedKeys();
+
+            final ResultSet generatedKeys = st.getGeneratedKeys();
+
             if (generatedKeys.next()) {
                 System.out.println(generatedKeys.getInt(1));
             }
+            
         } catch(Exception e) {
             Log.error(e.getMessage());
         } finally {
