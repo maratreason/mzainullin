@@ -37,10 +37,13 @@ public class Tracker implements AutoCloseable {
         String password = "1111";
         Connection conn = null;
 
-        try(PreparedStatement st = conn.prepareStatement("INSERT INTO items (description, name) values (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        try {
             conn = DriverManager.getConnection(url, username, password);
-            st.setString(2, item.getName());
-            st.setString(1, item.getDescription());
+            PreparedStatement st = conn.prepareStatement("INSERT INTO items (name, description) values (?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+
+            st.setString(1, item.getName());
+            st.setString(2, item.getDescription());
             st.executeUpdate();
 
             final ResultSet generatedKeys = st.getGeneratedKeys();
@@ -82,11 +85,12 @@ public class Tracker implements AutoCloseable {
 
                 for (int index = 0; index != items.size(); index++) {
                     Item item = items.get(index);
-                    if (item != null && item.getId().equals(newId.getId())) {
+                    if (item.getId() != null && item.getId().equals(newId.getId())) {
                         items.set(index, newId);
+                        int uid = Integer.parseInt(newId.getId());
                         st.setString(1, items.get(index).getName());
                         st.setString(2, items.get(index).getDescription());
-                        st.setString(3, items.get(index).getId());
+                        st.setInt(3, uid);
                         st.executeUpdate();
                         break;
                     }
@@ -155,7 +159,11 @@ public class Tracker implements AutoCloseable {
             Statement st = conn.createStatement();
             ResultSet res = st.executeQuery("SELECT id, name, description FROM items");
             while (res.next()) {
-                System.out.println(String.format("%d %s %s", res.getInt("id"), res.getString("name"), res.getString("description")));
+                System.out.println(String.format("%d %s %s",
+                        res.getInt("id"),
+                        res.getString("name"),
+                        res.getString("description"))
+                );
             }
             res.close();
             st.close();
