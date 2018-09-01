@@ -24,6 +24,11 @@ public class Tracker implements AutoCloseable {
     ConnectDB connectDB = new ConnectDB();
     private static final Logger Log = LoggerFactory.getLogger(SQLStorage.class);
 
+    private String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
+    private String username = "postgres";
+    private String password = "1111";
+    private Connection conn = null;
+
 
     /**
      * Метод реализаущий добавление заявки в хранилище
@@ -32,20 +37,14 @@ public class Tracker implements AutoCloseable {
     public Item add(Item item) {
         item.setId(this.generateId());
         items.add(item);
-        String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
-        String username = "postgres";
-        String password = "1111";
-        Connection conn = null;
 
         try {
             conn = DriverManager.getConnection(url, username, password);
             PreparedStatement st = conn.prepareStatement("INSERT INTO items (name, description) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
-
             st.setString(1, item.getName());
             st.setString(2, item.getDescription());
             st.executeUpdate();
-
             final ResultSet generatedKeys = st.getGeneratedKeys();
 
             if (generatedKeys.next()) {
@@ -74,28 +73,13 @@ public class Tracker implements AutoCloseable {
      */
     public void edit(Item newId) {
 
-            String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
-            String username = "postgres";
-            String password = "1111";
-            Connection conn = null;
-
             try {
                 conn = DriverManager.getConnection(url, username, password);
                 PreparedStatement st = conn.prepareStatement("UPDATE items SET name=?, description=? WHERE id=?");
-
-                for (int index = 0; index != items.size(); index++) {
-                    Item item = items.get(index);
-                    if (item.getId() != null && item.getId().equals(newId.getId())) {
-                        items.set(index, newId);
-                        int uid = Integer.parseInt(newId.getId());
-                        st.setString(1, items.get(index).getName());
-                        st.setString(2, items.get(index).getDescription());
-                        st.setInt(3, uid);
-                        st.executeUpdate();
-                        break;
-                    }
-                }
-
+                st.setString(1, newId.getName());
+                st.setString(2, newId.getDescription());
+                st.setInt(3, Integer.parseInt(newId.getId()));
+                st.executeUpdate();
             } catch(Exception e) {
                 Log.error(e.getMessage());
             } finally {
@@ -127,13 +111,24 @@ public class Tracker implements AutoCloseable {
 
     /**
      * Метод реализаущий удаление заявки по id
-     * @param id
+     * @param uid
      */
-    public void delete(String id) {
-        for (int index = 0; index != items.size() - 1; index++) {
-            if (items.get(index).getId().equals(id)) {
-                items.remove(index);
-                break;
+    public void delete(String uid) {
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement st = conn.prepareStatement("DELETE FROM items WHERE id = ?");
+            st.setInt(1, Integer.parseInt(uid));
+            st.executeUpdate();
+
+        } catch(Exception e) {
+            Log.error(e.getMessage(), e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch(SQLException e) {
+                    Log.error(e.getMessage(), e);
+                }
             }
         }
     }
@@ -145,14 +140,6 @@ public class Tracker implements AutoCloseable {
      */
     public List<Item> findAll() {
         List<Item> showItems = new ArrayList<>();
-        for (Item item : items) {
-            showItems.add(item);
-        }
-
-        String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
-        String username = "postgres";
-        String password = "1111";
-        Connection conn = null;
 
         try {
             conn = DriverManager.getConnection(url, username, password);
@@ -189,25 +176,73 @@ public class Tracker implements AutoCloseable {
      */
     public List<Item> findByName(String key) {
         List<Item> item = new ArrayList<>();
-        for (int index = 0; index != item.size(); index++) {
-            if (item.get(index) != null && item.get(index).getName().equals(key)) {
-                item.get(index);
+        for (int index = 0; index < items.size(); index++) {
+            if (items.get(index).getName().equals(key)) {
+                item.add(items.get(index));
+                break;
             }
         }
+
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement st = conn.prepareStatement("SELECT name FROM items WHERE name=?");
+            st.setString(1, key);
+            st.executeUpdate();
+        } catch(Exception e) {
+            Log.error(e.getMessage(), e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch(SQLException e) {
+                    Log.error(e.getMessage(), e);
+                }
+            }
+        }
+
         return item;
     }
 
 
     /**
      * Метод реализаущий поиск по идентификатору
-     * @return result
+     * @return item
      */
     public Item findById(String id) {
         Item item = new Item();
-        for (int index = 0; index < items.size(); index++) {
-            if (items.get(index) != null && items.get(index).getId().equals(id)) {
-                item = items.get(index);
-                break;
+
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            int resultId = Integer.parseInt(id);
+            PreparedStatement st = conn.prepareStatement("SELECT id, name, description FROM items WHERE id=?");
+
+            st.setInt(1, resultId);
+            ResultSet res = st.executeQuery();
+            while (res.next()) {
+                if (res.getInt("id") == resultId) {
+
+                    System.out.println("Я был в поиске по ID");
+
+                    System.out.println(String.format("%d %s %s",
+                            res.getInt(id),
+                            res.getString("name"),
+                            res.getString("description"))
+                    );
+                    break;
+                }
+            }
+
+            res.close();
+            st.close();
+        } catch(Exception e) {
+            Log.error(e.getMessage(), e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch(SQLException e) {
+                    Log.error(e.getMessage(), e);
+                }
             }
         }
         return item;
