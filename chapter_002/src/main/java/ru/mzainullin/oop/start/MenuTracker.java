@@ -77,16 +77,7 @@ class FindById extends BaseAction {
 
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Enter task's id: ");
-
         findItems.add(tracker.findById(id));
-
-        for (int i = 0; i < findItems.size(); i++) {
-            Item item = new Item();
-            if (item.getId().equals(findItems.get(i).getId())) {
-                System.out.println(item.getId() + " " + item.getName() + " " + item.getDescription());
-                break;
-            }
-        }
     }
 }
 
@@ -98,13 +89,7 @@ class FindByName extends BaseAction {
 
     public void execute(Input input, Tracker tracker) {
         String name = input.ask("Enter task's name: ");
-        for (Item item : tracker.findByName(name)) {
-            if (item.getName().equals(name)) {
-                System.out.println(item.getId() + " " + item.getName() + " " + item.getDescription());
-            } else {
-                System.out.println("Нет такого имени");
-            }
-        }
+        tracker.findByName(name);
     }
 }
 

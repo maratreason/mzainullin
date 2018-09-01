@@ -50,3 +50,4 @@ public class StartUI {
         new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
     }
 }
+
