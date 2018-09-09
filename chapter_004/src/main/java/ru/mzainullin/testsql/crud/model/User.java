@@ -27,6 +27,10 @@ public class User {
         this.createDate = createDate;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

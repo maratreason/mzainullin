@@ -19,7 +19,7 @@ CREATE TABLE type
 
 
 --1. Написать запрос получение всех продуктов с типом "СЫР"
-select * from product where type_id=7;
+SELECT p.name, t.name FROM product p INNER JOIN type t ON p.type_id = t.id WHERE t.name='cheese_products';
 
 --2. Написать запрос получения всех продуктов, у кого в имени есть слово "мороженное"
 select * from product as p where p.name='%zabava%';
@@ -43,7 +43,7 @@ select * from product as p where p.type_id in (1, 7);
 UPDATE product SET count_product = 25 WHERE id =7;
 
 --7. Написать запрос, который выводит тип продуктов, которых осталось меньше 10 штук. 
-select * from product where count_product < 10;
+SELECT name, count_product FROM product GROUP BY id HAVING count_product < 10;
 
 --8. Вывести все продукты и их тип.
 select p.name, t.name, p.expired_date, p.price from product as p inner join type as t on p.type_id = t.id;
