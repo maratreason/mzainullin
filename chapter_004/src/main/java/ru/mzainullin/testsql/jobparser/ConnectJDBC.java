@@ -2,6 +2,8 @@ package ru.mzainullin.testsql.jobparser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import sun.rmi.runtime.Log;
 
 import java.io.*;
@@ -69,11 +71,20 @@ public class ConnectJDBC {
     public static void main(String[] args) throws IOException {
 //        new ConnectJDBC().showDB();
 //        new CronTrigger(newTrigger().build());
-        Document doc = Jsoup.connect("http://www.sql.ru/forum/1302045/vakansiya-java-programmist?hl=java").get();
+        Document doc = Jsoup.connect("http://www.sql.ru/forum/afsearch.aspx?s=java&submit=%CD%E0%E9%F2%E8&bid=9")
+                .data("Java".trim(), "Java".trim()).post();
         String title = doc.title();
-        String content = doc.text();
+
+        Element content = doc.getElementById("logTable");
+//        Elements tbody = content.getAllElements().html("<tbody><tr><td>");
+//        Element tr = tbody.getElementByTag("tr");
+        Elements links = content.getElementsByTag("a");
         System.out.println(title);
-        System.out.println(content);
+        for (Element link : links) {
+            String linkHref = link.attr("href");
+            String linkText = link.text();
+            System.out.println(String.format("title:%s.  \ncontent:%s", linkHref, linkText));
+        }
     }
 
 }
