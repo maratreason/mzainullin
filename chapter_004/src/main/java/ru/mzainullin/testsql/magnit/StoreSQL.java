@@ -33,6 +33,7 @@ public class StoreSQL {
      * @return - число
      */
     public int generate(int n) {
+        clearData();
         int result = 1;
         while (result <= n) {
             System.out.println("Вставляются данные: " + result);
@@ -95,12 +96,16 @@ public class StoreSQL {
     public void getFields() {
         try {
             Statement st = conn.createStatement();
-            ResultSet res = st.executeQuery("SELECT field FROM entry");
+            ResultSet res = st.executeQuery("SELECT * FROM entry");
+            Entry entry = new Entry();
             while (res.next()) {
                 int num = res.getInt("field");
-                for (int i = 0; i != fields.size(); i++) {
-                    fields.get(i).setField(num);
+                for (int i = 0; i != this.fields.size(); i++) {
+                    entry.setField(num);
+                    this.fields.add(entry);
+                    break;
                 }
+                System.out.println(this.fields.size());
             }
             res.close();
             st.close();
@@ -113,9 +118,9 @@ public class StoreSQL {
     /**
      * Метод удаления таблицы
      */
-    public void dropTable() {
+    public void clearData() {
         try {
-            String query = "DROP TABLE IF EXISTS entry;";
+            String query = "DELETE FROM entry;";
             Statement st = conn.createStatement();
             st.executeUpdate(query);
             st.close();
@@ -129,6 +134,7 @@ public class StoreSQL {
         System.out.println("Выберите пункт меню от 1 до 2...\n");
         System.out.println("1. Показать все данные из таблицы.");
         System.out.println("2. Сгенерировать данные в таблицу.");
+        System.out.println("3. Получить данные из таблицы.");
         Scanner scn = new Scanner(System.in);
         int x = 1;
         while (x <= 3) {
@@ -140,7 +146,14 @@ public class StoreSQL {
                         getInput();
                         break;
                     case 2:
-                        generate(5);
+                        System.out.println("Введите количество сгенерированных чисел:\n");
+                        Scanner count = new Scanner(System.in);
+                        int y = count.nextInt();
+                        generate(y);
+                        getInput();
+                        break;
+                    case 3:
+                        getFields();
                         getInput();
                         break;
                     default:

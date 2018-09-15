@@ -12,8 +12,7 @@ public class XmlUsage {
     public static class User {
         private List<Field> values;
 
-        public User() {
-        }
+        public User() {}
 
         public User(List<Field> values) {
             this.values = values;
@@ -32,8 +31,7 @@ public class XmlUsage {
     public static class Field {
         private int value;
 
-        public Field() {
-        }
+        public Field() {}
 
         public Field(int value) {
             this.value = value;
