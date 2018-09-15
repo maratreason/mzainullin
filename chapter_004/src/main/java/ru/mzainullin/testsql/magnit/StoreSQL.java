@@ -3,6 +3,7 @@ package ru.mzainullin.testsql.magnit;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author Marat Zainullin
@@ -17,7 +18,6 @@ public class StoreSQL {
     List<Entry> fields = new LinkedList<>();
 
     public void configSQL() {
-//        config.open();
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:d:/program files/SQLlite/databases/entry.db");
@@ -85,6 +85,7 @@ public class StoreSQL {
         } catch(SQLException e) {
             e.printStackTrace();
         }
+        return;
     }
 
 
@@ -124,9 +125,34 @@ public class StoreSQL {
     }
 
 
+    public void getInput() {
+        System.out.println("Выберите пункт меню от 1 до 2...\n");
+        System.out.println("1. Показать все данные из таблицы.");
+        System.out.println("2. Сгенерировать данные в таблицу.");
+        Scanner scn = new Scanner(System.in);
+        int x = 1;
+        while (x <= 3) {
+            while (scn.hasNext()) {
+                x = Integer.parseInt(scn.nextLine());
+                switch (x) {
+                    case 1:
+                        showTable();
+                        break;
+                    case 2:
+                        generate(5);
+                        break;
+                    default:
+                        System.out.println("Вы ввели неверный номер");
+                        break;
+                }
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         StoreSQL store = new StoreSQL();
         store.configSQL();
-        store.showTable();
+        store.getInput();
     }
 }
