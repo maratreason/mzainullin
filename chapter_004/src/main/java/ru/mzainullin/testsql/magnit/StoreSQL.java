@@ -35,7 +35,7 @@ public class StoreSQL {
     public int generate(int n) {
         int result = 1;
         while (result <= n) {
-            System.out.println(result);
+            System.out.println("Вставляются данные: " + result);
             try {
                 String query = "INSERT INTO entry (field) VALUES (" + result + ");";
                 Statement st = conn.createStatement();
@@ -137,12 +137,15 @@ public class StoreSQL {
                 switch (x) {
                     case 1:
                         showTable();
+                        getInput();
                         break;
                     case 2:
                         generate(5);
+                        getInput();
                         break;
                     default:
                         System.out.println("Вы ввели неверный номер");
+                        getInput();
                         break;
                 }
             }
