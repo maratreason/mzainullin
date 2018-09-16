@@ -4,6 +4,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,16 +14,28 @@ import java.util.List;
  * @since 01.09.2018
  */
 public class StoreXML {
+
+    List<Entry> values = new ArrayList<>();
+
+    public StoreXML(File target) {}
+
+    public List<Entry> save(List<Entry> list) {
+        list = new ArrayList<>();
+        for (Entry entry : list) {
+            values.add(entry);
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) {
         StoreSQL store = new StoreSQL();
         Entry entry = new Entry();
-        for (int index = 0; index < store.fields.size(); index++) {
-            entry.setField(store.fields.get(index).getField());
-        }
+
 
         try {
             File file = new File(
-                    "d:\\Projects\\mzainullin\\chapter_004\\src\\main\\java\\ru\\mzainullin\\testsql\\xmltraining\\file.xml"
+                    "d:\\Projects\\mzainullin\\chapter_004\\src\\main\\java\\ru\\mzainullin\\testsql\\magnit\\file.xml"
             );
 
             JAXBContext jaxbContext = JAXBContext.newInstance(Entry.class);

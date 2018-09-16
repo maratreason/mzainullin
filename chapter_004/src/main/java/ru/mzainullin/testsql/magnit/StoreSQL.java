@@ -93,25 +93,26 @@ public class StoreSQL {
     /**
      * Метод получения данных из таблицы entry
      */
-    public void getFields() {
+    public int getFields() {
+        int num = 0;
         try {
             Statement st = conn.createStatement();
             ResultSet res = st.executeQuery("SELECT * FROM entry");
             Entry entry = new Entry();
             while (res.next()) {
-                int num = res.getInt("field");
-                for (int i = 0; i != this.fields.size(); i++) {
+                num = res.getInt("field");
+                for (int i = 0; i < this.fields.size(); i++) {
                     entry.setField(num);
-                    this.fields.add(entry);
+                    this.fields.get(i).setField(num);
                     break;
                 }
-                System.out.println(this.fields.size());
             }
             res.close();
             st.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
+        return num;
     }
 
 

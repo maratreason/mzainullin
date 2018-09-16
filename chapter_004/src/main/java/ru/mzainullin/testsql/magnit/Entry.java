@@ -2,6 +2,7 @@ package ru.mzainullin.testsql.magnit;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 @XmlRootElement
 public class Entry {
@@ -13,6 +14,7 @@ public class Entry {
     public Entry(int field) {
         this.field = field;
     }
+
 
     @XmlElement
     public int getField() {
