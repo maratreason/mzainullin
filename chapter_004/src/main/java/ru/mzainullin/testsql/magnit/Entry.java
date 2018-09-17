@@ -15,7 +15,6 @@ public class Entry {
         this.field = field;
     }
 
-
     @XmlElement
     public int getField() {
         return field;

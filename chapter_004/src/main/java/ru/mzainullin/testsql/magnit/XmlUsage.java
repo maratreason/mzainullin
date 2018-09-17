@@ -1,7 +1,9 @@
 package ru.mzainullin.testsql.magnit;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.bind.annotation.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -57,9 +59,7 @@ public class XmlUsage {
         }
     }
 
-
-    public static void main(String[] args) throws Exception {
-
+    public void startUsage() throws JAXBException {
         StoreSQL storeSQL = new StoreSQL();
         storeSQL.configSQL();
 

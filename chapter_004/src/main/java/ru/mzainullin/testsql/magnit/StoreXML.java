@@ -17,6 +17,8 @@ public class StoreXML {
 
     List<Entry> values = new ArrayList<>();
 
+    public StoreXML() {}
+
     public StoreXML(File target) {}
 
     public List<Entry> save(List<Entry> list) {
@@ -28,11 +30,8 @@ public class StoreXML {
         return list;
     }
 
-    public static void main(String[] args) {
-        StoreSQL store = new StoreSQL();
+    public void startXML() {
         Entry entry = new Entry();
-
-
         try {
             File file = new File(
                     "d:\\Projects\\mzainullin\\chapter_004\\src\\main\\java\\ru\\mzainullin\\testsql\\magnit\\file.xml"

@@ -1,5 +1,6 @@
 package ru.mzainullin.testsql.magnit;
 
+import javax.xml.bind.JAXBException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -94,16 +95,16 @@ public class StoreSQL {
      * Метод получения данных из таблицы entry
      */
     public int getFields() {
-        int num = 0;
+        int fieldValue = 0;
         try {
             Statement st = conn.createStatement();
             ResultSet res = st.executeQuery("SELECT * FROM entry");
             Entry entry = new Entry();
             while (res.next()) {
-                num = res.getInt("field");
+                fieldValue = res.getInt("field");
                 for (int i = 0; i < this.fields.size(); i++) {
-                    entry.setField(num);
-                    this.fields.get(i).setField(num);
+                    entry.setField(fieldValue);
+                    this.fields.get(i).setField(fieldValue);
                     break;
                 }
             }
@@ -112,7 +113,7 @@ public class StoreSQL {
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return num;
+        return fieldValue;
     }
 
 
@@ -131,14 +132,15 @@ public class StoreSQL {
     }
 
 
-    public void getInput() {
+    public void getInput() throws JAXBException {
         System.out.println("Выберите пункт меню от 1 до 2...\n");
         System.out.println("1. Показать все данные из таблицы.");
         System.out.println("2. Сгенерировать данные в таблицу.");
         System.out.println("3. Получить данные из таблицы.");
+        System.out.println("4. Вывести данные полей в XML.");
         Scanner scn = new Scanner(System.in);
         int x = 1;
-        while (x <= 3) {
+        while (x <= 4) {
             while (scn.hasNext()) {
                 x = Integer.parseInt(scn.nextLine());
                 switch (x) {
@@ -157,6 +159,10 @@ public class StoreSQL {
                         getFields();
                         getInput();
                         break;
+                    case 4:
+                        new XmlUsage().startUsage();
+                        getInput();
+                        break;
                     default:
                         System.out.println("Вы ввели неверный номер");
                         getInput();
@@ -167,9 +173,4 @@ public class StoreSQL {
     }
 
 
-    public static void main(String[] args) {
-        StoreSQL store = new StoreSQL();
-        store.configSQL();
-        store.getInput();
-    }
 }
