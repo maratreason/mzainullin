@@ -2,6 +2,7 @@ package ru.mzainullin.testsql.magnit;
 
 import javax.xml.bind.JAXBException;
 import java.sql.*;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -41,12 +42,14 @@ public class StoreSQL {
             try {
                 String query = "INSERT INTO entry (field) VALUES (" + result + ");";
                 Statement st = conn.createStatement();
+
                 st.executeUpdate(query);
+                this.fields.add(new Entry(result));
                 st.close();
             } catch(SQLException e) {
                 e.printStackTrace();
             }
-            fields.add(new Entry(result));
+
             result++;
         }
         return result;
@@ -94,26 +97,48 @@ public class StoreSQL {
     /**
      * Метод получения данных из таблицы entry
      */
-    public int getFields() {
-        int fieldValue = 0;
+    public List<Entry> getFields(List<Entry> newList) {
+        int fieldValue;
         try {
             Statement st = conn.createStatement();
             ResultSet res = st.executeQuery("SELECT * FROM entry");
-            Entry entry = new Entry();
             while (res.next()) {
                 fieldValue = res.getInt("field");
-                for (int i = 0; i < this.fields.size(); i++) {
-                    entry.setField(fieldValue);
-                    this.fields.get(i).setField(fieldValue);
+                newList.add(new Entry());
+                for (int i = 0; i < newList.size(); i++) {
+                    newList.get(i).setField(fieldValue);
+                    this.fields.add(newList.get(i));
+                    System.out.println(newList.get(i).getField());
                     break;
                 }
+
             }
             res.close();
             st.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return fieldValue;
+        return newList;
+    }
+
+
+    public List<Entry> getLists() {
+        try {
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("SELECT * FROM entry");
+            this.fields.clear();
+            while (res.next()) {
+                Entry entry = new Entry();
+                entry.setField(res.getInt("field"));
+                this.fields.add(entry);
+            }
+            res.close();
+            st.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("The list's size is " + this.fields.size());
+        return this.fields;
     }
 
 
@@ -138,6 +163,7 @@ public class StoreSQL {
         System.out.println("2. Сгенерировать данные в таблицу.");
         System.out.println("3. Получить данные из таблицы.");
         System.out.println("4. Вывести данные полей в XML.");
+        System.out.println("5. Показать размер листа fields.");
         Scanner scn = new Scanner(System.in);
         int x = 1;
         while (x <= 4) {
@@ -156,11 +182,15 @@ public class StoreSQL {
                         getInput();
                         break;
                     case 3:
-                        getFields();
+                        getFields(fields);
                         getInput();
                         break;
                     case 4:
-                        new XmlUsage().startUsage();
+                        new XmlUsage().addToXML();
+                        getInput();
+                        break;
+                    case 5:
+                        getLists();
                         getInput();
                         break;
                     default:
