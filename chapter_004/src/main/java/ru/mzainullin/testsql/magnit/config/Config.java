@@ -1,4 +1,4 @@
-package ru.mzainullin.testsql.magnit;
+package ru.mzainullin.testsql.magnit.config;
 
 import java.sql.*;
 

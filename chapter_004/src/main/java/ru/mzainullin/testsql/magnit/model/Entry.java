@@ -1,10 +1,8 @@
-package ru.mzainullin.testsql.magnit;
+package ru.mzainullin.testsql.magnit.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-
-import static ru.mzainullin.testsql.magnit.XmlUsage.*;
 
 @XmlRootElement
 public class Entry {
