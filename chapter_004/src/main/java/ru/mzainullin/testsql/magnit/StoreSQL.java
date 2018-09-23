@@ -1,6 +1,8 @@
 package ru.mzainullin.testsql.magnit;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
+import java.io.File;
 import java.sql.*;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -157,13 +159,21 @@ public class StoreSQL {
     }
 
 
-    public void getInput() throws JAXBException {
-        System.out.println("Выберите пункт меню от 1 до 2...\n");
+    public void fileConvertXSQT() throws Exception {
+        File inputXML = new File("D:\\Projects\\mzainullin\\chapter_004\\src\\main\\java\\ru\\mzainullin\\testsql\\magnit\\file.xml");
+        File dest = new File("D:\\Projects\\mzainullin\\chapter_004\\src\\main\\java\\ru\\mzainullin\\testsql\\magnit\\file1.xml");
+        File schema = new File("D:\\Projects\\mzainullin\\chapter_004\\src\\main\\java\\ru\\mzainullin\\testsql\\magnit\\file.xsl");
+        new ConvertXSQT().convert(inputXML, dest, schema);
+    }
+
+
+    public void getInput() throws Exception {
+        System.out.println("Выберите пункт меню от 1 до 5...\n");
         System.out.println("1. Показать все данные из таблицы.");
         System.out.println("2. Сгенерировать данные в таблицу.");
         System.out.println("3. Получить данные из таблицы.");
         System.out.println("4. Вывести данные полей в XML.");
-        System.out.println("5. Показать размер листа fields.");
+        System.out.println("5. Преобразовать XML в новый файл через XSLT.");
         Scanner scn = new Scanner(System.in);
         int x = 1;
         while (x <= 4) {
@@ -186,11 +196,11 @@ public class StoreSQL {
                         getInput();
                         break;
                     case 4:
-                        new XmlUsage().addToXML();
+                        new XmlUsage().StaxWriteExample();
                         getInput();
                         break;
                     case 5:
-                        getLists();
+                        fileConvertXSQT();
                         getInput();
                         break;
                     default:
