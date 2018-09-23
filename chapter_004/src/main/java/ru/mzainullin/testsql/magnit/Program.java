@@ -1,6 +1,5 @@
 package ru.mzainullin.testsql.magnit;
 
-import ru.mzainullin.testsql.magnit.config.SQLConnect;
 import ru.mzainullin.testsql.magnit.model.Menu;
 
 /**

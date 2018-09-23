@@ -1,6 +1,5 @@
 package ru.mzainullin.testsql.magnit.model;
 
-import ru.mzainullin.testsql.magnit.config.SQLConnect;
 import ru.mzainullin.testsql.magnit.services.sql.*;
 import ru.mzainullin.testsql.magnit.services.xml.*;
 
@@ -19,15 +18,16 @@ public class Menu {
 
         SQLService service = new SQLService();
 
-        System.out.println("Выберите пункт меню от 1 до 5...\n");
+        System.out.println("Выберите пункт меню от 1 до 6...\n");
         System.out.println("1. Показать все данные из таблицы.");
         System.out.println("2. Сгенерировать данные в таблицу.");
         System.out.println("3. Получить данные из таблицы.");
         System.out.println("4. Вывести данные полей в XML.");
         System.out.println("5. Преобразовать XML в новый файл через XSLT.");
+        System.out.println("6. Вывод суммы значений всех атрибутов field в консоль.");
         Scanner scn = new Scanner(System.in);
         int x = 1;
-        while (x <= 4) {
+        while (x <= 6) {
             while (scn.hasNext()) {
                 x = Integer.parseInt(scn.nextLine());
                 switch (x) {
@@ -52,6 +52,10 @@ public class Menu {
                         break;
                     case 5:
                         new XMLService().fileConvertXSQT();
+                        showMenu();
+                        break;
+                    case 6:
+                        new XMLService().countSumm();
                         showMenu();
                         break;
                     default:

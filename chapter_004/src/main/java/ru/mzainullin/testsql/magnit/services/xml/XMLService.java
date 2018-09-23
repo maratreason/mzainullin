@@ -1,14 +1,19 @@
 package ru.mzainullin.testsql.magnit.services.xml;
 
+import org.xml.sax.SAXException;
 import ru.mzainullin.testsql.magnit.model.Entry;
 import ru.mzainullin.testsql.magnit.services.sql.SQLService;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -107,4 +112,53 @@ public class XMLService {
         File schema = new File("D:\\Projects\\mzainullin\\chapter_004\\src\\main\\java\\ru\\mzainullin\\testsql\\magnit\\files\\scheme.xsl");
         new XMLService.ConvertXSQT().convert(inputXML, schema, dest);
     }
+
+
+    public void countSumm() throws ParserConfigurationException, SAXException, IOException {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        MyHandler handler = new MyHandler();
+
+        File file = new File("D:\\Projects\\mzainullin\\chapter_004\\src\\main\\java\\ru\\mzainullin\\testsql\\magnit\\files\\newXML.xml");
+
+        if (file.exists()) {
+            parser.parse(file, handler);
+        }
+
+        System.out.println(String.format("%s %d", "Сумма значений поля field: ", handler.getNum()));
+
+    }
+
+
+    /*public void TransformSumm() throws Exception {
+        String xsl = "<?xml version=\"1.0\"?>\n" +
+                "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\">\n" +
+                "<xsl:template match=\"/\">\n" +
+                "<entries>" +
+                "   <xsl:for-each select=\"entries/values\">\n" +
+                "       <field>" +
+                "           <xsl:value-of select=\"value\"/>" +
+                "       </field>\n" +
+                "   </xsl:for-each>\n" +
+                " </entries>\n" +
+                "</xsl:template>\n" +
+                "</xsl:stylesheet>\n";
+
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<entries>\n" +
+                " <values>\n" +
+                " <value>" + summFields() + "</value>\n" +
+                " </values>\n" +
+                "</entries>";
+
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Transformer transformer = factory.newTransformer(
+                new StreamSource(
+                        new ByteArrayInputStream(xsl.getBytes()))
+        );
+        transformer.transform(new StreamSource(
+                        new ByteArrayInputStream(xml.getBytes())),
+                new StreamResult(System.out)
+        );
+    }*/
 }
