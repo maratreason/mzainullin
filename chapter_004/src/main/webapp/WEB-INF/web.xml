@@ -6,7 +6,7 @@
          version="2.4">
     <servlet>
         <servlet-name>UserServlet</servlet-name>
-        <servlet-class>ru.mzainullin.testsql.crud.webservlet.UserServlet</servlet-class>
+        <servlet-class>ru.mzainullin.servlet.presentation.UserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
