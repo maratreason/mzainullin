@@ -16,29 +16,37 @@ public class SQLService {
 
     Connection conn = new SQLConnect().getConnectSQL();
     List<Entry> fields = new LinkedList<>();
+    Savepoint savepointOne;
 
     /**
      * Метод генерации чисел
      * @param n - сгенерированное число
      * @return - число
      */
-    public int generate(int n) {
+    public int generate(int n) throws SQLException {
         clearData();
         int result = 1;
+        Statement st = conn.createStatement();
+
         while (result <= n) {
             System.out.println("Вставляются данные: " + result);
+            savepointOne = conn.setSavepoint("SavepointOne");
             try {
+                conn.setAutoCommit(false);
                 String query = "INSERT INTO entry (field) VALUES (" + result + ");";
-                Statement st = conn.createStatement();
-
                 st.executeUpdate(query);
                 this.fields.add(new Entry(result));
-                st.close();
+
             } catch(SQLException e) {
+                conn.rollback(savepointOne);
                 e.printStackTrace();
             }
             result++;
         }
+        conn.commit();
+        st.close();
+        conn.close();
+
         return result;
     }
 
