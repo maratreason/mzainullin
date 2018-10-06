@@ -28,9 +28,11 @@ public class SQLService {
         int result = 1;
         Statement st = conn.createStatement();
 
+        savepointOne = conn.setSavepoint("SavepointOne");
+
         while (result <= n) {
             System.out.println("Вставляются данные: " + result);
-            savepointOne = conn.setSavepoint("SavepointOne");
+
             try {
                 conn.setAutoCommit(false);
                 String query = "INSERT INTO entry (field) VALUES (" + result + ");";
