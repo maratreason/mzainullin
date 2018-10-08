@@ -2,6 +2,7 @@ package ru.mzainullin.iterators.multithread.pingpong.notify;
 
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -14,13 +15,35 @@ import java.util.Queue;
 @ThreadSafe
 public class SimpleBlockingQueue<T> {
 
+    private final BlockThread blockThread = new BlockThread();
+
     @GuardedBy("this")
     private Queue<T> queue = new LinkedList<>();
 
     public void offer(T value) {
+
+        try {
+            blockThread.lock();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        this.queue.add(value);
+
+        blockThread.unlock();
     }
 
     public T poll() {
-        return null;
+        return this.queue.poll();
     }
+
+    public int size() {
+        return this.queue.size();
+    }
+
+    public Queue getQueue() {
+        return this.queue;
+    }
+
+
 }
