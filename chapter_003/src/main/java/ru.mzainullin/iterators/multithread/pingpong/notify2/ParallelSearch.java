@@ -22,7 +22,7 @@ public class ParallelSearch {
         notify();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
 
@@ -44,6 +44,7 @@ public class ParallelSearch {
                             e.printStackTrace();
                             Thread.currentThread().interrupt();
                         }
+                        queue.notify();
                     }
                 }
             }
@@ -57,6 +58,7 @@ public class ParallelSearch {
                             Thread.sleep(500);
                             queue.notify();
                             queue.offer(index);
+                            queue.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
