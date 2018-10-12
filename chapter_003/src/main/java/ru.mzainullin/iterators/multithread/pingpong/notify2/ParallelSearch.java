@@ -11,6 +11,17 @@ import ru.mzainullin.iterators.multithread.pingpong.notify.SimpleBlockingQueue;
 
 public class ParallelSearch {
 
+    boolean suspendFlag = false;
+
+    synchronized void mysuspend() {
+        suspendFlag = true;
+    }
+
+    synchronized void myresume() {
+        suspendFlag = false;
+        notify();
+    }
+
     public static void main(String[] args) {
 
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
@@ -18,36 +29,42 @@ public class ParallelSearch {
         queue.offer(15);
         queue.offer(23);
         queue.offer(27);
+        queue.offer(29);
+        queue.offer(21);
 
         final Thread consumer = new Thread(
-                () -> {
-                    while (true) {
+            () -> {
+                while (true) {
+                    synchronized (queue) {
                         try {
+                            queue.notify();
                             System.out.println(queue.poll());
+                            queue.wait();
                         } catch (Exception e) {
                             e.printStackTrace();
                             Thread.currentThread().interrupt();
                         }
-                        if (queue.poll() == null) {
-                            break;
-                        }
                     }
                 }
-        );
+            }
+        , "Consumer");
 
-        final Thread producer =  new Thread(
-                () -> {
-                    for (int index = 0; index != 3; index++) {
-                        queue.offer(index);
+        final Thread producer = new Thread(
+            () -> {
+                for (int index = 0; index != 3; index++) {
+                    synchronized (queue) {
                         try {
                             Thread.sleep(500);
+                            queue.notify();
+                            queue.offer(index);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        queue.notify();
                     }
                 }
-
-        );
+            }
+                , "Producer");
 
         consumer.start();
         producer.start();
