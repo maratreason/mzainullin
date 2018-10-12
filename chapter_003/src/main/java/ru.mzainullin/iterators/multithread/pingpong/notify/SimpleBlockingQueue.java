@@ -21,19 +21,23 @@ public class SimpleBlockingQueue<T> {
     private Queue<T> queue = new LinkedList<>();
 
     public void offer(T value) {
-
         try {
             blockThread.lock();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         this.queue.add(value);
-
         blockThread.unlock();
     }
 
     public T poll() {
+        if (queue.isEmpty()) {
+            try {
+                blockThread.lock();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return this.queue.poll();
     }
 

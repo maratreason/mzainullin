@@ -8,7 +8,7 @@ package ru.mzainullin.iterators.multithread.pingpong.notify;
 public class BlockThread {
     private boolean isLocked = false;
 
-    void lock() throws InterruptedException {
+    public void lock() throws InterruptedException {
         synchronized (this) {
             while (isLocked) {
                 wait();
@@ -16,7 +16,7 @@ public class BlockThread {
         }
     }
 
-    void unlock() {
+    public void unlock() {
         synchronized (this) {
             isLocked = false;
             notify();

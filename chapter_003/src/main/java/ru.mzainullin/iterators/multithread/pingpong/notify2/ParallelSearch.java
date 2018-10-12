@@ -11,17 +11,6 @@ import ru.mzainullin.iterators.multithread.pingpong.notify.SimpleBlockingQueue;
 
 public class ParallelSearch {
 
-    boolean suspendFlag = false;
-
-    synchronized void mysuspend() {
-        suspendFlag = true;
-    }
-
-    synchronized void myresume() {
-        suspendFlag = false;
-        notify();
-    }
-
     public static void main(String[] args) throws InterruptedException {
 
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
@@ -34,13 +23,13 @@ public class ParallelSearch {
 
         final Thread consumer = new Thread(
             () -> {
-                while (true) {
+                while (!Thread.currentThread().isInterrupted()) {
                     synchronized (queue) {
                         try {
                             queue.notify();
                             System.out.println(queue.poll());
                             queue.wait();
-                        } catch (Exception e) {
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
                             Thread.currentThread().interrupt();
                         }
@@ -50,26 +39,29 @@ public class ParallelSearch {
             }
         , "Consumer");
 
+        consumer.start();
+
         final Thread producer = new Thread(
             () -> {
                 for (int index = 0; index != 3; index++) {
                     synchronized (queue) {
                         try {
-                            Thread.sleep(500);
-                            queue.notify();
-                            queue.offer(index);
-                            queue.wait();
+                            if (queue.size() != -1) {
+                                Thread.sleep(500);
+                                queue.notify();
+                                queue.offer(index);
+                                queue.wait();
+                            }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         queue.notify();
                     }
                 }
+                consumer.interrupt();
             }
                 , "Producer");
 
-        consumer.start();
         producer.start();
-
     }
 }
