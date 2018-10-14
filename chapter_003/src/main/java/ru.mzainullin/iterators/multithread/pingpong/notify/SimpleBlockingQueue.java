@@ -4,6 +4,7 @@ import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -49,5 +50,7 @@ public class SimpleBlockingQueue<T> {
         return this.queue;
     }
 
-
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
 }

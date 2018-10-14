@@ -1,6 +1,5 @@
 package ru.mzainullin.iterators.multithread.pingpong.notify2;
 
-import ru.mzainullin.iterators.multithread.pingpong.notify.ProducerCustomer;
 import ru.mzainullin.iterators.multithread.pingpong.notify.SimpleBlockingQueue;
 
 /**
@@ -46,12 +45,10 @@ public class ParallelSearch {
                 for (int index = 0; index != 3; index++) {
                     synchronized (queue) {
                         try {
-                            if (queue.size() != -1) {
-                                Thread.sleep(500);
-                                queue.notify();
-                                queue.offer(index);
-                                queue.wait();
-                            }
+                            Thread.sleep(500);
+                            queue.notify();
+                            queue.offer(index);
+                            queue.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
