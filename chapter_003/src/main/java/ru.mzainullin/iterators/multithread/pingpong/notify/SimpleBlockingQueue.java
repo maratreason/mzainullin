@@ -16,11 +16,18 @@ import java.util.Queue;
 @ThreadSafe
 public class SimpleBlockingQueue<T> {
 
+    /**
+     * Объект для блокировки потоков.
+     */
     private final BlockThread blockThread = new BlockThread();
 
     @GuardedBy("this")
-    private Queue<T> queue = new LinkedList<>();
+    private final Queue<T> queue = new LinkedList<>();
 
+    /**
+     * Метод добавления элемента в конец очереди
+     * @param value объект
+     */
     public void offer(T value) {
         try {
             blockThread.lock();
@@ -31,6 +38,11 @@ public class SimpleBlockingQueue<T> {
         blockThread.unlock();
     }
 
+    /**
+     * Метод получения элемента из коллекции
+     *
+     * @return потокобезопасная очередь
+     */
     public T poll() {
         if (queue.isEmpty()) {
             try {
@@ -42,15 +54,36 @@ public class SimpleBlockingQueue<T> {
         return this.queue.poll();
     }
 
+    /**
+     * Метод измерения размера коллекции
+     *
+     * @return размер.
+     */
     public int size() {
-        return this.queue.size();
+        synchronized(this.queue) {
+            return this.queue.size();
+        }
     }
 
+    /**
+     * Метод получения коллекции
+     *
+     * @return текущая коллекция.
+     */
     public Queue getQueue() {
-        return this.queue;
+        synchronized(this.queue) {
+            return this.queue;
+        }
     }
 
+    /**
+     * Метод проверяющий коллекцию на пустоту.
+     *
+     * @return true или false
+     */
     public boolean isEmpty() {
-        return queue.isEmpty();
+        synchronized(this.queue) {
+            return this.queue.isEmpty();
+        }
     }
 }

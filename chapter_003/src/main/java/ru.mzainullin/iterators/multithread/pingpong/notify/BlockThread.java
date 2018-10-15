@@ -6,8 +6,14 @@ package ru.mzainullin.iterators.multithread.pingpong.notify;
  * @since 08.10.2018
  */
 public class BlockThread {
+
     private boolean isLocked = false;
 
+    /**
+     * Метод блокирующий текущий поток
+     * Может выбросить исключение
+     * @throws InterruptedException
+     */
     public void lock() throws InterruptedException {
         synchronized (this) {
             while (isLocked) {
@@ -16,6 +22,9 @@ public class BlockThread {
         }
     }
 
+    /**
+     * Метод снимающий блокировку с текущего потока.
+     */
     public void unlock() {
         synchronized (this) {
             isLocked = false;
