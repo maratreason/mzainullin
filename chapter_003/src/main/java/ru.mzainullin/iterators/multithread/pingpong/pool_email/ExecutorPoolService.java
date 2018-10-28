@@ -8,60 +8,36 @@ public class ExecutorPoolService {
 
     public static void main(String[] args) {
 
-        String body = "Здесь может быть любое сообщение от пользователя";
-
         CopyOnWriteArrayList<User> users = new CopyOnWriteArrayList<>();
-
         EmailNotification emailNotification = new EmailNotification();
 
         ExecutorService pool = Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors()
         );
 
-//        pool.submit(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("Execute " + Thread.currentThread().getName());
-//            }
-//        });
-//
-//        pool.submit(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("Execute " + Thread.currentThread().getName());
-//            }
-//        });
-
-//        pool.shutdown();
-
-
 
         pool.submit(new Runnable() {
             @Override
             public void run() {
-                User user = new User("alex", "alex@mail.ru", body);
+                User user = new User("alex", "alex@mail.ru", "Сообщение для Алекса...");
                 users.add(user);
+                emailNotification.send(user.getUsername(), user.getBody(), user.getEmail());
             }
         });
+
 
         pool.submit(new Runnable() {
             @Override
             public void run() {
                 User user = new User("sam", "sam@mail.ru", "Сообщение для Сэма");
                 users.add(user);
+                emailNotification.send(user.getUsername(), user.getBody(), user.getEmail());
             }
         });
 
-        pool.submit(new Runnable() {
-            @Override
-            public void run() {
-                for (User user : users) {
-                    emailNotification.send(user.getUsername(), body, user.getEmail());
-                }
-            }
-        });
 
         pool.shutdown();
+
         while (!pool.isTerminated()) {
             try {
                 Thread.sleep(100);
@@ -71,8 +47,6 @@ public class ExecutorPoolService {
         }
 
 
-        System.out.println("Execute " + Thread.currentThread().getName());
-
         for (User user : users) {
             emailNotification.emailTo(user);
         }
@@ -80,14 +54,4 @@ public class ExecutorPoolService {
         emailNotification.close();
 
     }
-
-    //---------------------------------------------------------------------
-
-    /**
-     * Через ExecutorService создайте задачу, которая будет создать данные для пользователя и передавать их в метод send.
-     */
-
-
-
 }
-
