@@ -13,43 +13,47 @@ public class ThreadPool implements Runnable {
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
     private int numberOfThreads;
 
-    public ThreadPool() {}
-
     public ThreadPool(int numberOfThreads) {
         this.numberOfThreads = numberOfThreads;
     }
 
     @Override
     public void run() {
-        System.out.println("start: " + numberOfThreads);
+        System.out.println(Thread.currentThread().getName() + " start");
+
+        if (tasks.poll() == null) {
+            try {
+                shutdown();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        threads.notify();
+
+        System.out.println(Thread.currentThread().getName() + " end");
     }
+
 
     public void work(Runnable job) {
         this.tasks.offer(job);
+        System.out.println(this.tasks.poll());
     }
 
-    public void shutdown() {
 
+    public void shutdown() throws InterruptedException {
+        this.threads.wait();
     }
 
-    public SimpleBlockingQueue<Runnable> getTasks() {
-        return this.tasks;
-    }
+    public static void main(String[] args) throws InterruptedException {
 
-    public static void main(String[] args) {
+        int size = Runtime.getRuntime().availableProcessors();
+        ThreadPool threadPool = new ThreadPool(size);
 
-        SimpleBlockingQueue<Runnable> tasks = new ThreadPool().getTasks();
-
-        for (int index = 0; index < 5; index++) {
-            tasks.offer(new ThreadPool(index));
+        for (int index = 0; index < 10; index++) {
+            threadPool.work(new Thread(String.valueOf(index)));
         }
 
-        ExecutorService exec = Executors.newFixedThreadPool(4);
-
-        for (int index = 0; index < 5; index++) {
-            exec.submit(new ThreadPool(index));
-        }
-
-        exec.shutdown();
+        threadPool.shutdown();
     }
 }
