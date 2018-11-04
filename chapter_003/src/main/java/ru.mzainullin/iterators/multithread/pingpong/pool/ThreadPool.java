@@ -51,7 +51,9 @@ public class ThreadPool implements Runnable {
         ThreadPool threadPool = new ThreadPool(size);
 
         for (int index = 0; index < 10; index++) {
-            threadPool.work(new Thread(String.valueOf(index)));
+            Thread thread = new Thread(String.valueOf(index));
+            thread.start();
+            threadPool.work(thread);
         }
 
         threadPool.shutdown();
