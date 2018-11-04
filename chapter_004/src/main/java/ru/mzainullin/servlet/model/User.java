@@ -1,5 +1,8 @@
 package ru.mzainullin.servlet.model;
 
+/**
+ * Модель пользователя
+ */
 public class User {
     private int id = 0;
     private String name;
