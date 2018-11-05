@@ -4,43 +4,57 @@ import ru.mzainullin.iterators.multithread.pingpong.notify.SimpleBlockingQueue;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ThreadPool implements Runnable {
 
     private final List<Thread> threads = new LinkedList<>();
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
     private int numberOfThreads;
+    private volatile boolean isRunning = true;
+
 
     public ThreadPool(int numberOfThreads) {
         this.numberOfThreads = numberOfThreads;
+
+        for (int i = 0; i < numberOfThreads; i++) {
+            new Thread(new RunnablePoolThread()).start();
+        }
     }
+
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName() + " start");
-        if (tasks.poll() == null) {
-            try {
-                shutdown();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        while (isRunning) {
+            Runnable nextTask = tasks.poll();
+            if (nextTask != null) {
+                nextTask.run();
             }
         }
-        this.threads.notify();
-        System.out.println(Thread.currentThread().getName() + " end");
     }
 
 
     public void work(Runnable job) throws InterruptedException {
-        for (int i = 1; i < numberOfThreads; i++) {
+        if (isRunning) {
             this.tasks.offer(job);
         }
     }
 
 
     public void shutdown() throws InterruptedException {
-        this.threads.wait();
+        isRunning = false;
+    }
+
+
+    private final class RunnablePoolThread implements Runnable {
+        @Override
+        public void run() {
+            while (isRunning) {
+                Runnable nextTask = tasks.poll();
+                if (nextTask != null) {
+                    nextTask.run();
+                }
+            }
+        }
     }
 
 
@@ -49,42 +63,52 @@ public class ThreadPool implements Runnable {
         int size = Runtime.getRuntime().availableProcessors();
         ThreadPool threadPool = new ThreadPool(size);
 
-        for (int index = 0; index < 10; index++) {
+        final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
 
-            Thread thread = new Thread() {
-                public void run() {
-                    try {
-                        System.out.println("Поток " + " добавлен. Имя потока: " + this.getName());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            thread.start();
-
-            if (index < size) {
-                threadPool.work(thread);
+        for (int i = 0; i < 15; i++) {
+            if (i == size) {
+                Thread.sleep(4_00);
             } else {
-                Thread.sleep(3_00);
+                threadPool.work(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            tasks.offer(Thread.currentThread());
+                            System.out.println("Поток: " + Thread.currentThread().getName());
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                });
             }
 
-
-            new Thread() {
-                public void run() {
-                    try {
-                        Thread.sleep(3_00);
-                        // Извлечение одного потока
-                        System.out.println("Извлеченный поток " + threadPool.tasks.poll());
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
-
         }
+
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(3_00);
+                    // Извлечение одного
+                    tasks.poll();
+                    System.out.println("Количество потоков в пуле " + tasks.size());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
         threadPool.shutdown();
-
-
     }
 }
+
+/**
+ 1. Инициализация пула должна быть по количеству ядер в системе.
+ int size = Runtime.getRuntime().availableProcessors()
+ В каждую нить передается блокирующая очередь tasks.
+ Количество нитей всегда одинаковое и равно size.
+ В методе run мы должны получить задачу их очереди tasks.
+ tasks - это блокирующая очередь. Если в очереди нет элементов, то нить переводиться в состоянии waiting.
+ Когда приходит новая задача, всем нитям в состоянии waiting посылается сигнал проснуться и начать работу.
+
+ 2. Создать метод work(Runnable job). - этот метод должен добавлять задачи в блокирующую очередь tasks.
+ */
