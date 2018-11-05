@@ -43,15 +43,29 @@ public class SimpleBlockingQueue<T> {
      *
      * @return потокобезопасная очередь
      */
+//    public T poll() {
+//        if (queue.isEmpty()) {
+//            try {
+//                blockThread.lock();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return this.queue.poll();
+//    }
+
     public T poll() {
-        if (queue.isEmpty()) {
+        T result = null;
+        if (!queue.isEmpty()) {
             try {
                 blockThread.lock();
+                result = this.queue.poll();
+                blockThread.unlock();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        return this.queue.poll();
+        return result;
     }
 
     /**

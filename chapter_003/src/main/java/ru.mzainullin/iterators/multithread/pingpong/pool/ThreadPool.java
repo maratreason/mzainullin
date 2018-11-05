@@ -14,8 +14,7 @@ public class ThreadPool implements Runnable {
 
 
     public ThreadPool(int numberOfThreads) {
-        this.numberOfThreads = numberOfThreads;
-
+        this.numberOfThreads = Runtime.getRuntime().availableProcessors();
         for (int i = 0; i < numberOfThreads; i++) {
             new Thread(new RunnablePoolThread()).start();
         }
@@ -52,6 +51,7 @@ public class ThreadPool implements Runnable {
                 Runnable nextTask = tasks.poll();
                 if (nextTask != null) {
                     nextTask.run();
+
                 }
             }
         }
@@ -67,14 +67,14 @@ public class ThreadPool implements Runnable {
 
         for (int i = 0; i < 15; i++) {
             if (i == size) {
-                Thread.sleep(4_00);
+                Thread.sleep(3_00);
             } else {
                 threadPool.work(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             tasks.offer(Thread.currentThread());
-                            System.out.println("Поток: " + Thread.currentThread().getName());
+                            System.out.println("Поток " + Thread.currentThread().getName() + " добавлен");
                         } catch (Exception e) {
                             System.out.println(e);
                         }
@@ -82,21 +82,22 @@ public class ThreadPool implements Runnable {
                 });
             }
 
-        }
-
-        new Thread() {
-            public void run() {
-                try {
-                    Thread.sleep(3_00);
-                    // Извлечение одного
-                    tasks.poll();
-                    System.out.println("Количество потоков в пуле " + tasks.size());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            new Thread() {
+                public void run() {
+                    try {
+                        Thread.sleep(4_00);
+                        // Извлечение одного
+                        Runnable s = tasks.poll();
+                        System.out.println("Поток извлечен " + s);
+                        System.out.println("\t--- Количество потоков в пуле " + tasks.size());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }.start();
+            }.start();
 
+        }
+        Thread.sleep(2_000);
         threadPool.shutdown();
     }
 }

@@ -19,6 +19,7 @@ public class BlockThread {
             while (isLocked) {
                 wait();
             }
+            isLocked = true;
         }
     }
 
