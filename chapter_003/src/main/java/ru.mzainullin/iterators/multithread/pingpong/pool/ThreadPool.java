@@ -20,7 +20,6 @@ public class ThreadPool implements Runnable {
     @Override
     public void run() {
         System.out.println(Thread.currentThread().getName() + " start");
-
         if (tasks.poll() == null) {
             try {
                 shutdown();
@@ -28,16 +27,15 @@ public class ThreadPool implements Runnable {
                 e.printStackTrace();
             }
         }
-
-        threads.notify();
-
+        this.threads.notify();
         System.out.println(Thread.currentThread().getName() + " end");
     }
 
 
-    public void work(Runnable job) {
-        this.tasks.offer(job);
-        System.out.println(this.tasks.poll());
+    public void work(Runnable job) throws InterruptedException {
+        for (int i = 1; i < numberOfThreads; i++) {
+            this.tasks.offer(job);
+        }
     }
 
 
@@ -45,17 +43,48 @@ public class ThreadPool implements Runnable {
         this.threads.wait();
     }
 
+
     public static void main(String[] args) throws InterruptedException {
 
         int size = Runtime.getRuntime().availableProcessors();
         ThreadPool threadPool = new ThreadPool(size);
 
         for (int index = 0; index < 10; index++) {
-            Thread thread = new Thread(String.valueOf(index));
-            thread.start();
-            threadPool.work(thread);
-        }
 
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        System.out.println("Поток " + " добавлен. Имя потока: " + this.getName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            thread.start();
+
+            if (index < size) {
+                threadPool.work(thread);
+            } else {
+                Thread.sleep(3_00);
+            }
+
+
+            new Thread() {
+                public void run() {
+                    try {
+                        Thread.sleep(3_00);
+                        // Извлечение одного потока
+                        System.out.println("Извлеченный поток " + threadPool.tasks.poll());
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+
+        }
         threadPool.shutdown();
+
+
     }
 }
