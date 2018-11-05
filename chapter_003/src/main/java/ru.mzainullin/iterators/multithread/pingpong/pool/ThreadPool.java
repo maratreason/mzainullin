@@ -66,9 +66,8 @@ public class ThreadPool implements Runnable {
         final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
 
         for (int i = 0; i < 15; i++) {
-            if (i == size) {
+
                 Thread.sleep(3_00);
-            } else {
                 threadPool.work(new Runnable() {
                     @Override
                     public void run() {
@@ -80,12 +79,12 @@ public class ThreadPool implements Runnable {
                         }
                     }
                 });
-            }
+
 
             new Thread() {
                 public void run() {
                     try {
-                        Thread.sleep(4_00);
+                        Thread.sleep(3_00);
                         // Извлечение одного
                         Runnable s = tasks.poll();
                         System.out.println("Поток извлечен " + s);
@@ -97,6 +96,7 @@ public class ThreadPool implements Runnable {
             }.start();
 
         }
+
         Thread.sleep(2_000);
         threadPool.shutdown();
     }
