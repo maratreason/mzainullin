@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 
 public class ExecutorPoolService {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         CopyOnWriteArrayList<User> users = new CopyOnWriteArrayList<>();
         EmailNotification emailNotification = new EmailNotification();
@@ -36,20 +36,25 @@ public class ExecutorPoolService {
         });
 
 
-        pool.shutdown();
+        pool.submit(new Runnable() {
+            @Override
+            public void run() {
+                for (User user : users) {
+                    emailNotification.emailTo(user);
+                }
+            }
+        });
+
 
         while (!pool.isTerminated()) {
             try {
                 Thread.sleep(100);
+                pool.shutdown();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-
-        for (User user : users) {
-            emailNotification.emailTo(user);
-        }
 
         emailNotification.close();
 

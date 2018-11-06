@@ -10,19 +10,21 @@ public class EmailNotification {
     private String body;
     private String email;
     CopyOnWriteArrayList<User> users;
-
-    ExecutorService pool = Executors.newFixedThreadPool(
-            Runtime.getRuntime().availableProcessors()
-    );
+    ExecutorService pool;
 
     public EmailNotification() {
-
+        this.pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
     public EmailNotification(String subject, String body, String email) {
         this.subject = subject;
         this.body = body;
         this.email = email;
+    }
+
+
+    public ExecutorService getThreadPool() {
+        return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
     /**
@@ -52,20 +54,23 @@ public class EmailNotification {
         this.pool.shutdown();
     }
 
+
     /**
      * Метод должен быть пустой
      * @param subject
      * @param body
      * @param email
      */
-    public synchronized void send(String subject, String body, String email) {
-        users = new CopyOnWriteArrayList<>();
-        for (User user : users) {
-            this.subject = user.getUsername();
-            this.email = user.getEmail();
-            this.body = user.getBody();
-            System.out.println(String.format("UserName: %s, email: %s, body: %s.", subject, email, body));
-        }
+    public synchronized String send(String subject, String body, String email) {
+        String message = "";
+            for (User user : users) {
+                this.subject = user.getUsername();
+                this.email = user.getEmail();
+                this.body = user.getBody();
+                message = String.format("UserName: %s, email: %s, body: %s.", subject, email, body);
+            }
+        return message;
     }
+
 
 }
