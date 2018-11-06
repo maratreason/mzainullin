@@ -72,5 +72,4 @@ public class EmailNotification {
         return message;
     }
 
-
 }
