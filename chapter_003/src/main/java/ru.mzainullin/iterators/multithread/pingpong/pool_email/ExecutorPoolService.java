@@ -21,16 +21,15 @@ public class ExecutorPoolService {
                 Runtime.getRuntime().availableProcessors()
         );
 
-        for (int i = 0; i < 5; i++) {
-            pool.submit(new Runnable() {
-                @Override
-                public void run() {
-                    for (User user : users) {
-                        emailNotification.send(user.getUsername(), user.getBody(), user.getEmail());
-                    }
-                }
-            });
-        }
+
+
+        pool.submit(new Runnable() {
+            @Override
+            public void run() {
+                emailNotification.send("chris", "такое то сообщение...", "tom@mail.ru");
+            }
+        });
+
 
         pool.submit(new Runnable() {
             @Override
@@ -45,8 +44,6 @@ public class ExecutorPoolService {
                 }
             }
         });
-
-
 
 
         while (!pool.isTerminated()) {

@@ -61,15 +61,19 @@ public class EmailNotification {
      * @param body
      * @param email
      */
-    public synchronized String send(String subject, String body, String email) {
+    public synchronized void send(String subject, String body, String email) {
         String message = "";
-            for (User user : users) {
-                this.subject = user.getUsername();
-                this.email = user.getEmail();
-                this.body = user.getBody();
-                message = String.format("UserName: %s, email: %s, body: %s.", subject, email, body);
+        for (User user : users) {
+            if (user.getUsername().equals(subject)) {
+                subject = user.getUsername();
             }
-        return message;
+            if (user.getEmail().equals(email)) {
+                email = user.getEmail();
+                message = String.format("От Пользователя: %s, body: %s, email: %s.", subject, body, email);
+                user.setBody(message);
+                System.out.println(user.getBody());
+            }
+        }
     }
 
 }
