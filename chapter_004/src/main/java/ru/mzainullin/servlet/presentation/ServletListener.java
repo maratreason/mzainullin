@@ -19,7 +19,7 @@ public class ServletListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
         final ServletContext servletContext = servletContextEvent.getServletContext();
-        users = new ValidateService();
+        users = new ValidateService().getInstance();
 
         servletContext.setAttribute("users", users);
         final User user = new User("sam", "samuel", "sam@mail.ru", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()));

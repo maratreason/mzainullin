@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 public class ValidateService implements Validate {
 
+    private static final ValidateService instance = new ValidateService();
+
     /**
      * Список пользователей
      */
@@ -15,8 +17,9 @@ public class ValidateService implements Validate {
     int id = 0;
 
     public ValidateService() {
-        getUsers();
+
     }
+
 
     /**
      * Проверка на валидность email
@@ -113,11 +116,11 @@ public class ValidateService implements Validate {
 
 
     public List<User> getUsers() {
-        return new CopyOnWriteArrayList<>();
+        return this.users;
     }
 
     public static ValidateService getInstance() {
-        return getInstance();
+        return instance;
     }
 
 }
