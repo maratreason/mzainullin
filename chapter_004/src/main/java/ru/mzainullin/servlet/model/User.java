@@ -1,5 +1,7 @@
 package ru.mzainullin.servlet.model;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Модель пользователя
  */
@@ -10,8 +12,7 @@ public class User {
     private String email;
     private String createDate;
 
-    public User(int id, String name, String login, String email, String createDate) {
-        this.id = id;
+    public User(String name, String login, String email, String createDate) {
         this.name = name;
         this.login = login;
         this.email = email;

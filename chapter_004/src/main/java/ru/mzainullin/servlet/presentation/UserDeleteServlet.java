@@ -1,18 +1,17 @@
 package ru.mzainullin.servlet.presentation;
 
-import ru.mzainullin.servlet.logic.Validate;
 import ru.mzainullin.servlet.logic.ValidateService;
 import ru.mzainullin.servlet.model.User;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
-public class UserServlet extends HttpServlet {
+public class UserDeleteServlet extends HttpServlet {
 
     /**
      * Список пользователей
@@ -25,6 +24,7 @@ public class UserServlet extends HttpServlet {
         final Object users = getServletContext().getAttribute("users");
         this.users = (ValidateService) users;
     }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -43,7 +43,7 @@ public class UserServlet extends HttpServlet {
 
             stringBuilder.append("<td><form action='/edit?id=" + user.getId() + "'>" +
                     "<input type='number' hidden name='id'>" +
-                    "<input type='submit' name='edit' value='Редактировать'>" +
+                    "<input type='submit' name='id' value='Редактировать'>" +
                     "</form></td>");
 
             stringBuilder.append("<td><form action='/delete' method='post'>" +
@@ -55,10 +55,9 @@ public class UserServlet extends HttpServlet {
         }
         stringBuilder.append("</table>");
 
-
         writer.append("<html>\n" +
                 "<head>\n" +
-                "    <title>Title</title>\n" +
+                "    <title>Delete User</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
                 "<form action='" + req.getContextPath() + "/create' method='post'>" +
@@ -69,8 +68,15 @@ public class UserServlet extends HttpServlet {
                 "</body>\n" +
                 "</html>");
 
-
         writer.flush();
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("text/html");
+        this.users.deleteUser(Integer.valueOf(req.getParameter("id")));
+        doGet(req, resp);
     }
 
 }

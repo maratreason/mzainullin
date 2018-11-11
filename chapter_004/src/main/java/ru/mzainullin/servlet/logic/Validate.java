@@ -10,7 +10,7 @@ public interface Validate {
      * Добавление пользователя
      * @param user - добавленный пользователь
      */
-    void addUser(User user);
+    void addUser(User user) throws Exception;
 
     /**
      * Удаление пользователя

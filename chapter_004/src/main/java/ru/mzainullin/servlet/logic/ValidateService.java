@@ -3,21 +3,52 @@ package ru.mzainullin.servlet.logic;
 import ru.mzainullin.servlet.model.User;
 import ru.mzainullin.servlet.persistent.Storage;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Pattern;
 
 public class ValidateService implements Validate {
 
     /**
      * Список пользователей
      */
-    private List<User> users = new Storage().getUsers();
+    private List<User> users = new CopyOnWriteArrayList<>();
+    int id = 0;
 
+    public ValidateService() {
+        getUsers();
+    }
+
+    /**
+     * Проверка на валидность email
+     *
+     * @param email - email нового пользователя
+     * @return - false / true
+     */
+    private boolean checkUserEmail(String email) {
+        boolean isTrue = true;
+        final Pattern rfc2822 = Pattern.compile(
+                "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+        );
+
+        if (!rfc2822.matcher(email).matches()) {
+            isTrue = false;
+            System.out.println("Invalid address");
+        }
+
+        return isTrue;
+    }
 
     /**
      * Добавление пользователя
      * @param user - добавленный пользователь
      */
     public void addUser(User user) {
-        this.users.add(user);
+        if (checkUserEmail(user.getEmail())) {
+            id++;
+            user.setId(id);
+            this.users.add(user);
+        }
+
     }
 
 
@@ -82,7 +113,7 @@ public class ValidateService implements Validate {
 
 
     public List<User> getUsers() {
-        return this.users;
+        return new CopyOnWriteArrayList<>();
     }
 
     public static ValidateService getInstance() {
