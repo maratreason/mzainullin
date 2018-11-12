@@ -65,7 +65,6 @@
         <tbody>
 
         <% for (User user : ValidateService.getInstance().getUsers()) {
-            String editId = String.valueOf(user.getId());
             String actionEditPath = request.getContextPath() + "/edit?id=" + user.getId();
         %>
 
