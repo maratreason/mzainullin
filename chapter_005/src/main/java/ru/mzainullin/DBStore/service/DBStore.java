@@ -1,15 +1,11 @@
 package ru.mzainullin.DBStore.service;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import ru.mzainullin.DBStore.model.Base;
 import ru.mzainullin.DBStore.model.Store;
 import ru.mzainullin.DBStore.model.User;
 import ru.mzainullin.DBStore.sql.SQLConnect;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,6 +27,7 @@ public class DBStore implements Store<User> {
     public static DBStore getInstance() {
         return INSTANCE;
     }
+
 
     /**
      * Метод добавления пользователя.
@@ -57,6 +54,7 @@ public class DBStore implements Store<User> {
         return model;
     }
 
+
     /**
      * Метод обновления данных.
      *
@@ -80,6 +78,7 @@ public class DBStore implements Store<User> {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Метод удаления модели.
@@ -105,12 +104,16 @@ public class DBStore implements Store<User> {
         return id;
     }
 
+
     /**
      * Выборка всех данных из БД
      * @return list моделей.
      */
     @Override
     public List<User> findAll() {
+
+        this.users.clear();
+
         String query = "SELECT * FROM users;";
 
         try (Connection connection = SOURCE.getConnection();
@@ -119,21 +122,18 @@ public class DBStore implements Store<User> {
             ResultSet result = st.executeQuery(query);
 
             while (result.next()) {
-                System.out.println("id: " + result.getInt("id")
-                        + " name: " + result.getString("name"));
                 this.users.add(
                         new User(
                                 String.valueOf(result.getInt("id")), result.getString("name")));
             }
 
-
-            System.out.println("Метод findAll().");
             st.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return users;
     }
+
 
     /**
      * Поиск модели по id.
@@ -143,6 +143,9 @@ public class DBStore implements Store<User> {
      */
     @Override
     public String findById(String id) {
+
+        this.users.clear();
+
         String query = "SELECT * FROM users WHERE id=id;";
 
         try (Connection connection = SOURCE.getConnection();
@@ -154,6 +157,7 @@ public class DBStore implements Store<User> {
                 if (result.getInt("id") == Integer.parseInt(id)) {
                     System.out.println("id: " + result.getInt("id")
                             + " name: " + result.getString("name"));
+                    this.users.add(new User(String.valueOf(result.getInt("id")), result.getString("name")));
                     break;
                 }
             }
@@ -165,6 +169,16 @@ public class DBStore implements Store<User> {
         }
         return id;
     }
+
+    public List<User> getList() {
+        return this.users;
+    }
+
+    @Override
+    public int getSize() {
+        return this.users.size();
+    }
+
 
     public Connection getSQLConnect() {
         return new SQLConnect().getConnectSQL();

@@ -39,4 +39,7 @@ public interface Store<T extends Base> {
      * @return - список объектов
      */
     List<User> findAll();
+
+    int getSize();
+
 }
