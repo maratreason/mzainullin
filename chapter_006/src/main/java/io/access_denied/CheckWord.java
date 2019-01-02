@@ -20,22 +20,17 @@ public class CheckWord {
     private String pathIn = "";
     private String pathOut = "";
 
-    private String separator = File.separator;
     StringBuilder sb = new StringBuilder();
-    String s = "";
 
     public String getPathIn() {
         return pathIn;
     }
-
     public void setPathIn(String pathIn) {
         this.pathIn = pathIn;
     }
-
     public String getPathOut() {
         return pathOut;
     }
-
     public void setPathOut(String pathOut) {
         this.pathOut = pathOut;
     }
@@ -59,32 +54,40 @@ public class CheckWord {
 
     public void dropAbuses(InputStream in, OutputStream out, String[] abuse) throws IOException {
 
+        in = new FileInputStream(getPathIn());
+        out = new FileOutputStream(getPathOut());
+
+        String line = "";
+
         try (
-                InputStream inp = new FileInputStream(getPathIn());
-                OutputStream outp = new FileOutputStream(getPathOut());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                PrintStream outp = new PrintStream(out);
                 ) {
 
-            int data = 0;
-            String newStr = "";
+                /**
+                 * line = reader.readLine();
+                 * читаете строку
+                 * for (String ab : abuse) { запускаете цикл по массиву плохих слов
+                 * if (line.contains(ab)) { проверяете
+                 * line = line.replaceAll(ab, ""); заменяете
+                 * все отлично работает
+                 */
 
-            while (data != -1) {
-                sb.append((char) data); // lorem...
-                data = inp.read();
+                line = reader.readLine();
 
-                s = new String(sb);
-
-                for (int i = 0; i < abuse.length; i++) {
-                    String word = abuse[i];
-                    // Почему-то всегда меняется только одно слово. Последнее в массиве.
-                    newStr = s.replace(word, "");
-                    break;
+                while ((line = reader.readLine()) != null) {
+                    for (String words : abuse) {
+                        if (line.contains(words)) {
+                            line = line.replaceAll(words, "");
+                        }
+                    }
+                    outp.println(line);
                 }
-                outp.write(data);
-            }
-            System.out.println(newStr);
+
 
         } catch (IOException e) {
             System.err.println("Ошибка файла: " + e);
+            e.printStackTrace();
         }
 
     }
@@ -92,6 +95,7 @@ public class CheckWord {
     public static void main(String[] args) throws IOException {
 
         CheckWord checkWord = new CheckWord();
+
         checkWord.setPathIn("D:\\project\\mzainullin\\chapter_006\\src\\main\\java\\io\\access_denied\\input.txt");
         checkWord.setPathOut("D:\\project\\mzainullin\\chapter_006\\src\\main\\java\\io\\access_denied\\output.txt");
 
