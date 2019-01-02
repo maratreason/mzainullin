@@ -64,24 +64,24 @@ public class CheckWord {
                 OutputStream outp = new FileOutputStream(getPathOut());
                 ) {
 
-            int data = inp.read();
+            int data = 0;
+            String newStr = "";
 
             while (data != -1) {
                 sb.append((char) data); // lorem...
                 data = inp.read();
+
                 s = new String(sb);
 
-                for (String a : abuse) {
-                    if (foo(s, a)) {
-                        break;
-                    } else {
-                        outp.write(data);
-                    }
+                for (int i = 0; i < abuse.length; i++) {
+                    String word = abuse[i];
+                    // Почему-то всегда меняется только одно слово. Последнее в массиве.
+                    newStr = s.replace(word, "");
+                    break;
                 }
-
-
+                outp.write(data);
             }
-            System.out.println(s);
+            System.out.println(newStr);
 
         } catch (IOException e) {
             System.err.println("Ошибка файла: " + e);
@@ -101,8 +101,6 @@ public class CheckWord {
                 new FileInputStream(new File(checkWord.getPathIn())),
                 new FileOutputStream(new File(checkWord.getPathOut())),
                 str);
-
-
     }
 
 }
