@@ -35,23 +35,14 @@ public class CheckWord {
         this.pathOut = pathOut;
     }
 
+
     /**
-     * Метод поииска слов в строке
-     * @param line - строка
-     * @param reg - слово, которое ищем
-     * @return - true / false
+     * Метод удаления слов из текста.
+     * @param in - входящий поток байтов
+     * @param out - исходящий поток байтов
+     * @param abuse - массив слов
+     * @throws IOException - метод может бросить ошибку ввода/вывода
      */
-    public static boolean foo (String line, String reg) {
-        String[] strings = line.split(" "); // делим строку на отдельные слова
-        for (String word : strings) {
-            if (word.matches(reg)) {  // проверяем в цикле каждое отдельное слово
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     public void dropAbuses(InputStream in, OutputStream out, String[] abuse) throws IOException {
 
         in = new FileInputStream(getPathIn());
@@ -64,17 +55,6 @@ public class CheckWord {
                 PrintStream outp = new PrintStream(out);
                 ) {
 
-                /**
-                 * line = reader.readLine();
-                 * читаете строку
-                 * for (String ab : abuse) { запускаете цикл по массиву плохих слов
-                 * if (line.contains(ab)) { проверяете
-                 * line = line.replaceAll(ab, ""); заменяете
-                 * все отлично работает
-                 */
-
-                line = reader.readLine();
-
                 while ((line = reader.readLine()) != null) {
                     for (String words : abuse) {
                         if (line.contains(words)) {
@@ -84,12 +64,10 @@ public class CheckWord {
                     outp.println(line);
                 }
 
-
         } catch (IOException e) {
             System.err.println("Ошибка файла: " + e);
             e.printStackTrace();
         }
-
     }
 
     public static void main(String[] args) throws IOException {
@@ -99,7 +77,7 @@ public class CheckWord {
         checkWord.setPathIn("D:\\project\\mzainullin\\chapter_006\\src\\main\\java\\io\\access_denied\\input.txt");
         checkWord.setPathOut("D:\\project\\mzainullin\\chapter_006\\src\\main\\java\\io\\access_denied\\output.txt");
 
-        String[] str = {"Lorem", "Ipsum"};
+        String[] str = {"Lorem", "Ipsum", ",", "type"};
 
         checkWord.dropAbuses(
                 new FileInputStream(new File(checkWord.getPathIn())),
