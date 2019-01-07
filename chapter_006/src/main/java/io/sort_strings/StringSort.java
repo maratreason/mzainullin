@@ -10,6 +10,7 @@ import java.util.*;
 public class StringSort implements InputSort {
 
     private String path;
+    private RandomAccessFile file;
     ArrayList<String> list = new ArrayList<>();
 
     public String getPath() {
@@ -20,6 +21,11 @@ public class StringSort implements InputSort {
         this.path = path;
     }
 
+    /**
+     * Метод сортировки по длине.
+     * @param source - Входящий файл со строками
+     * @param distance - Новый файл. В него надо записать результат сортировки
+     */
     @Override
     public void sort(File source, File distance) {
         source = new File(getPath());
@@ -87,8 +93,57 @@ public class StringSort implements InputSort {
         }
     }
 
+    /**
+     * Не смог реализовать
+     * @param source
+     * @param distance
+     * @throws IOException
+     */
+    public void sortWithRandomAccessFile(File source, File distance) throws IOException {
+        source = new File(getPath());
+        file = new RandomAccessFile(path, "rw");
+        String res = "";
+        int b = file.read();
+        String someString = "";
+        StringBuilder st = new StringBuilder();
 
-    public static void main(String[] args) throws FileNotFoundException {
+        // побитово читаем символы и плюсуем их в строку
+        while(b != -1){
+            res += (char)b;
+            st.append(res);
+            someString = new String(st);
+            b = file.read();
+        }
+
+        // От маленького к большему
+        ArrayList<String> newArrList = new ArrayList<>();
+        while(!list.isEmpty()) {
+            String bigger = "";
+            String less = "";
+            for(String word : list) {
+                if(word.length() > bigger.length()) {
+                    bigger = word;
+                }
+            }
+
+            while(list.contains(bigger)) {
+                list.remove(bigger);
+                newArrList.add(bigger);
+            }
+        }
+
+        Collections.reverse(newArrList);
+
+        for (String a : newArrList) {
+            file.write(a.getBytes());
+            System.out.println(a);
+        }
+
+        file.close();
+    }
+
+
+    public static void main(String[] args) throws IOException {
 
         StringSort strSort = new StringSort();
         strSort.setPath("D:\\project\\mzainullin\\chapter_006\\src\\main\\java\\io\\sort_strings\\file.txt");
