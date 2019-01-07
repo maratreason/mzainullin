@@ -10,6 +10,7 @@ import java.util.*;
 public class StringSort implements InputSort {
 
     private String path;
+    ArrayList<String> list = new ArrayList<>();
 
     public String getPath() {
         return path;
@@ -19,36 +20,12 @@ public class StringSort implements InputSort {
         this.path = path;
     }
 
-    Set<String> someSet = new TreeSet<>();
-
-    /**
-     * Временный метод сортировки строк.
-     * @return - отсортированный TreeSet
-     * @throws FileNotFoundException
-     */
-    public Set<String> prepare() throws FileNotFoundException {
-        Scanner scan = new Scanner(new File(getPath()));
-
-        TreeSet<String> set = new TreeSet<String>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return (o1.length() - o2.length()) >= 0 ? 1 : -1;
-            }
-        });
-
-        while (scan.hasNext()) {
-            set.add(scan.nextLine());
-        }
-        scan.close();
-
-        return set;
-    }
-
-
     @Override
     public void sort(File source, File distance) {
         source = new File(getPath());
+
         StringBuilder sb = new StringBuilder();
+        String inpString = "";
 
         if (!distance.exists()) {
             distance = new File("D:\\project\\mzainullin\\chapter_006\\src\\main\\java\\io\\sort_strings\\distance.txt");
@@ -58,17 +35,51 @@ public class StringSort implements InputSort {
              FileOutputStream fos = new FileOutputStream(distance)) {
 
             int text = 0;
+
             while ((text = is.read()) != -1) {
                 sb.append((char) text);
-                char someText = (char) text;
-//                someSet.add(String.valueOf(someText));
-                someSet.add(String.valueOf(sb));
+                inpString = new String(sb);
             }
 
-            for (String anArrStr : someSet) {
-                prepare();
-                System.out.print(anArrStr);
-                fos.write(anArrStr.getBytes());
+            // Разбить строку построчно
+            String[] lines = inpString.split("\n");
+
+            System.out.println("Вывод массива");
+            for (String a : lines) {
+                System.out.println(a);
+                list.add(a);
+            }
+
+            System.out.println("\nВывод массива после сортировки");
+
+            // От маленького к большему
+            ArrayList<String> newArrList = new ArrayList<>();
+            while(!list.isEmpty()) {
+                String bigger = "";
+                String less = "";
+                for(String word : list) {
+                    if(word.length() > bigger.length()) {
+                        bigger = word;
+                    }
+                }
+
+                while(list.contains(bigger)) {
+                    list.remove(bigger);
+                    newArrList.add(bigger);
+                }
+            }
+
+            System.out.println("---До сортировки по длине---");
+            for (String a : newArrList) {
+                System.out.println(a);
+            }
+
+            Collections.reverse(newArrList);
+
+            System.out.println("\n---После сортировки по длине---");
+            for (String a : newArrList) {
+                fos.write(a.getBytes());
+                System.out.println(a);
             }
 
         } catch (IOException e) {
@@ -86,7 +97,6 @@ public class StringSort implements InputSort {
                 new File("D:\\project\\mzainullin\\chapter_006\\src\\main\\java\\io\\sort_strings\\distance.txt")
         );
     }
-
 }
 
 /**

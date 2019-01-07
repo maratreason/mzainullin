@@ -12,12 +12,12 @@ public class Calculator {
 	private double result;
 
 	/**
-	* Сложение.
-	* @param first первый аргумент.
-	* @param second второй аргумент.
+	* Add.
+	* @param first First.
+	* @param second Second.
 	*/
-	public void add(double first, double second) {
-		this.result = first + second;
+	public double add(double first, double second) {
+		return first + second;
 	}
 
 	/**
@@ -25,8 +25,8 @@ public class Calculator {
 	* @param first первый аргумент.
 	* @param second второй аргумент.
 	*/
-	public void subtract(double first, double second) {
-		this.result = first - second;
+	public double subtract(double first, double second) {
+		return first - second;
 	}
 
 	/**
@@ -34,8 +34,8 @@ public class Calculator {
 	* @param first первый аргумент.
 	* @param second второй аргумент.
 	*/
-	public void multiple(double first, double second) {
-		this.result = first * second;
+	public double multiple(double first, double second) {
+		return first * second;
 	}
 
 	/**
@@ -43,8 +43,8 @@ public class Calculator {
 	* @param first первый аргумент.
 	* @param second второй аргумент.
 	*/
-	public void divide(double first, double second) {
-		this.result = first / second;
+	public double divide(double first, double second) {
+		return first / second;
 	}	
 
 	/**
