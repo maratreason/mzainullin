@@ -51,14 +51,15 @@ public class Program {
         System.out.print(question);
 
         while (scn.hasNext()) {
-            System.out.println("Я: " + scn.nextLine());
-            System.out.println("Ответ бота: " + getRandom(getAnswers()));
+            String ans = scn.nextLine();
+            System.out.println("Я: " + ans);
 
-            if ("exit".equals(scn.nextLine())) {
+
+            if ("exit".equals(ans)) {
                 System.exit(1);
             }
 
-            if ("stop".equals(scn.nextLine())) {
+            if (ans.equals("stop")) {
                 while (scn.hasNext()) {
                     System.out.println("Я: " + scn.nextLine());
                     System.out.println("Бот не будет отвечать пока вы не введете: continue");
@@ -68,7 +69,7 @@ public class Program {
                     }
                 }
             }
-
+            System.out.println("Ответ бота: " + getRandom(getAnswers()));
             ask("Спросите еще: ");
             break;
         }
