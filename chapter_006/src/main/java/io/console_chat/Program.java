@@ -32,6 +32,11 @@ public class Program {
         this.answers = answers;
     }
 
+    /**
+     * Случайный выбор ответов для бота.
+     * @param array входящий массив строк.
+     * @return возвращает случайный индекс из массива.
+     */
     public static String getRandom(String[] array) {
         int rnd = new Random().nextInt(array.length);
         return array[rnd];
@@ -39,48 +44,47 @@ public class Program {
 
     /**
      * Метод ввода данных пользователя.
-     * @param question - вопрос
-     * @return answer - ответ
+     * @param question - вопрос.
+     * @return answer - ответ.
      */
-    public void ask(String question) {
+    public void ask(String question) throws InterruptedException {
         System.out.print(question);
-
-//        while (scn.hasNext()) {
-//            if (scn.nextLine().equals("стоп")) {
-//                this.setWord("стоп");
-//                System.out.println("Я: " + scn.nextLine());
-//                break;
-//            }
-//            if (scn.nextLine().equals("продолжить")) {
-//                this.setWord("продолжить");
-//                System.out.println("Я: " + scn.nextLine());
-//                System.out.println("Ответ бота: " + getRandom(getAnswers()));
-//                break;
-//            }
-//            this.setWord(scn.nextLine());
-//            System.out.println("Я: " + this.getWord());
-//            System.out.println("Ответ бота: " + getRandom(getAnswers()));
-//
-//        }
-//        ask("");
 
         while (scn.hasNext()) {
             System.out.println("Я: " + scn.nextLine());
             System.out.println("Ответ бота: " + getRandom(getAnswers()));
-            ask("");
+
+            if ("exit".equals(scn.nextLine())) {
+                System.exit(1);
+            }
+
+            if ("stop".equals(scn.nextLine())) {
+                while (scn.hasNext()) {
+                    System.out.println("Я: " + scn.nextLine());
+                    System.out.println("Бот не будет отвечать пока вы не введете: continue");
+
+                    if ("continue".equals(scn.nextLine())) {
+                        break;
+                    }
+                }
+            }
+
+            ask("Спросите еще: ");
             break;
         }
 
     }
 
-
+    /**
+     * Приветствие.
+     */
     public void showMessage() {
         System.out.println("+-------------------------+");
         System.out.println("| Welcome to the program! |");
         System.out.println("+-------------------------+");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         String[] answer = {"У меня все супер!", "Может быть в другой раз...", "Ты серьезно?"};
         Program program = new Program();
         program.setAnswers(answer);
