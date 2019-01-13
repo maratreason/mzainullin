@@ -1,7 +1,15 @@
 package io.console_chat;
 
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * Программа.
@@ -15,6 +23,7 @@ public class Program {
     private Scanner scn = new Scanner(System.in);
     private String[] answers;
     private String word;
+    private String log;
 
     public String getWord() {
         return word;
@@ -45,15 +54,12 @@ public class Program {
     /**
      * Метод ввода данных пользователя.
      * @param question - вопрос.
-     * @return answer - ответ.
      */
-    public void ask(String question) throws InterruptedException {
+    public void ask(String question) throws InterruptedException, IOException {
         System.out.print(question);
-
         while (scn.hasNext()) {
             String ans = scn.nextLine();
             System.out.println("Я: " + ans);
-
 
             if ("exit".equals(ans)) {
                 System.exit(1);
@@ -79,15 +85,32 @@ public class Program {
     /**
      * Приветствие.
      */
-    public void showMessage() {
+    private void showMessage() {
         System.out.println("+-------------------------+");
         System.out.println("| Welcome to the program! |");
         System.out.println("+-------------------------+");
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        String[] answer = {"У меня все супер!", "Может быть в другой раз...", "Ты серьезно?"};
+    /**
+     * Запись в лога в txt-файл.
+     */
+    private void createLog() {
+        PrintStream logfile = null;
+        try {
+            logfile = new PrintStream(new FileOutputStream("D:\\project\\mzainullin\\chapter_006\\src\\main\\java\\io\\console_chat\\log.txt"));
+        }
+        catch (FileNotFoundException e) {
+            System.err.println("Отсутствует файл.");
+            System.exit(1);
+        }
+        System.setOut(logfile);
+    }
+
+
+    public static void main(String[] args) throws InterruptedException, IOException {
         Program program = new Program();
+        program.createLog();
+        String[] answer = {"У меня все супер!", "Может быть в другой раз...", "Ты серьезно?"};
         program.setAnswers(answer);
         program.showMessage();
         program.ask("Введите любое слово...");
