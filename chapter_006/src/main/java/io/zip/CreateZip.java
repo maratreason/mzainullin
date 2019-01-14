@@ -18,29 +18,26 @@ import java.util.zip.ZipOutputStream;
  */
 public class CreateZip {
 
-    private List<String> extensions;
+    /**
+     * Список расширений.
+     */
+    private final List<String> extensions;
 
-    public List<String> getExtensions() {
-        return extensions;
-    }
-
-    public void setExtensions(List<String> extensions) {
+    public CreateZip(final List<String> extensions) {
         this.extensions = extensions;
     }
 
-    public CreateZip(List<String> extensions) {
-        this.extensions = extensions;
-    }
 
+    /**
+     * Метод создания архива.
+     * @param sourceFile файлы для архивации.
+     * @param path директория.
+     * @param zos архив.
+     * @throws IOException
+     */
     private void writetoZip(File sourceFile, String path, ZipOutputStream zos) throws IOException {
         FileInputStream fis = new FileInputStream(sourceFile);
         ZipEntry entry = new ZipEntry(path);
-
-        String ext1 = FilenameUtils.getExtension(entry.getName()); // returns "txt"
-
-//        if (getExt().equals(ext1)) {
-//            zos.putNextEntry(entry);
-//        }
 
         zos.putNextEntry(entry);
 
@@ -54,37 +51,69 @@ public class CreateZip {
         fis.close();
     }
 
-    private void fetchFileToZip(File toZip, String path, ZipOutputStream zos) throws IOException {
+
+    /**
+     * Метод архивации разных файлов и директорий.
+     * @param extension лист с расширениями файлов.
+     * @param toZip файл для архивации.
+     * @param path путь файла.
+     * @param zos архив.
+     * @throws IOException метод может выбросить исключение.
+     */
+    private void fetchFileToZip(List<String> extension, File toZip, String path, ZipOutputStream zos) throws IOException {
         if (toZip.isDirectory()) {
+            zos.setLevel(9);
             File[] files = toZip.listFiles();
+
             for (File fileName : files) {
-                fetchFileToZip(fileName, path + "/" + fileName.getName(), zos);
+                String fileExt = FilenameUtils.getExtension(fileName.getName());
+                System.out.println(fileExt);
+                for (String ext : extension) {
+                    if (fileExt.equals(ext)) {
+                        fetchFileToZip(extension, fileName, path + "/" + fileName.getName(), zos);
+                    }
+                }
             }
+
+            addDirectory(toZip);
         } else {
             writetoZip(toZip, path, zos);
+
         }
     }
 
-    private String getExt() {
-        extensions = new ArrayList<>();
-        String temp = "";
-        for (String ext : extensions) {
-            temp = ext;
+
+    /**
+     * Добавление директории.
+     * @param fileSource файл.
+     * @throws IOException метод может выбросить исключение.
+     */
+    private void addDirectory(File fileSource) throws IOException {
+        File[] files = fileSource.listFiles();
+        System.out.println("Добавление директории <" + fileSource.getName() + ">");
+        for(File file : files) {
+            if (file.isDirectory()) {
+                addDirectory(file);
+            }
         }
-        return temp;
     }
+
 
     public static void main(String[] args) throws IOException {
         List<String> ext = new ArrayList<>();
         ext.add("txt");
         ext.add("html");
         ext.add("json");
+        ext.add("jpg");
+
         CreateZip zip = new CreateZip(ext);
         String path = "D:\\projToZip";
         File sourceFile = new File(path);
         FileOutputStream fos = new FileOutputStream("D:\\newCom.zip");
         ZipOutputStream zos = new ZipOutputStream(fos);
-        zip.fetchFileToZip(sourceFile, path, zos);
+
+        zip.fetchFileToZip(ext, sourceFile, path, zos);
+
         zos.close();
         fos.close();
     }
