@@ -46,4 +46,16 @@ public class TreeTest {
         assertThat(tree.isBinary(), is(true));
     }
 
+//    @Test
+//    public void whenTreeRootHasntIsBinaryChilds() {
+//        Tree<Integer> tree = new Tree<>(18);
+//        tree.add(1, 5);
+//        tree.add(1, 9);
+//        tree.add(1, 12);
+//        tree.add(5, 3);
+//        tree.add(5, 6);
+//        tree.add(6, 4);
+//        tree.add(6, 8);
+//        assertThat(tree.isBinary(), is(false));
+//    }
 }

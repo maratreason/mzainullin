@@ -19,7 +19,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     @Override
     public boolean add(E parent, E child) {
-        Optional<Node<E>> foundParent = findBy(parent); // здесь вам нужно реализовать метод findBy
+        Optional<Node<E>> foundParent = findBy(parent);
         boolean result = false;
         if (foundParent.isPresent()) {
             foundParent.get().add(new Node<>(child));
@@ -62,15 +62,13 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         boolean isTrue = false;
         int counter = 0;
 
-        if (tree.iterator().hasNext()) {
+        while (tree.iterator().hasNext()) {
             tree.iterator().next();
             counter++;
         }
 
         if (counter <= 2) {
             isTrue = true;
-        } else {
-            isTrue = false;
         }
 
         return isTrue;
