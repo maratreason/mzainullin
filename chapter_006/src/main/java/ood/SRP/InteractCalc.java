@@ -42,7 +42,7 @@ public class InteractCalc {
      * Текстовая инструкция при запуске.
      */
     private void info() {
-        System.out.println("Выберете нужное один из пунктов (0-5):");
+        System.out.println("Выберете один из пунктов (0-5):");
         System.out.println("Затем введите первое число и нажмите <Enter>:");
         System.out.println("После этого введите второе число и нажмите <Enter>:");
     }
@@ -60,7 +60,6 @@ public class InteractCalc {
             ask(menuItem, rang);
             int first = scn.nextInt();
             int second = scn.nextInt();
-            int repeat;
             double result;
 
             if (menuItem == 0) {
@@ -81,8 +80,27 @@ public class InteractCalc {
                 currentAction.add(menuItem);
             } else if (menuItem == 4) {
                 System.out.println("Переиспользование предыдущего вычисления:");
-                repeat = currentAction.get(currentAction.size() - 1);
-                // Не знаю как реализовать этот метод.
+                for (int i = 0; i < currentAction.size(); i++) {
+                    menuItem = currentAction.get(currentAction.size() - 1);
+                    if (menuItem == 0) {
+                        result = calc.add(first, second);
+                        System.out.println("Результат вычисления: " + result + "\n");
+                        break;
+                    } else if (menuItem == 1) {
+                        result = calc.subtract(first, second);
+                        System.out.println("Результат вычисления: " + result + "\n");
+                        break;
+                    } else if (menuItem == 2) {
+                        result = calc.multiple(first, second);
+                        System.out.println("Результат вычисления: " + result + "\n");
+                        break;
+                    } else if (menuItem == 3) {
+                        result = calc.divide(first, second);
+                        System.out.println("Результат вычисления: " + result + "\n");
+                        break;
+                    }
+                    currentAction.add(menuItem);
+                }
             }
             showMenu();
 
