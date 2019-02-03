@@ -20,7 +20,7 @@ public class InteractCalc {
         return menu;
     }
 
-    private InteractCalc(final Calculator calculator, final Scanner scn) {
+    public InteractCalc(final Calculator calculator, final Scanner scn) {
         this.calculator = calculator;
         this.scn = scn;
     }
@@ -42,8 +42,7 @@ public class InteractCalc {
      * Текстовая инструкция при запуске.
      */
     private void info() {
-        System.out.println("---Программа---");
-        System.out.println("Для начала выберете нужное действие выбрав один из пунктов (0-5):");
+        System.out.println("Выберете нужное один из пунктов (0-5):");
         System.out.println("Затем введите первое число и нажмите <Enter>:");
         System.out.println("После этого введите второе число и нажмите <Enter>:");
     }
@@ -65,41 +64,43 @@ public class InteractCalc {
             double result;
 
             if (menuItem == 0) {
-                System.out.println("Сложение:");
                 result = calc.add(first, second);
-                System.out.println(result);
+                System.out.println("Результат вычисления: " + result + "\n");
                 currentAction.add(menuItem);
             } else if (menuItem == 1) {
-                System.out.println("Вычитание:");
                 result = calc.subtract(first, second);
-                System.out.println(result);
+                System.out.println("Результат вычисления: " + result + "\n");
                 currentAction.add(menuItem);
             } else if (menuItem == 2) {
-                System.out.println("Умножение:");
                 result = calc.multiple(first, second);
-                System.out.println(result);
+                System.out.println("Результат вычисления: " + result + "\n");
                 currentAction.add(menuItem);
             } else if (menuItem == 3) {
-                System.out.println("Деление:");
                 result = calc.divide(first, second);
-                System.out.println(result);
+                System.out.println("Результат вычисления: " + result + "\n");
                 currentAction.add(menuItem);
             } else if (menuItem == 4) {
                 System.out.println("Переиспользование предыдущего вычисления:");
                 repeat = currentAction.get(currentAction.size() - 1);
                 // Не знаю как реализовать этот метод.
             }
+            showMenu();
 
             System.out.println("Выберте действие:");
             menuItem = scn.nextInt();
             System.out.println("Вы выбрали пункт: " + menuItem);
+
+
+        }
+        for (int n : currentAction) {
+            System.out.println(n);
         }
     }
 
     /**
-     * Показат меню.
+     * Показать меню.
      */
-    private void showMenu() {
+    public void showMenu() {
         menuInit();
         info();
         for (String point : this.getMenu()) {
@@ -123,16 +124,6 @@ public class InteractCalc {
             }
         }
         return key;
-    }
-
-
-    public static void main(String[] args) {
-        Calculator calc = new Calculator();
-        Scanner scn = new Scanner(System.in);
-        InteractCalc interactCalc = new InteractCalc(calc, scn);
-
-        interactCalc.showMenu();
-        interactCalc.input(calc);
     }
 
 }
