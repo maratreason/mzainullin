@@ -27,5 +27,5 @@ public interface Action {
     /**
      * Запись в лог.
      */
-    void createLog();
+    void writeLog(String str);
 }

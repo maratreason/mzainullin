@@ -1,8 +1,6 @@
 package io.console_chat;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -39,14 +37,18 @@ public class BaseAction implements Action {
 
         while (scn.hasNext()) {
             String ans = scn.nextLine();
+            writeLog(ans);
             System.out.println("Я: " + ans);
+            writeLog("Я: " + ans);
 
                 if (ans.equals("stop")) {
                     System.out.println("Бот не будет отвечать пока вы не введете: continue");
+                    writeLog("Бот не будет отвечать пока вы не введете: continue");
                     while (scn.hasNext()) {
                         System.out.println("Я: " + ans);
+                        writeLog("Я: " + ans);
                         System.out.println("Бот не будет отвечать пока вы не введете: continue");
-
+                        writeLog("Бот не будет отвечать пока вы не введете: continue");
                         if ("continue".equals(scn.nextLine())) {
                             break;
                         }
@@ -55,11 +57,14 @@ public class BaseAction implements Action {
 
                 if ("exit".equals(ans)) {
                     System.out.println("Выход из программы.");
+                    writeLog("Выход из программы.");
 //                    throw new RuntimeException("Выход из прораммы");
                     return;
                 } else {
                     System.out.println("Ответ бота: " + getRandom(bot.getAnswers()));
+                    writeLog("Ответ бота: " + getRandom(bot.getAnswers()));
                     ask(bot, "Спросите еще: ");
+                    writeLog("Спросите еще: ");
                     break;
                 }
         }
@@ -73,21 +78,23 @@ public class BaseAction implements Action {
         System.out.println("+-------------------------+");
         System.out.println("| Welcome to the program! |");
         System.out.println("+-------------------------+");
+        writeLog("+-------------------------+");
+        writeLog("| Welcome to the program! |");
+        writeLog("+-------------------------+");
     }
 
     /**
-     * Запись в лога в txt-файл.
+     * Запись лога в txt-файл.
      */
     @Override
-    public void createLog() {
-        PrintStream logfile = null;
-        try  {
-            logfile = new PrintStream(
-                    new FileOutputStream("chapter_006/src/main/java/io/console_chat/log.txt"));
+    public void writeLog(String str) {
+        File file = new File("chapter_006/src/main/java/io/console_chat/log.txt");
+        try (FileWriter writer = new FileWriter(file.getPath(), true);
+             BufferedWriter buff = new BufferedWriter(writer)
+        ) {
+            buff.write(str + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (FileNotFoundException e) {
-            System.err.println("Отсутствует файл.");
-        }
-        System.setOut(logfile);
     }
 }
