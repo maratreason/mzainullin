@@ -12,30 +12,14 @@ public class InteractCalc {
 
     private final Calculator calculator;
     private final Scanner scn;
-    private String[] menu;
-    int[] rang = {1, 2, 3, 4, 5, 6};
+    private int[] rang = {1, 2, 3, 4, 5, 6};
     List<Integer> currentAction = new ArrayList<>();
-
-    private String[] getMenu() {
-        return menu;
-    }
+    DispatchPattern dispatchPattern;
 
     public InteractCalc(final Calculator calculator, final Scanner scn) {
         this.calculator = calculator;
         this.scn = scn;
-    }
-
-    /**
-     * пункты меню (0-5).
-     */
-    private void menuInit() {
-        menu = new String[6];
-        menu[0] = "0. Сложить.";
-        menu[1] = "1. Вычесть.";
-        menu[2] = "2. Умножить.";
-        menu[3] = "3. Делить.";
-        menu[4] = "4. Повторить последнее действие.";
-        menu[5] = "5. Выход из программы";
+        dispatchPattern = new DispatchPattern();
     }
 
     /**
@@ -56,28 +40,28 @@ public class InteractCalc {
         int menuItem = scn.nextInt();
         System.out.println("Вы выбрали пункт: " + menuItem);
 
+//        dispatchPattern.init();
+
         while (menuItem != 5) {
             ask(menuItem, rang);
             int first = scn.nextInt();
             int second = scn.nextInt();
             double result;
 
+//            dispatchPattern.iterateDispatch(menuItem);
+
             if (menuItem == 0) {
                 result = calc.add(first, second);
                 System.out.println("Результат вычисления: " + result + "\n");
-                currentAction.add(menuItem);
             } else if (menuItem == 1) {
                 result = calc.subtract(first, second);
                 System.out.println("Результат вычисления: " + result + "\n");
-                currentAction.add(menuItem);
             } else if (menuItem == 2) {
                 result = calc.multiple(first, second);
                 System.out.println("Результат вычисления: " + result + "\n");
-                currentAction.add(menuItem);
             } else if (menuItem == 3) {
                 result = calc.divide(first, second);
                 System.out.println("Результат вычисления: " + result + "\n");
-                currentAction.add(menuItem);
             } else if (menuItem == 4) {
                 System.out.println("Переиспользование предыдущего вычисления:");
                 for (int i = 0; i < currentAction.size(); i++) {
@@ -99,9 +83,12 @@ public class InteractCalc {
                         System.out.println("Результат вычисления: " + result + "\n");
                         break;
                     }
-                    currentAction.add(menuItem);
+
                 }
+                currentAction.add(menuItem);
             }
+            currentAction.add(menuItem);
+
             showMenu();
 
             System.out.println("Выберте действие:");
@@ -111,7 +98,7 @@ public class InteractCalc {
 
         }
         for (int n : currentAction) {
-            System.out.println(n);
+            System.out.print(n + " ");
         }
     }
 
@@ -119,9 +106,9 @@ public class InteractCalc {
      * Показать меню.
      */
     public void showMenu() {
-        menuInit();
+        String[] menu = {"0. Сложить.", "1. Вычесть.", "2. Умножить.", "3. Делить.", "4. Повторить последнее действие.", "5. Выход из программы"};
         info();
-        for (String point : this.getMenu()) {
+        for (String point : menu) {
             System.out.println(point);
         }
     }
