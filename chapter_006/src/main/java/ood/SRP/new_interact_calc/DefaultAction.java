@@ -1,11 +1,16 @@
 package ood.SRP.new_interact_calc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Marat Zainullin.
  * @version 0.1.
  * @since 24.02.2019.
  */
 public class DefaultAction implements Menu {
+
+    protected List<String> menu = new ArrayList<>();
 
     /**
      * Текстовая инструкция при запуске.
@@ -17,12 +22,23 @@ public class DefaultAction implements Menu {
         System.out.println("После этого введите второе число и нажмите <Enter>:");
     }
 
+    @Override
+    public void fillMenu() {
+        menu.add("0. Сложить.");
+        menu.add("1. Вычесть.");
+        menu.add("2. Умножить.");
+        menu.add("3. Делить.");
+        menu.add("4. Повторить последнее действие.");
+        menu.add("5. Выход из программы");
+    }
+
+
     /**
      * Показать меню.
      */
     @Override
     public void showMenu() {
-        String[] menu = {"0. Сложить.", "1. Вычесть.", "2. Умножить.", "3. Делить.", "4. Повторить последнее действие.", "5. Выход из программы"};
+        fillMenu();
         info();
         for (String point : menu) {
             System.out.println(point);

@@ -1,4 +1,4 @@
-package ood.SRP;
+package ood.SRP.new_interact_calc;
 
 
 /**
@@ -7,15 +7,14 @@ package ood.SRP;
 * @author mzainullin
 * @since 01.03.2018
 */
-public class Calculator {
-
-	private double result;
+public class Calculator implements CalcActions {
 
 	/**
-	* Add.
+	* Сложение.
 	* @param first First.
 	* @param second Second.
 	*/
+	@Override
 	public double add(double first, double second) {
 		return first + second;
 	}
@@ -25,6 +24,7 @@ public class Calculator {
 	* @param first первый аргумент.
 	* @param second второй аргумент.
 	*/
+	@Override
 	public double subtract(double first, double second) {
 		return first - second;
 	}
@@ -34,6 +34,7 @@ public class Calculator {
 	* @param first первый аргумент.
 	* @param second второй аргумент.
 	*/
+	@Override
 	public double multiple(double first, double second) {
 		return first * second;
 	}
@@ -43,16 +44,9 @@ public class Calculator {
 	* @param first первый аргумент.
 	* @param second второй аргумент.
 	*/
+	@Override
 	public double divide(double first, double second) {
 		return first / second;
-	}	
-
-	/**
-	* Метод получения результата вычисления
-	 * @return - result.
-	*/
-	public double getResult() {
-		return this.result;
 	}
 
 }

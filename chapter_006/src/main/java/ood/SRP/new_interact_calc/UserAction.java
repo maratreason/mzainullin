@@ -1,7 +1,5 @@
 package ood.SRP.new_interact_calc;
 
-import ood.SRP.Calculator;
-
 /**
  * @author Marat Zainullin.
  * @version 0.1.

@@ -1,6 +1,7 @@
 package ood.SRP.new_interact_calc;
 
-import ood.SRP.Calculator;
+import ood.SRP.new_interact_calc.trig_calculate.TrigCalculator;
+import ood.SRP.new_interact_calc.trig_calculate.TrigMenu;
 
 import java.util.Scanner;
 
@@ -11,8 +12,8 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        Calculator calc = new Calculator();
-        DefaultAction menuAction = new DefaultAction();
+        Calculator calc = new TrigCalculator();
+        DefaultAction menuAction = new TrigMenu();
         UserAction user = new UserAction();
         Scanner scn = new Scanner(System.in);
         InteractCalculator interactCalc = new InteractCalculator(menuAction, scn);
