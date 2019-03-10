@@ -40,6 +40,7 @@ public class InteractCalculator {
     public void input(Calculator calc, UserAction user) {
         int menuItem = scn.nextInt();
         System.out.println("Вы выбрали пункт: " + menuItem);
+        currentAction.add(menuItem);
 
         while (menuItem != 5) {
             user.ask(menuItem, rang);
@@ -48,15 +49,15 @@ public class InteractCalculator {
             addActions(first, second);
 
             for (Integer result : calcActions.keySet()) {
-                if (menuItem == result && menuItem != 4) {
-                    System.out.println(calcActions.get(menuItem));
+                if (result == menuItem && result != 4) {
+                    System.out.println(calcActions.get(result));
                     break;
                 } else {
                     System.out.println(calcActions.get(currentAction.get(currentAction.size()-1)));
                 }
             }
-            currentAction.add(menuItem);
-            action.showMenu();
+
+            action.nextShowMenu();
 
             System.out.println("Выберте действие:");
             menuItem = scn.nextInt();

@@ -44,4 +44,10 @@ public class DefaultAction implements Menu {
             System.out.println(point);
         }
     }
+
+    public void nextShowMenu() {
+        for (String point : menu) {
+            System.out.println(point);
+        }
+    }
 }
