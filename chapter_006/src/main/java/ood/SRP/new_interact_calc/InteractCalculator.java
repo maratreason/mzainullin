@@ -1,6 +1,7 @@
 package ood.SRP.new_interact_calc;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @author Marat Zainullin.
@@ -13,23 +14,46 @@ public class InteractCalculator {
     private int[] rang = {1, 2, 3, 4, 5, 6};
     Map<Integer, Double> calcActions = new HashMap<>();
     List<Integer> currentAction = new ArrayList<>();
+    private Calculator calc;
+
+    Map<String, Double> actions = new HashMap<>();
 
     public InteractCalculator(final DefaultAction action, final Scanner scn) {
         this.action = action;
         this.scn = scn;
+        actions.put("add", this.add(calc, scn));
+        actions.put("subtract", this.subtract(calc, scn));
+        actions.put("multiple", this.multiple(calc, scn));
+        actions.put("divide", this.divide(calc, scn));
     }
 
 
-    /**
-     * Добавить действия.
-     * @param first 1-й параметр.
-     * @param second 2-й параметр.
-     */
-    public void addActions(int first, int second) {
-        calcActions.put(0, new Calculator().add(first, second));
-        calcActions.put(1, new Calculator().subtract(first, second));
-        calcActions.put(2, new Calculator().multiple(first, second));
-        calcActions.put(3, new Calculator().divide(first, second));
+//    /**
+//     * Добавить действия.
+//     * @param first 1-й параметр.
+//     * @param second 2-й параметр.
+//     */
+//    public void addActions(int first, int second) {
+//        calcActions.put(0, new Calculator().add(first, second));
+//        calcActions.put(1, new Calculator().subtract(first, second));
+//        calcActions.put(2, new Calculator().multiple(first, second));
+//        calcActions.put(3, new Calculator().divide(first, second));
+//    }
+
+    public double add(Calculator calculator, Scanner scn) {
+        return calculator.add(scn.nextInt(), scn.nextInt());
+    }
+
+    public double subtract(Calculator calculator, Scanner scn) {
+        return calculator.subtract(scn.nextInt(), scn.nextInt());
+    }
+
+    public double multiple(Calculator calculator, Scanner scn) {
+        return calculator.multiple(scn.nextInt(), scn.nextInt());
+    }
+
+    public double divide(Calculator calculator, Scanner scn) {
+        return calculator.divide(scn.nextInt(), scn.nextInt());
     }
 
 
@@ -46,10 +70,10 @@ public class InteractCalculator {
             user.ask(menuItem, rang);
             int first = scn.nextInt();
             int second = scn.nextInt();
-            addActions(first, second);
+//            addActions(first, second);
 
-            for (Integer result : calcActions.keySet()) {
-                if (result == menuItem && result != 4) {
+            for (String result : actions.keySet()) {
+                if (result.equals(String.valueOf(menuItem)) && !result.equals(String.valueOf(4))) {
                     System.out.println(calcActions.get(result));
                     break;
                 } else {
@@ -64,5 +88,7 @@ public class InteractCalculator {
             System.out.println("Вы выбрали пункт: " + menuItem);
         }
     }
+
+
 
 }
